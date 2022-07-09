@@ -18,54 +18,69 @@ struct MainTabView: View {
     var body: some View {
         VStack(alignment: .leading) {
 
-            Group {
+            Button {
                 
-                Button {
-                    
-                } label: {
-                    
-                    ImageView("https://lh3.googleusercontent.com/ogw/ADea4I5v7BxfpIZM29kxVScZ_7Kg6nH7XgovzklB0MzQ")
-                        .scaledToFill()
-                        .frame(width: 70, height: 70)
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
-                    
-                }
+            } label: {
                 
-                Text("Nguyên Trần")
-                    .foregroundColor(.white)
-                    .fontWeight(.semibold)
-                    .font(.title)
-                    .padding(.top, 5)
+                ImageView("https://lh3.googleusercontent.com/ogw/ADea4I5v7BxfpIZM29kxVScZ_7Kg6nH7XgovzklB0MzQ")
+                    .scaledToFill()
+                    .frame(width: 70, height: 70)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
                 
             }
-            .padding(.top, 20)
+            .padding(.top, 30)
             .padding(.horizontal, 20)
+            
+            Text("Nguyên Trần")
+                .foregroundColor(.white)
+                .fontWeight(.semibold)
+                .font(.title)
+                .padding(.top, 5)
+                .padding(.horizontal, 20)
+
             
             VStack(alignment: .leading, spacing: 10) {
                 
-                MainTabBuilder(tabIndex: 0, title: "Trang Chủ")
+                MainTabBuilder(icon: "bolt.circle", tabIndex: 0, title: "Trang Chủ")
                 
-                MainTabBuilder(tabIndex: 1, title: "Thể Loại")
+                MainTabBuilder(icon: "square.grid.3x3", tabIndex: 1, title: "Thể Loại")
                 
-                MainTabBuilder(tabIndex: 2, title: "Xếp Hạng")
+                MainTabBuilder(icon: "rosette", tabIndex: 2, title: "Xếp Hạng")
                 
-                MainTabBuilder(tabIndex: 3, title: "Cài Đặt")
+                MainTabBuilder(icon: "person", tabIndex: 3, title: "Cài Đặt")
                 
             }
-            .padding(.top, 15)
+            .padding(.top, 10)
 
             
         }
         //.padding(.horizontal, 20)
-        .padding(.top, 45)
+        .padding(.top, 40)
         .frame(maxWidth: baseOffset - 100, alignment: .leading)
         .frame(maxHeight: .infinity, alignment: .topLeading)
+        .overlay(alignment: .bottomLeading) {
+            VStack(alignment: .leading, spacing: 5) {
+                Text("@Fanboylove")
+                    .foregroundColor(.white)
+                    .font(.system(size: 16))
+                    .fontWeight(.semibold)
+                    .opacity(0.7)
+                
+                Text("App Version 1.0.0")
+                    .font(.caption)
+                    .foregroundColor(.white)
+                    .opacity(0.7)
+
+            }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 40)
+        }
         .offset(x: showMenu ? 0 : -(baseOffset - 100))
     }
     
     
     @ViewBuilder
-    func MainTabBuilder(tabIndex: Int, title: String) -> some View {
+    func MainTabBuilder(icon: String, tabIndex: Int, title: String) -> some View {
         
         Button {
             
@@ -79,7 +94,7 @@ struct MainTabView: View {
             
             HStack {
                 
-                Image(systemName: "")
+                Image(systemName: icon)
                     .font(.title2)
                 
                 Text(title)
