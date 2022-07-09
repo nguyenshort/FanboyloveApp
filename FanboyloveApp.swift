@@ -7,8 +7,12 @@
 
 import SwiftUI
 
+import Firebase
+
 @main
 struct FanboyloveApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
     let persistenceController = PersistenceController.shared
 
     var body: some Scene {
