@@ -10,7 +10,7 @@ import PageView
 
 struct MainView: View {
     
-    @State var showMenu: Bool = true
+    @State var showMenu: Bool = false
     @State var baseOffset: CGFloat = 280
     
     @State var pageIndex = 0
@@ -31,6 +31,8 @@ struct MainView: View {
                 .disabled(pageIndex != 3)
                 .opacity(pageIndex == 3 ? 1 : 0)
         }
+        .clipped()
+        .disabled(showMenu)
         .padding(.vertical, showMenu ? 15 : 0)
         .padding(.horizontal, showMenu ? 5 : 0)
         .background {
@@ -41,14 +43,6 @@ struct MainView: View {
         }
         .scaleEffect(showMenu ? 0.9 : 1)
         .offset(x: showMenu ? baseOffset : 0)
-        .overlay {
-            Text("\(showMenu ? "true" : "false")")
-                .onTapGesture {
-                    withAnimation(.spring()) {
-                        showMenu.toggle()
-                    }
-                }
-        }
         .background {
             Color.white
                 .cornerRadius(showMenu ? 20 : 0)
@@ -56,6 +50,13 @@ struct MainView: View {
                 .scaleEffect(showMenu ? 0.83 : 1)
                 .opacity(showMenu ? 0.7 : 0)
                 .zIndex(0)
+        }
+        .onTapGesture {
+            if showMenu {
+                withAnimation(.spring()) {
+                    showMenu.toggle()
+                }
+            }
         }
         .background {
             Color.white
@@ -75,7 +76,8 @@ struct MainView: View {
         )
         .background(
             LinearGradient(colors: [Color("MainStartColor"), Color("MainEndColor")], startPoint: .leading, endPoint: .trailing)
-                .opacity( showMenu ? 1 : 0 ).ignoresSafeArea()
+                .opacity( showMenu ? 1 : 0 )
+                .ignoresSafeArea()
         )
         
     }

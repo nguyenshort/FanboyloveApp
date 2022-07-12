@@ -24,7 +24,7 @@ struct TitleView<Content> : View where Content : View {
         HStack {
             
             Text(title)
-                .font(.title3)
+                .font(.title2)
                 .fontWeight(.semibold)
                 .foregroundColor(Color("TextColor"))
             

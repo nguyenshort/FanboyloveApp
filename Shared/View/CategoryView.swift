@@ -12,7 +12,7 @@ struct CategoryView: View {
     
     @StateObject var viewModel: CategoryViewModel = CategoryViewModel()
     
-    var category: Category
+    var category: Category1
     
     @Namespace var animation
     

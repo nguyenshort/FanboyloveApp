@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CategoryStretchView: View {
     
-    var category: Category
+    var category: Category1
     
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)

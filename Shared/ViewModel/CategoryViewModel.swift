@@ -9,7 +9,7 @@ import SwiftUI
 
 class CategoryViewModel: ObservableObject {
     
-    @Published var category: Category?
+    @Published var category: Category1?
     
     @Published var offset: CGFloat = .zero
     

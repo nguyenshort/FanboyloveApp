@@ -11,11 +11,16 @@ struct HomeView: View {
     
     @StateObject var viewModel: HomeViewModel = HomeViewModel()
     
+    @State var categories: [CategoryBase] = []
+    
     var body: some View {
         VStack {
             
             HStack {
                 Text("Home")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .foregroundColor(Color("TextColor"))
             }
             .frame(maxWidth: .infinity)
             .overlay(alignment: .trailing) {
@@ -41,12 +46,20 @@ struct HomeView: View {
                     
                     HomeBannerView()
                     
-                    HomeCategoriesView()
-                        .padding(.top, 5)
+                    HomeCategories(setSomeCategories: { categories in
+                        // Random element
+                        self.categories = categories
+                    })
+                    .padding(.top, 5)
                     
-                    HomeTopViewsView()
+                    HomeTopViews()
                     
-                    HomeCompletedView()
+                    HomeCompleted()
+                        .padding(.top, 10)
+                    
+                    if !categories.isEmpty {
+                        HomeCategory(categories: categories)
+                    }
                     
                     
                 }
@@ -56,7 +69,7 @@ struct HomeView: View {
             .background(Color.white)
             
         }
-            .environmentObject(viewModel)
+        .environmentObject(viewModel)
     }
     
 }
@@ -64,5 +77,6 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .previewInterfaceOrientation(.portrait)
     }
 }

@@ -1,0 +1,11 @@
+fragment CategoryBase on Category {
+	id
+	name
+	slug
+}
+
+query GetCategories {
+	categories {
+		...CategoryBase
+	}
+}

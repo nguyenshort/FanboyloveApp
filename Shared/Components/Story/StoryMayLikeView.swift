@@ -33,7 +33,7 @@ struct StoryMayLikeView: View {
                 
                 ForEach(_stories) { story in
                     
-                    StoryHorizontal(story: story)
+                    // StoryHorizontal(story: story)
                     
                 }
                 

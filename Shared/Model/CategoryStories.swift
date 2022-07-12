@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CategoryStories: Identifiable {
     let id = UUID().uuidString
-    let category: Category
+    let category: Category1
     let stories: [Story]
 }
 

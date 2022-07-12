@@ -10,7 +10,12 @@ import CoreData
 
 struct ContentView: View {
     var body: some View {
-        MainView()
+        NavigationView {
+            MainView()
+                .onAppear {
+                    UINavigationBar.appearance().isHidden = true
+                }
+        }
     }
 }
 

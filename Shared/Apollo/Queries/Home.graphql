@@ -1,0 +1,23 @@
+query HomeTopView($filter: GetStoriesFilter!) {
+	stories(filter: $filter) {
+		...BaseStory
+	}
+}
+
+query HomeEndStory($filter: GetStoriesFilter!) {
+  stories(filter: $filter) {
+	...StoryCounter
+  }
+}
+
+
+query SomeStories($filter: SomeStoriesFilter!) {
+  someStories(filter: $filter) {
+	...BaseStory
+  }
+}
+
+
+query CountStories($filter: CountStoriesFilter!) {
+  countStories(filter: $filter)
+}
