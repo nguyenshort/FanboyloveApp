@@ -140,6 +140,111 @@ public enum StoryStatus: RawRepresentable, Equatable, Hashable, CaseIterable, Ap
   }
 }
 
+public enum CounterName: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
+  public typealias RawValue = String
+  case bookmark
+  case review
+  case reviewScore
+  case view
+  /// Auto generated constant for unknown enum values
+  case __unknown(RawValue)
+
+  public init?(rawValue: RawValue) {
+    switch rawValue {
+      case "BOOKMARK": self = .bookmark
+      case "REVIEW": self = .review
+      case "REVIEW_SCORE": self = .reviewScore
+      case "VIEW": self = .view
+      default: self = .__unknown(rawValue)
+    }
+  }
+
+  public var rawValue: RawValue {
+    switch self {
+      case .bookmark: return "BOOKMARK"
+      case .review: return "REVIEW"
+      case .reviewScore: return "REVIEW_SCORE"
+      case .view: return "VIEW"
+      case .__unknown(let value): return value
+    }
+  }
+
+  public static func == (lhs: CounterName, rhs: CounterName) -> Bool {
+    switch (lhs, rhs) {
+      case (.bookmark, .bookmark): return true
+      case (.review, .review): return true
+      case (.reviewScore, .reviewScore): return true
+      case (.view, .view): return true
+      case (.__unknown(let lhsValue), .__unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
+    }
+  }
+
+  public static var allCases: [CounterName] {
+    return [
+      .bookmark,
+      .review,
+      .reviewScore,
+      .view,
+    ]
+  }
+}
+
+public enum CounterScope: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
+  public typealias RawValue = String
+  case day
+  case month
+  case total
+  case `weak`
+  case year
+  /// Auto generated constant for unknown enum values
+  case __unknown(RawValue)
+
+  public init?(rawValue: RawValue) {
+    switch rawValue {
+      case "DAY": self = .day
+      case "MONTH": self = .month
+      case "TOTAL": self = .total
+      case "WEAK": self = .weak
+      case "YEAR": self = .year
+      default: self = .__unknown(rawValue)
+    }
+  }
+
+  public var rawValue: RawValue {
+    switch self {
+      case .day: return "DAY"
+      case .month: return "MONTH"
+      case .total: return "TOTAL"
+      case .weak: return "WEAK"
+      case .year: return "YEAR"
+      case .__unknown(let value): return value
+    }
+  }
+
+  public static func == (lhs: CounterScope, rhs: CounterScope) -> Bool {
+    switch (lhs, rhs) {
+      case (.day, .day): return true
+      case (.month, .month): return true
+      case (.total, .total): return true
+      case (.weak, .weak): return true
+      case (.year, .year): return true
+      case (.__unknown(let lhsValue), .__unknown(let rhsValue)): return lhsValue == rhsValue
+      default: return false
+    }
+  }
+
+  public static var allCases: [CounterScope] {
+    return [
+      .day,
+      .month,
+      .total,
+      .weak,
+      .year,
+    ]
+  }
+}
+
 public struct SomeStoriesFilter: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
@@ -267,110 +372,5 @@ public struct CountStoriesFilter: GraphQLMapConvertible {
     set {
       graphQLMap.updateValue(newValue, forKey: "user")
     }
-  }
-}
-
-public enum CounterName: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
-  public typealias RawValue = String
-  case bookmark
-  case review
-  case reviewScore
-  case view
-  /// Auto generated constant for unknown enum values
-  case __unknown(RawValue)
-
-  public init?(rawValue: RawValue) {
-    switch rawValue {
-      case "BOOKMARK": self = .bookmark
-      case "REVIEW": self = .review
-      case "REVIEW_SCORE": self = .reviewScore
-      case "VIEW": self = .view
-      default: self = .__unknown(rawValue)
-    }
-  }
-
-  public var rawValue: RawValue {
-    switch self {
-      case .bookmark: return "BOOKMARK"
-      case .review: return "REVIEW"
-      case .reviewScore: return "REVIEW_SCORE"
-      case .view: return "VIEW"
-      case .__unknown(let value): return value
-    }
-  }
-
-  public static func == (lhs: CounterName, rhs: CounterName) -> Bool {
-    switch (lhs, rhs) {
-      case (.bookmark, .bookmark): return true
-      case (.review, .review): return true
-      case (.reviewScore, .reviewScore): return true
-      case (.view, .view): return true
-      case (.__unknown(let lhsValue), .__unknown(let rhsValue)): return lhsValue == rhsValue
-      default: return false
-    }
-  }
-
-  public static var allCases: [CounterName] {
-    return [
-      .bookmark,
-      .review,
-      .reviewScore,
-      .view,
-    ]
-  }
-}
-
-public enum CounterScope: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
-  public typealias RawValue = String
-  case day
-  case month
-  case total
-  case `weak`
-  case year
-  /// Auto generated constant for unknown enum values
-  case __unknown(RawValue)
-
-  public init?(rawValue: RawValue) {
-    switch rawValue {
-      case "DAY": self = .day
-      case "MONTH": self = .month
-      case "TOTAL": self = .total
-      case "WEAK": self = .weak
-      case "YEAR": self = .year
-      default: self = .__unknown(rawValue)
-    }
-  }
-
-  public var rawValue: RawValue {
-    switch self {
-      case .day: return "DAY"
-      case .month: return "MONTH"
-      case .total: return "TOTAL"
-      case .weak: return "WEAK"
-      case .year: return "YEAR"
-      case .__unknown(let value): return value
-    }
-  }
-
-  public static func == (lhs: CounterScope, rhs: CounterScope) -> Bool {
-    switch (lhs, rhs) {
-      case (.day, .day): return true
-      case (.month, .month): return true
-      case (.total, .total): return true
-      case (.weak, .weak): return true
-      case (.year, .year): return true
-      case (.__unknown(let lhsValue), .__unknown(let rhsValue)): return lhsValue == rhsValue
-      default: return false
-    }
-  }
-
-  public static var allCases: [CounterScope] {
-    return [
-      .day,
-      .month,
-      .total,
-      .weak,
-      .year,
-    ]
   }
 }

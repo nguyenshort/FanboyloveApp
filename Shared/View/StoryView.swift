@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StoryView: View {
     
-    var story: Story
+    var slug: String
     
     @StateObject var viewModel: StoryViewModel = StoryViewModel()
     
@@ -63,11 +63,6 @@ struct StoryView: View {
             
         )
         .ignoresSafeArea(.all, edges: .top)
-        .onAppear {
-            
-            viewModel.story = story
-            
-        }
         .environmentObject(viewModel)
         
     }
@@ -78,7 +73,7 @@ struct StoryView_Previews: PreviewProvider {
         
         PreviewWrapper {
             
-            StoryView(story: _stories.first!)
+            StoryView(slug: "")
             
         }
     }

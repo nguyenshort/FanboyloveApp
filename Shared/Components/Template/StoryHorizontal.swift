@@ -142,29 +142,29 @@ struct StoryHorizontal_Previews: PreviewProvider {
     }
 }
 
-extension StoryCounter {
-    public var rating: Float {
-      get {
-        
-          // Counter trống
-          if self.counter.isEmpty {
-              return Float(0)
-          }
-          
-          let score = self.counter.first(where: { count in
-              return count.scope == .total && count.name == .reviewScore
-          })
-          let countRating = self.counter.first { count in
-              return count.scope == .total && count.name == .review
-          }
-          
-          // Chưa có điểm và chưa tổng số rating hoặc 1 trong 2 bằng 0
-          if score == nil || countRating == nil || score?.value == 0 || countRating?.value == 0 {
-              return Float(0)
-          }
-        
-          // Tính rating
-          return Float(0)
-      }
-    }
-}
+//extension StoryCounter {
+//    public var rating: Float {
+//      get {
+//
+//          // Counter trống
+//          if self.counter.isEmpty {
+//              return Float(0)
+//          }
+//
+//          let score = self.counter.first(where: { count in
+//              return count.scope == .total && count.name == .reviewScore
+//          })
+//          let countRating = self.counter.first { count in
+//              return count.scope == .total && count.name == .review
+//          }
+//
+//          // Chưa có điểm và chưa tổng số rating hoặc 1 trong 2 bằng 0
+//          if score == nil || countRating == nil || score?.value == 0 || countRating?.value == 0 {
+//              return Float(0)
+//          }
+//
+//          // Tính rating
+//          return Float(0)
+//      }
+//    }
+//}

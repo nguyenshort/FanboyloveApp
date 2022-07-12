@@ -66,6 +66,6 @@ struct ChapterItemView: View {
 
 struct ChapterItemView_Previews: PreviewProvider {
     static var previews: some View {
-        StoryView(story: _stories.first!)
+        EmptyView()
     }
 }

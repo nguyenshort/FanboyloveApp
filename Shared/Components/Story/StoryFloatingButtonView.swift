@@ -40,7 +40,7 @@ struct StoryFloatingButtonView_Previews: PreviewProvider {
         
         PreviewWrapper {
             
-            StoryView(story: _stories.first!)
+            // StoryView(story: _stories.first!)
             
         }
         

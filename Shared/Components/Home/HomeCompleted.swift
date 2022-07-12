@@ -10,23 +10,17 @@ import Apollo
 
 struct HomeCompleted: View {
     
-    typealias StoryWithCounter = HomeEndStoryQuery.Data.Story
+    typealias CompletedStory = HomeEndStoryQuery.Data.Story
     
-    @State var stories: [StoryWithCounter] = [StoryWithCounter]()
+    @State var stories: [CompletedStory] = [CompletedStory]()
+    
+    
     
     var body: some View {
         
         VStack(alignment: .leading, spacing: 15) {
-                    
-            HStack {
-                
-                Text("Đã Kết Thúc")
-                    .font(.title3)
-                    .fontWeight(.semibold)
-                    .foregroundColor(Color("TextColor"))
-                
-                Spacer()
-                
+            
+            TitleView(title: "Đã Kết Thức") {
                 Button {
                     
                 } label: {
@@ -35,7 +29,6 @@ struct HomeCompleted: View {
                         .foregroundColor(.secondary)
                     
                 }
-                
             }
             
             if stories.isEmpty {
@@ -54,9 +47,9 @@ struct HomeCompleted: View {
                 
                 VStack(spacing: 20) {
                     
-                    ForEach(stories, id: \.fragments.storyCounter.fragments.baseStory.id) { story in
+                    ForEach(stories, id: \.fragments.baseStory.id) { story in
 
-                        StoryHorizontal(story: story)
+                        StoryHorizontal(story: getBaseStory(story: story), content: getStoryContent(story: story))
 
                     }
                     
@@ -72,6 +65,7 @@ struct HomeCompleted: View {
 }
 
 extension HomeCompleted {
+    
     func getStories() -> Void {
         
         let query: GetStoriesFilter = GetStoriesFilter(limit: 3, offset: 0, sort: "VIEW-TOTAL", status: [StoryStatus.end])
@@ -87,6 +81,15 @@ extension HomeCompleted {
             }
         }
     }
+    
+    func getBaseStory(story: CompletedStory) -> BaseStory {
+        return story.fragments.baseStory
+    }
+    
+    func getStoryContent(story: CompletedStory) -> String {
+        return story.content
+    }
+    
 }
 
 struct HomeCompleted_Previews: PreviewProvider {

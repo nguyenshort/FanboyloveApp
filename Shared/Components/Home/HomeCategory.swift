@@ -19,7 +19,7 @@ struct HomeCategory: View {
     }
     
     @State var loading: Bool = false
-    @State var stories: [SomeStoriesQuery.Data.SomeStory] = [SomeStoriesQuery.Data.SomeStory]()
+    @State var stories: [BaseStory] = [BaseStory]()
     @State var count: Int = 0
     
     var body: some View {
@@ -44,7 +44,7 @@ struct HomeCategory: View {
             } else {
              
                 GridStories(items: stories) { story in
-                    StorySimple(avatar: story.avatar, name: story.name)
+                    StorySimple(story: story)
                 }
                 .redacted(reason: loading ? .privacy : [])
                 
@@ -98,7 +98,9 @@ extension HomeCategory {
             switch result {
             case .success(let graphQLResult):
                 DispatchQueue.main.async {
-                    self.stories = graphQLResult.data?.someStories ?? []
+                    self.stories = (graphQLResult.data?.someStories ?? []).map({ item in
+                        return item.fragments.baseStory
+                    })
                     self.loading = false
                 }
                 break

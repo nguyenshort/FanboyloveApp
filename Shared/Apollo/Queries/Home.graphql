@@ -6,7 +6,14 @@ query HomeTopView($filter: GetStoriesFilter!) {
 
 query HomeEndStory($filter: GetStoriesFilter!) {
   stories(filter: $filter) {
-	...StoryCounter
+	  ...BaseStory
+	  content
+	  counter {
+		  name
+		  id
+		  scope
+		  value
+	  }
   }
 }
 

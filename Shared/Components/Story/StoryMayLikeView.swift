@@ -46,6 +46,7 @@ struct StoryMayLikeView: View {
 
 struct StoryMayLikeView_Previews: PreviewProvider {
     static var previews: some View {
-        StoryView(story: _stories.first!)
+       // StoryView(story: _stories.first!)
+        EmptyView()
     }
 }

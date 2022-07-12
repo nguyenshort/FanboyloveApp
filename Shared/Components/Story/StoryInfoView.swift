@@ -111,6 +111,7 @@ struct StoryInfoView: View {
 
 struct StoryInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        StoryView(story: _stories.first!)
+        // StoryView(story: _stories.first!)
+        EmptyView()
     }
 }

@@ -61,7 +61,7 @@ struct SafeAppBarView_Previews: PreviewProvider {
     static var previews: some View {
         PreviewWrapper {
             
-            StoryView(story: _stories.first!)
+            // StoryView(story: _stories.first!)
             
         }
     }

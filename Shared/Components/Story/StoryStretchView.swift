@@ -48,6 +48,7 @@ struct StoryStretchView: View {
 
 struct StoryStretchView_Previews: PreviewProvider {
     static var previews: some View {
-        StoryView(story: _stories.first!)
+        EmptyView()
+        // StoryView(story: _stories.first!)
     }
 }

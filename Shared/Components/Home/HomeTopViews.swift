@@ -10,7 +10,7 @@ import Apollo
 
 struct HomeTopViews: View {
     
-    @State var stories: [HomeTopViewQuery.Data.Story] = [HomeTopViewQuery.Data.Story]()
+    @State var stories: [BaseStory] = [BaseStory]()
     
     let query: GetStoriesFilter = GetStoriesFilter(limit: 6, offset: 0, sort: "VIEW-TOTAL")
     
@@ -18,7 +18,9 @@ struct HomeTopViews: View {
         Network.useApollo.fetch(query: HomeTopViewQuery(filter: query)) { result in
             switch result {
             case .success(let graphQLResult):
-                stories = graphQLResult.data?.stories ?? []
+                stories = (graphQLResult.data?.stories ?? []).map({ item in
+                    return item.fragments.baseStory
+                })
                 break
             case .failure(_): break
                 //
@@ -31,15 +33,7 @@ struct HomeTopViews: View {
         
         VStack(alignment: .leading, spacing: 15) {
             
-            HStack {
-                
-                Text("Xem Nhiều")
-                    .font(.title3)
-                    .fontWeight(.semibold)
-                    .foregroundColor(Color("TextColor"))
-                
-                Spacer()
-                
+            TitleView(title: "Xem Nhiều") {
                 Button {
                     
                 } label: {
@@ -48,29 +42,19 @@ struct HomeTopViews: View {
                         .foregroundColor(.secondary)
                     
                 }
-                
             }
-            
-            let gridColumns: [GridItem] = Array.init(repeating: GridItem(.flexible(), spacing: 15, alignment: .top), count: 3)
             
             if stories.isEmpty {
                 
-                LazyVGrid(columns: gridColumns, spacing: 20) {
-                    ForEach(0..<6, id: \.self) { _ in
-                        
-                        StorySimple.preview
-                            .redacted(reason: .placeholder)
-                        
-                    }
+                GridStories(items: Array(repeating: 1, count: 6)) { _ in
+                    StorySimple.preview
                 }
+                .redacted(reason: .placeholder)
                 
             } else {
-                LazyVGrid(columns: gridColumns, spacing: 15) {
-                    ForEach(stories, id: \.id) { story in
-                        
-                        StorySimple(avatar: story.avatar, name: story.name)
-                        
-                    }
+                
+                GridStories(items: stories) { story in
+                    StorySimple(story: story)
                 }
             }
             

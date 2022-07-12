@@ -10,31 +10,39 @@ import SwiftUIX
 
 struct StorySimple: View {
     
-    var avatar: String
-    var name: String
+    var story: BaseStory
     
     var body: some View {
         
-        VStack(alignment: .leading, spacing: 10) {
-            IntrinsicGeometryReader { proxy in
-                
-                Rectangle()
-                    .fill(.clear)
-                    .frame(height: proxy.size.width * 4/3)
-                    .background {
-                        
-                        ImageView(avatar)
-                            .scaledToFill()
-                    }
-                    .cornerRadius(10)
-                    .clipped()
-                    .contentShape(RoundedRectangle(cornerRadius: 10))
+        NavigationLink {
+            
+            StoryView(slug: story.slug)
+            
+        } label: {
+            
+            VStack(alignment: .leading, spacing: 10) {
+                IntrinsicGeometryReader { proxy in
+                    
+                    Rectangle()
+                        .fill(.clear)
+                        .frame(height: proxy.size.width * 4/3)
+                        .background {
+                            
+                            ImageView(story.avatar)
+                                .scaledToFill()
+                        }
+                        .cornerRadius(10)
+                        .clipped()
+                        .contentShape(RoundedRectangle(cornerRadius: 10))
+                    
+                }
+                Text(story.name)
+                    .foregroundColor(Color("TextColor"))
                 
             }
-            Text(name)
-                .foregroundColor(Color("TextColor"))
             
         }
+
     }
     
     static var preview: some View {

@@ -127,7 +127,15 @@ public final class HomeEndStoryQuery: GraphQLQuery {
     query HomeEndStory($filter: GetStoriesFilter!) {
       stories(filter: $filter) {
         __typename
-        ...StoryCounter
+        ...BaseStory
+        content
+        counter {
+          __typename
+          name
+          id
+          scope
+          value
+        }
       }
     }
     """
@@ -136,7 +144,6 @@ public final class HomeEndStoryQuery: GraphQLQuery {
 
   public var queryDocument: String {
     var document: String = operationDefinition
-    document.append("\n" + StoryCounter.fragmentDefinition)
     document.append("\n" + BaseStory.fragmentDefinition)
     return document
   }
@@ -185,7 +192,9 @@ public final class HomeEndStoryQuery: GraphQLQuery {
       public static var selections: [GraphQLSelection] {
         return [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLFragmentSpread(StoryCounter.self),
+          GraphQLFragmentSpread(BaseStory.self),
+          GraphQLField("content", type: .nonNull(.scalar(String.self))),
+          GraphQLField("counter", type: .nonNull(.list(.nonNull(.object(Counter.selections))))),
         ]
       }
 
@@ -201,6 +210,24 @@ public final class HomeEndStoryQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var content: String {
+        get {
+          return resultMap["content"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "content")
+        }
+      }
+
+      public var counter: [Counter] {
+        get {
+          return (resultMap["counter"] as! [ResultMap]).map { (value: ResultMap) -> Counter in Counter(unsafeResultMap: value) }
+        }
+        set {
+          resultMap.updateValue(newValue.map { (value: Counter) -> ResultMap in value.resultMap }, forKey: "counter")
         }
       }
 
@@ -220,12 +247,84 @@ public final class HomeEndStoryQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public var storyCounter: StoryCounter {
+        public var baseStory: BaseStory {
           get {
-            return StoryCounter(unsafeResultMap: resultMap)
+            return BaseStory(unsafeResultMap: resultMap)
           }
           set {
             resultMap += newValue.resultMap
+          }
+        }
+      }
+
+      public struct Counter: GraphQLSelectionSet {
+        public static let possibleTypes: [String] = ["Counter"]
+
+        public static var selections: [GraphQLSelection] {
+          return [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("name", type: .nonNull(.scalar(CounterName.self))),
+            GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+            GraphQLField("scope", type: .nonNull(.scalar(CounterScope.self))),
+            GraphQLField("value", type: .nonNull(.scalar(Int.self))),
+          ]
+        }
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(name: CounterName, id: GraphQLID, scope: CounterScope, value: Int) {
+          self.init(unsafeResultMap: ["__typename": "Counter", "name": name, "id": id, "scope": scope, "value": value])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// Tên kiểu thống kê
+        public var name: CounterName {
+          get {
+            return resultMap["name"]! as! CounterName
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "name")
+          }
+        }
+
+        public var id: GraphQLID {
+          get {
+            return resultMap["id"]! as! GraphQLID
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        /// Phạm vi thống kê
+        public var scope: CounterScope {
+          get {
+            return resultMap["scope"]! as! CounterScope
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "scope")
+          }
+        }
+
+        /// Số lượt
+        public var value: Int {
+          get {
+            return resultMap["value"]! as! Int
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "value")
           }
         }
       }
