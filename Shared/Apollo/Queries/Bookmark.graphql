@@ -1,4 +1,4 @@
-query Bookmarks($filter: GetBookmarksFilter!) {
+query GetBookmarkers($filter: GetBookmarksFilter!) {
   bookmarks(filter: $filter) {
 	id
 	createdAt

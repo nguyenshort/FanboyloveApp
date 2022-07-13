@@ -74,7 +74,7 @@ struct StoryView: View {
         }
         .overlay (
             
-            StoryFloatingButtonView()
+            StoryFloatingButton()
                 .redacted(reason: viewModel.isReady ? [] : .placeholder)
             
             ,alignment: .bottom

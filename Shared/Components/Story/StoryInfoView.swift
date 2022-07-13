@@ -32,72 +32,16 @@ struct StoryInfoView: View {
             }
             
             // Rating
-            HStack {
-                
-                VStack(alignment: .leading) {
-                    
-                    HStack(spacing: 6) {
-                        
-                        ForEach(0..<5, id: \.self) { _ in
-                            Image("star")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 17, height: 17)
-                        }
-                        
-                    }
-                    
-                    if viewModel.countRating() != 0 {
-                        HStack {
-                            Text("\(viewModel.ratingScore().clean)")
-                                .font(.callout)
-                                .fontWeight(.bold)
-                            
-                            Text("(\(viewModel.countRating()) Đánh giá)")
-                                .font(.subheadline)
-                                .foregroundColor(Color("TextContentColor"))
-                        }
-                    } else {
-                        Text("--")
-                            .foregroundColor(Color("TextContentColor"))
-                    }
-                    
-                }
-                
-                Spacer()
-                
-                if viewModel.countRating() != 0 {
-                    GroupAvatars()
-                } else {
-                    
-                    Button {
-                        
-                    } label: {
-                        
-                        Text("+ Đánh Giá")
-                            .font(.callout)
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 5)
-                            .background(Color("MainStartColor"))
-                            .cornerRadius(20)
-                            .shadow(color: Color("MainStartColor").opacity(0.3), radius: 4, x: 0, y: 0)
-                        
-                    }
-
-                    
-                }
-                
-            }
+            StoryFollowers()
             .padding(.top, 15)
             
             Divider()
                 .padding(.vertical)
             
             HStack {
-                CounterComponent(image: "discovery", label: "Năng Động")
-                CounterComponent(image: "eye", label: "Lượt Xem")
-                CounterComponent(image: "open-book", label: "Chương")
+                CounterComponent(image: "discovery", label: "Năng Động", value: viewModel.activityScore())
+                CounterComponent(image: "eye", label: "Lượt Xem", value: viewModel.extractCounter(name: .view, scope: .total)?.value ?? 0)
+                CounterComponent(image: "open-book", label: "Chương", value: viewModel.extractCounter(name: .countChapters, scope: .total)?.value ?? 0)
             }
             
             SessionBlock(title: "Tóm Tắt") {
@@ -134,7 +78,7 @@ struct StoryInfoView: View {
         return String(format: "%.1f", viewModel.ratingScore())
     }
     
-    fileprivate func CounterComponent(image: String, label: String) -> some View {
+    fileprivate func CounterComponent(image: String, label: String, value: Int) -> some View {
         return VStack(spacing: 6) {
             
             HStack(spacing: 5) {
@@ -146,7 +90,7 @@ struct StoryInfoView: View {
                     .foregroundColor(Color("MainStartColor"))
                     .frame(width: 25, height: 25)
                 
-                Text("15K")
+                Text("\(value.shortNumber())")
                     .fontWeight(.semibold)
                 
             }
@@ -254,7 +198,7 @@ struct StoryInfoView_Previews: PreviewProvider {
     static var previews: some View {
         PreviewWrapper {
             
-            StoryView(slug: "can-ke-tiep-xuc-5")
+            StoryView(slug: "cham-vao-giai-dieu")
             
         }
     }

@@ -34,6 +34,8 @@
 		1C1BB8D0287F133800B5D7C5 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1BB8CE287F133800B5D7C5 /* LottieView.swift */; };
 		1C1BB8D2287F136B00B5D7C5 /* EmptySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1BB8D1287F136B00B5D7C5 /* EmptySession.swift */; };
 		1C1BB8D3287F136B00B5D7C5 /* EmptySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1BB8D1287F136B00B5D7C5 /* EmptySession.swift */; };
+		1C1BB8D5287F33FC00B5D7C5 /* StoryFollowers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1BB8D4287F33FC00B5D7C5 /* StoryFollowers.swift */; };
+		1C1BB8D6287F33FC00B5D7C5 /* StoryFollowers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1BB8D4287F33FC00B5D7C5 /* StoryFollowers.swift */; };
 		1C3AFA00287981490003DE5A /* CloseSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3AF9FF287981490003DE5A /* CloseSidebarView.swift */; };
 		1C3AFA01287981490003DE5A /* CloseSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3AF9FF287981490003DE5A /* CloseSidebarView.swift */; };
 		1C652B75287840590037CCBA /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1C652B74287840590037CCBA /* FirebaseAuth */; };
@@ -93,13 +95,13 @@
 		1C76C6FE28788EF000B3C7FD /* CategoriesAppBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C76C6A528788E3300B3C7FD /* CategoriesAppBarView.swift */; };
 		1C76C6FF28788EF800B3C7FD /* StoryChapters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C76C6A928788E3300B3C7FD /* StoryChapters.swift */; };
 		1C76C70028788EF800B3C7FD /* StoryAppBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C76C6AA28788E3300B3C7FD /* StoryAppBar.swift */; };
-		1C76C70128788EF800B3C7FD /* StoryFloatingButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C76C6A828788E3300B3C7FD /* StoryFloatingButtonView.swift */; };
+		1C76C70128788EF800B3C7FD /* StoryFloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C76C6A828788E3300B3C7FD /* StoryFloatingButton.swift */; };
 		1C76C70228788EF800B3C7FD /* StoryReviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C76C6AD28788E3300B3C7FD /* StoryReviews.swift */; };
 		1C76C70328788EF800B3C7FD /* StoryInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C76C6AC28788E3300B3C7FD /* StoryInfoView.swift */; };
 		1C76C70428788EF800B3C7FD /* StoryMayLike.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C76C6AE28788E3300B3C7FD /* StoryMayLike.swift */; };
 		1C76C70628788EF800B3C7FD /* StoryChapters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C76C6A928788E3300B3C7FD /* StoryChapters.swift */; };
 		1C76C70728788EF800B3C7FD /* StoryAppBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C76C6AA28788E3300B3C7FD /* StoryAppBar.swift */; };
-		1C76C70828788EF800B3C7FD /* StoryFloatingButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C76C6A828788E3300B3C7FD /* StoryFloatingButtonView.swift */; };
+		1C76C70828788EF800B3C7FD /* StoryFloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C76C6A828788E3300B3C7FD /* StoryFloatingButton.swift */; };
 		1C76C70928788EF800B3C7FD /* StoryReviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C76C6AD28788E3300B3C7FD /* StoryReviews.swift */; };
 		1C76C70A28788EF800B3C7FD /* StoryInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C76C6AC28788E3300B3C7FD /* StoryInfoView.swift */; };
 		1C76C70B28788EF800B3C7FD /* StoryMayLike.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C76C6AE28788E3300B3C7FD /* StoryMayLike.swift */; };
@@ -185,8 +187,6 @@
 		1CB02DEA2879CBE1000E9036 /* StorySimple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB02DE82879CBE1000E9036 /* StorySimple.swift */; };
 		1CB02DEF287A03C8000E9036 /* Home.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 1CB02DEE287A03C8000E9036 /* Home.graphql */; };
 		1CB02DF0287A03C8000E9036 /* Home.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 1CB02DEE287A03C8000E9036 /* Home.graphql */; };
-		1CC149CB287E560D00DCBA87 /* HelpExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC149CA287E560D00DCBA87 /* HelpExtentions.swift */; };
-		1CC149CC287E560D00DCBA87 /* HelpExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC149CA287E560D00DCBA87 /* HelpExtentions.swift */; };
 		1CC149D0287E5AF200DCBA87 /* StoryBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC149CF287E5AF200DCBA87 /* StoryBookmark.swift */; };
 		1CC149D1287E5AF200DCBA87 /* StoryBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC149CF287E5AF200DCBA87 /* StoryBookmark.swift */; };
 		1CC149D3287E683700DCBA87 /* SessionBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC149D2287E683700DCBA87 /* SessionBlock.swift */; };
@@ -220,6 +220,7 @@
 		1C1BB8CB287F130100B5D7C5 /* lazydoge-sleeping.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "lazydoge-sleeping.json"; sourceTree = "<group>"; };
 		1C1BB8CE287F133800B5D7C5 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		1C1BB8D1287F136B00B5D7C5 /* EmptySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySession.swift; sourceTree = "<group>"; };
+		1C1BB8D4287F33FC00B5D7C5 /* StoryFollowers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryFollowers.swift; sourceTree = "<group>"; };
 		1C3AF9FF287981490003DE5A /* CloseSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseSidebarView.swift; sourceTree = "<group>"; };
 		1C76C68828788E3300B3C7FD /* HomeCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategories.swift; sourceTree = "<group>"; };
 		1C76C68928788E3300B3C7FD /* HomeUpdatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUpdatedView.swift; sourceTree = "<group>"; };
@@ -246,7 +247,7 @@
 		1C76C6A328788E3300B3C7FD /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		1C76C6A528788E3300B3C7FD /* CategoriesAppBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesAppBarView.swift; sourceTree = "<group>"; };
 		1C76C6A628788E3300B3C7FD /* CategoriesItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesItemView.swift; sourceTree = "<group>"; };
-		1C76C6A828788E3300B3C7FD /* StoryFloatingButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryFloatingButtonView.swift; sourceTree = "<group>"; };
+		1C76C6A828788E3300B3C7FD /* StoryFloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryFloatingButton.swift; sourceTree = "<group>"; };
 		1C76C6A928788E3300B3C7FD /* StoryChapters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryChapters.swift; sourceTree = "<group>"; };
 		1C76C6AA28788E3300B3C7FD /* StoryAppBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryAppBar.swift; sourceTree = "<group>"; };
 		1C76C6AC28788E3300B3C7FD /* StoryInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryInfoView.swift; sourceTree = "<group>"; };
@@ -292,7 +293,6 @@
 		1CB02DE228799A41000E9036 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		1CB02DE82879CBE1000E9036 /* StorySimple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorySimple.swift; sourceTree = "<group>"; };
 		1CB02DEE287A03C8000E9036 /* Home.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Home.graphql; sourceTree = "<group>"; };
-		1CC149CA287E560D00DCBA87 /* HelpExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpExtentions.swift; sourceTree = "<group>"; };
 		1CC149CF287E5AF200DCBA87 /* StoryBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryBookmark.swift; sourceTree = "<group>"; };
 		1CC149D2287E683700DCBA87 /* SessionBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionBlock.swift; sourceTree = "<group>"; };
 		1CC149D6287E7CFD00DCBA87 /* ReviewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewItem.swift; sourceTree = "<group>"; };
@@ -398,14 +398,14 @@
 			isa = PBXGroup;
 			children = (
 				1C1BB8C1287F0E3800B5D7C5 /* Bookmark.graphql.swift */,
-				1CC149E2287E801700DCBA87 /* Review.graphql.swift */,
-				1CC149E3287E801700DCBA87 /* User.graphql.swift */,
-				1C9E513F287DC22A0087314C /* Chapter.graphql.swift */,
 				1C9E5124287DA3E50087314C /* Categories.graphql.swift */,
+				1C9E513F287DC22A0087314C /* Chapter.graphql.swift */,
 				1C9E5121287DA3E50087314C /* Counter.graphql.swift */,
 				1C9E5122287DA3E50087314C /* Home.graphql.swift */,
+				1CC149E2287E801700DCBA87 /* Review.graphql.swift */,
 				1C9E5123287DA3E50087314C /* Story.graphql.swift */,
 				1C9E5125287DA3E50087314C /* Types.graphql.swift */,
+				1CC149E3287E801700DCBA87 /* User.graphql.swift */,
 			);
 			path = Codegen;
 			sourceTree = "<group>";
@@ -475,6 +475,7 @@
 		1C76C69828788E3300B3C7FD /* Includes */ = {
 			isa = PBXGroup;
 			children = (
+				1C9E5133287DB3F30087314C /* GroupAvatars.swift */,
 				1C76C69928788E3300B3C7FD /* PreviewWrapper.swift */,
 				1C76C69A28788E3300B3C7FD /* TitleView.swift */,
 				1C76C69B28788E3300B3C7FD /* StretchView.swift */,
@@ -518,16 +519,16 @@
 		1C76C6A728788E3300B3C7FD /* Story */ = {
 			isa = PBXGroup;
 			children = (
-				1C76C6A828788E3300B3C7FD /* StoryFloatingButtonView.swift */,
+				1C76C6A828788E3300B3C7FD /* StoryFloatingButton.swift */,
 				1C76C6A928788E3300B3C7FD /* StoryChapters.swift */,
 				1C76C6AA28788E3300B3C7FD /* StoryAppBar.swift */,
 				1C76C6AC28788E3300B3C7FD /* StoryInfoView.swift */,
 				1C76C6AD28788E3300B3C7FD /* StoryReviews.swift */,
 				1C76C6AE28788E3300B3C7FD /* StoryMayLike.swift */,
 				1C9E5130287DB3760087314C /* StoryCategories.swift */,
-				1C9E5133287DB3F30087314C /* GroupAvatars.swift */,
 				1CC149CF287E5AF200DCBA87 /* StoryBookmark.swift */,
 				1C1BB8B5287ECC4400B5D7C5 /* StoryHeader.swift */,
+				1C1BB8D4287F33FC00B5D7C5 /* StoryFollowers.swift */,
 			);
 			path = Story;
 			sourceTree = "<group>";
@@ -536,7 +537,6 @@
 			isa = PBXGroup;
 			children = (
 				1C76C6B028788E3600B3C7FD /* ViewExtentions.swift */,
-				1CC149CA287E560D00DCBA87 /* HelpExtentions.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -766,7 +766,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Don't run this during index builds\nif [ $ACTION = \"indexbuild\" ]; then exit 0; fi\n\n# Lấy schema\n# \"${SCRIPT_PATH}\"/run-bundled-codegen.sh schema:download --endpoint=\"http://localhost:3000/graphql\"\n\n# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\n# cd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" Shared/Apollo/Codegen/\n";
+			shellScript = "# Don't run this during index builds\nif [ $ACTION = \"indexbuild\" ]; then exit 0; fi\n\n# Lấy schema\n#\"${SCRIPT_PATH}\"/run-bundled-codegen.sh schema:download --endpoint=\"http://localhost:3000/graphql\"\n\n# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\n# cd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" Shared/Apollo/Codegen/\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -776,7 +776,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C76C6EE28788ED700B3C7FD /* StretchView.swift in Sources */,
-				1CC149CB287E560D00DCBA87 /* HelpExtentions.swift in Sources */,
 				1C1BB8CF287F133800B5D7C5 /* LottieView.swift in Sources */,
 				1C76C6CB28788EAC00B3C7FD /* StoryView.swift in Sources */,
 				1C9E512C287DA3E50087314C /* Categories.graphql.swift in Sources */,
@@ -815,6 +814,7 @@
 				1C76C6EB28788ED700B3C7FD /* SafeAppBarView.swift in Sources */,
 				1C16213D2878320A001BE196 /* Fanboylove.xcdatamodeld in Sources */,
 				1C9E5128287DA3E50087314C /* Home.graphql.swift in Sources */,
+				1C1BB8D5287F33FC00B5D7C5 /* StoryFollowers.swift in Sources */,
 				1C1BB8D2287F136B00B5D7C5 /* EmptySession.swift in Sources */,
 				1C76C6DD28788EC600B3C7FD /* CategoryStretchView.swift in Sources */,
 				1C76C71128788F0E00B3C7FD /* Review.swift in Sources */,
@@ -846,7 +846,7 @@
 				1C76C6E328788ECE00B3C7FD /* ChapterItemView.swift in Sources */,
 				1C76C71528788F0E00B3C7FD /* StoryChapters1.swift in Sources */,
 				1C1BB8C2287F0E3800B5D7C5 /* Bookmark.graphql.swift in Sources */,
-				1C76C70128788EF800B3C7FD /* StoryFloatingButtonView.swift in Sources */,
+				1C76C70128788EF800B3C7FD /* StoryFloatingButton.swift in Sources */,
 				1C76C73228788F2A00B3C7FD /* CategoryViewModel.swift in Sources */,
 				1CB02DE92879CBE1000E9036 /* StorySimple.swift in Sources */,
 				1C76C70428788EF800B3C7FD /* StoryMayLike.swift in Sources */,
@@ -865,7 +865,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C76C6F428788ED700B3C7FD /* StretchView.swift in Sources */,
-				1CC149CC287E560D00DCBA87 /* HelpExtentions.swift in Sources */,
 				1C1BB8D0287F133800B5D7C5 /* LottieView.swift in Sources */,
 				1C76C6CC28788EAD00B3C7FD /* StoryView.swift in Sources */,
 				1C9E512D287DA3E50087314C /* Categories.graphql.swift in Sources */,
@@ -904,6 +903,7 @@
 				1C76C6F128788ED700B3C7FD /* SafeAppBarView.swift in Sources */,
 				1C16213E2878320A001BE196 /* Fanboylove.xcdatamodeld in Sources */,
 				1C9E5129287DA3E50087314C /* Home.graphql.swift in Sources */,
+				1C1BB8D6287F33FC00B5D7C5 /* StoryFollowers.swift in Sources */,
 				1C1BB8D3287F136B00B5D7C5 /* EmptySession.swift in Sources */,
 				1C76C6DE28788EC700B3C7FD /* CategoryStretchView.swift in Sources */,
 				1C76C71928788F0E00B3C7FD /* Review.swift in Sources */,
@@ -935,7 +935,7 @@
 				1C76C6E828788ECE00B3C7FD /* ChapterItemView.swift in Sources */,
 				1C76C71D28788F0E00B3C7FD /* StoryChapters1.swift in Sources */,
 				1C1BB8C3287F0E3800B5D7C5 /* Bookmark.graphql.swift in Sources */,
-				1C76C70828788EF800B3C7FD /* StoryFloatingButtonView.swift in Sources */,
+				1C76C70828788EF800B3C7FD /* StoryFloatingButton.swift in Sources */,
 				1C76C73828788F2A00B3C7FD /* CategoryViewModel.swift in Sources */,
 				1CB02DEA2879CBE1000E9036 /* StorySimple.swift in Sources */,
 				1C76C70B28788EF800B3C7FD /* StoryMayLike.swift in Sources */,

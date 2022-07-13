@@ -4,11 +4,11 @@
 import Apollo
 import Foundation
 
-public final class BookmarksQuery: GraphQLQuery {
+public final class GetBookmarkersQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
     """
-    query Bookmarks($filter: GetBookmarksFilter!) {
+    query GetBookmarkers($filter: GetBookmarksFilter!) {
       bookmarks(filter: $filter) {
         __typename
         id
@@ -21,7 +21,7 @@ public final class BookmarksQuery: GraphQLQuery {
     }
     """
 
-  public let operationName: String = "Bookmarks"
+  public let operationName: String = "GetBookmarkers"
 
   public var queryDocument: String {
     var document: String = operationDefinition

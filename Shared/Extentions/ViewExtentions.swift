@@ -14,10 +14,6 @@ public enum RoundingPrecision {
 }
 
 extension View {
-    
-    //func safeArea() -> UIEdgeInsets? {
-    //    return UIApplication.shared.windows.first?.safeAreaInsets
-    //}
     func formatTime(timestap: Double) -> String {
         
         let date = Date.init(timeIntervalSince1970: TimeInterval(timestap) / 1000)
@@ -27,20 +23,6 @@ extension View {
         return formatter.localizedString(for: date, relativeTo: Date())
     }
     
-    func preciseRound(
-        _ value: Double,
-        precision: RoundingPrecision = .ones) -> Double
-    {
-        switch precision {
-        case .ones:
-            return round(value)
-        case .tenths:
-            return round(value * 10) / 10.0
-        case .hundredths:
-            return round(value * 100) / 100.0
-        }
-    }
-    
 }
 
 
@@ -48,5 +30,29 @@ extension Float {
     func rounded(toPlaces places:Int) -> Float {
         let divisor = pow(10.0, Float(places))
         return (self * divisor).rounded() / divisor
+    }
+}
+
+extension Int {
+     func shortNumber() -> String {
+         let number = Double(self)
+         let thousand = number / 1000
+         let million = number / 1000000
+         
+         if million >= 1.0 {
+             return "\(Int(round(million*10)/10))M"
+         }
+         else if thousand >= 1.0 {
+             return "\(Int(round(thousand*10)/10))K"
+         }
+         else {
+             return "\(self)"
+         }
+    }
+}
+
+extension Double {
+    var clean: String {
+        return self.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.1f", self) : String(self)
     }
 }

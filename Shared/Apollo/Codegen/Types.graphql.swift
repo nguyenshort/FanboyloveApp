@@ -244,6 +244,7 @@ public enum StoryStatus: RawRepresentable, Equatable, Hashable, CaseIterable, Ap
 public enum CounterName: RawRepresentable, Equatable, Hashable, CaseIterable, Apollo.JSONDecodable, Apollo.JSONEncodable {
   public typealias RawValue = String
   case bookmark
+  case countChapters
   case review
   case reviewScore
   case view
@@ -253,6 +254,7 @@ public enum CounterName: RawRepresentable, Equatable, Hashable, CaseIterable, Ap
   public init?(rawValue: RawValue) {
     switch rawValue {
       case "BOOKMARK": self = .bookmark
+      case "COUNT_CHAPTERS": self = .countChapters
       case "REVIEW": self = .review
       case "REVIEW_SCORE": self = .reviewScore
       case "VIEW": self = .view
@@ -263,6 +265,7 @@ public enum CounterName: RawRepresentable, Equatable, Hashable, CaseIterable, Ap
   public var rawValue: RawValue {
     switch self {
       case .bookmark: return "BOOKMARK"
+      case .countChapters: return "COUNT_CHAPTERS"
       case .review: return "REVIEW"
       case .reviewScore: return "REVIEW_SCORE"
       case .view: return "VIEW"
@@ -273,6 +276,7 @@ public enum CounterName: RawRepresentable, Equatable, Hashable, CaseIterable, Ap
   public static func == (lhs: CounterName, rhs: CounterName) -> Bool {
     switch (lhs, rhs) {
       case (.bookmark, .bookmark): return true
+      case (.countChapters, .countChapters): return true
       case (.review, .review): return true
       case (.reviewScore, .reviewScore): return true
       case (.view, .view): return true
@@ -284,6 +288,7 @@ public enum CounterName: RawRepresentable, Equatable, Hashable, CaseIterable, Ap
   public static var allCases: [CounterName] {
     return [
       .bookmark,
+      .countChapters,
       .review,
       .reviewScore,
       .view,

@@ -9,33 +9,33 @@ import SwiftUI
 
 struct GroupAvatars: View {
     
-    // User báe
+    var users: [UserBase]
     
     var body: some View {
         // Mỗi avatar sẽ là 34 x 34
         // sẽ xếp chồng 1/2 => 34/2 * length
         ZStack {
             
-            ForEach(0..<_bookmarkers.count, id: \.self) { index in
+            ForEach(0..<users.count, id: \.self) { index in
                 
-                ImageView(_bookmarkers[index].avatar)
+                ImageView(users[index].avatar)
                     .scaledToFill()
                     .frame(width: 34, height: 34)
                     .cornerRadius(34)
                     .overlay(
                         
                         Circle()
-                            .stroke(Color("TextColor").opacity(0.1), lineWidth: 2)
+                            .stroke(.white, lineWidth: 2)
                         
                     )
                     .shadow(color: .black.opacity(0.03), radius: 3, x: 0, y: 0)
                     .offset(x: -CGFloat(index * 34/2))
-                    .zIndex(Double(_bookmarkers.count - index))
+                    .zIndex(Double(users.count - index))
                 
             }
             
         }
-        .frame(width: CGFloat((_bookmarkers.count - 2) * (34/2)))
+        .frame(width: users.count > 2 ? CGFloat((users.count - 2) * (34/2)) : 34)
     }
     
     static var preview: some View {
@@ -65,6 +65,10 @@ struct GroupAvatars: View {
 
 struct StoryFlowers_Previews: PreviewProvider {
     static var previews: some View {
-        GroupAvatars.preview
+        PreviewWrapper {
+            
+            StoryView(slug: "cham-vao-giai-dieu")
+            
+        }
     }
 }

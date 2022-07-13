@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct StoryFloatingButtonView: View {
+struct StoryFloatingButton: View {
     var body: some View {
         
         Button {
@@ -34,7 +34,7 @@ struct StoryFloatingButtonView: View {
     }
 }
 
-struct StoryFloatingButtonView_Previews: PreviewProvider {
+struct StoryFloatingButton_Previews: PreviewProvider {
     static var previews: some View {
         
         

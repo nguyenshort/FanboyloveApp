@@ -87,6 +87,12 @@ class StoryViewModel: ObservableObject {
         return Double(score) / Double(countRating()) / Double(5)
     }
     
+    func activityScore() -> Int {
+        return story?.counter.reduce(0, { prev, current in
+            return prev + current.fragments.counterBase.value
+        }) ?? 0
+    }
+    
     func extractCounter(name: CounterName, scope: CounterScope) -> CounterBase? {
         return story?.counter.first(where: { item in
             return item.fragments.counterBase.name == name && item.fragments.counterBase.scope == scope
