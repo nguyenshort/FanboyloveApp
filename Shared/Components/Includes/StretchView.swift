@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftUIX
 
-struct StretchView<Content> : View where Content : View {
+struct StretchView<Content: View> : View {
     
     var image: String
     var height: CGFloat
@@ -64,7 +64,10 @@ struct StretchView<Content> : View where Content : View {
 
 struct StretchView_Previews: PreviewProvider {
     static var previews: some View {
-        // StoryView(story: _stories.first!)
-        EmptyView()
+        PreviewWrapper {
+            
+            StoryView(slug: "cham-vao-giai-dieu")
+            
+        }
     }
 }

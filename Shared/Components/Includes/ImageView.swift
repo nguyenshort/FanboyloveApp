@@ -22,10 +22,8 @@ struct ImageView: View {
         WebImage(url: URL(string: image))
             .resizable()
             .placeholder {
-                Rectangle().foregroundColor(.gray)
+                Rectangle().foregroundColor(Color("Placeholder"))
             }
-            .indicator(.activity) // Activity Indicator
             .transition(.fade(duration: 0.5))
-            .id(image)
     }
 }

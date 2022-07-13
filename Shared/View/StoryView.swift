@@ -6,73 +6,71 @@
 //
 
 import SwiftUI
+import SwiftUIX
 
 struct StoryView: View {
     
     var slug: String
-    
     @StateObject var viewModel: StoryViewModel = StoryViewModel()
+    
+    @State var offset: CGFloat = .zero
     
     var body: some View {
         
-        SafeLayoutView(offset: $viewModel.offset) {
+        ScrollView(.vertical, showsIndicators: false) {
             
-            VStack(spacing: 0) {
+            IntrinsicGeometryReader { proxy in
                 
-                StretchView(image: viewModel.story?.avatar ?? "https://i.imgur.com/tE4FCAJ.jpg") {
+                VStack(spacing: 0) {
                     
-                }
-                
-                VStack(alignment: .leading, spacing: 30){
-                    
-                    
-                    
-                    if viewModel.isReady {
+                    StoryHeader(offset: $offset)
+                                        
+                    VStack(alignment: .leading, spacing: 30){
                         
-                        StoryInfoView()
-                        StoryChapters()
-                        StoryReviews()
-                        StoryMayLike()
                         
-                    } else {
-                        StoryInfoView.preview
-                            .redacted(reason: .placeholder)
+                        
+                        if viewModel.isReady {
+                            
+                            StoryInfoView()
+                            StoryChapters()
+                            StoryReviews()
+                            StoryMayLike()
+                            
+                        } else {
+                            StoryInfoView.preview
+                                .redacted(reason: .placeholder)
 
-                        StoryChapters.preview
-                            .redacted(reason: .placeholder)
+                            StoryChapters.preview
+                                .redacted(reason: .placeholder)
 
-                        StoryReviews.preview
-                            .redacted(reason: .placeholder)
-                        StoryMayLike.preview
-                            .redacted(reason: .placeholder)
+                            StoryReviews.preview
+                                .redacted(reason: .placeholder)
+                            StoryMayLike.preview
+                                .redacted(reason: .placeholder)
 
+                            
+                        }
                         
                     }
+                    .padding(.bottom, 60)
+                    .padding(.top, 30)
+                    .padding(.horizontal, 20)
+                    .background(Color.white)
+                    .clipShape(BorderOnlyShape(radius: 40, corners: [.topRight, .topLeft]))
+                    .overlay(alignment: .topTrailing) {
+                        StoryBookmark()
+                            .offset(x: -20, y: -60/2)
+                            .redacted(reason: viewModel.isReady ? [] : .placeholder)
+                    }
+                    .offset(y: -30)
                     
                 }
-                .padding(.bottom, 60)
-                .padding(.top, 30)
-                .padding(.horizontal, 20)
-                .background(Color.white)
-                .clipShape(BorderOnlyShape(radius: 40, corners: [.topRight, .topLeft]))
-                .overlay(alignment: .topTrailing) {
-                    StoryBookmark()
-                        .offset(x: -20, y: -60/2)
-                        .redacted(reason: viewModel.isReady ? [] : .placeholder)
+                .onChange(of: proxy.frame(in: .global).minY) { newValue in
+                    self.offset = newValue
                 }
-                .offset(y: -40)
-                
             }
             
         }
-        .overlay(
-            
-            
-            SafeAppBarView(offset: $viewModel.offset, title: viewModel.getName(), anchor: 100)
-            
-            ,alignment: .top
-            
-        )
         .overlay (
             
             StoryFloatingButtonView()
@@ -81,6 +79,9 @@ struct StoryView: View {
             ,alignment: .bottom
             
         )
+        .overlay(alignment: .top) {
+            StoryAppBar(offset: $offset)
+        }
         .ignoresSafeArea(.all, edges: .top)
         .environmentObject(viewModel)
         .task {
