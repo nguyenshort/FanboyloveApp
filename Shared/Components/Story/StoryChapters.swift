@@ -86,7 +86,7 @@ struct StoryChapters: View {
             
             VStack(spacing: 15) {
                 
-                ForEach(0..<5, id: \.self) { index in
+                ForEach(0..<3, id: \.self) { index in
                     
                     VStack(spacing: 0) {
                         

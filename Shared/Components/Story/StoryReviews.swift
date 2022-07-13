@@ -7,9 +7,15 @@
 
 import SwiftUI
 
-struct StoryReviewsView: View {
+struct StoryReviews: View {
+    
+    @EnvironmentObject var viewModel: StoryViewModel
+    
+    typealias ReviewInstance = GetReviewsQuery.Data.Review
     
     @State var showSheet: Bool = false
+    
+    @State var reviews: [ReviewInstance] = [ReviewInstance]()
     
     var body: some View {
         
@@ -70,58 +76,77 @@ struct StoryReviewsView: View {
             
             VStack(spacing: 30) {
                 
-                ForEach(_reviews) { review in
+                ForEach(reviews, id: \.id) { review in
                     
-                    VStack(spacing: 10) {
-                        
-                        HStack(spacing: 10) {
-                            
-                            ImageView("https://lh3.googleusercontent.com/ogw/ADea4I5v7BxfpIZM29kxVScZ_7Kg6nH7XgovzklB0MzQ")
-                                .frame(width: 46, height: 46)
-                                .cornerRadius(46)
-                                .overlay(
-                                    
-                                    Circle()
-                                        .stroke(Color("MainStartColor"), lineWidth: 2)
-                                
-                                )
-                            
-                            VStack(alignment: .leading, spacing: 5) {
-                                
-                                Text(review.user.name)
-                                    .font(.callout)
-                                    .lineLimit(1)
-                                
-                                Text("14/04/2022")
-                                    .font(.subheadline)
-                                    .foregroundColor(Color("TextContentColor"))
-                                
-                            }
-                            
-                            Spacer()
-                            
-                        }
-                        
-                        Text(review.content)
-                            .foregroundColor(Color("TextContentColor"))
-                            .lineSpacing(5)
-                        
-                        
-                    }
-                    
+                    ReviewItem(review: review)
+
                 }
                 
             }
 
             
         }
+        .task {
+            getReviews()
+        }
         
+    }
+    
+    public static var preview: some View {
+        SessionBlock(title: "Đánh Giá") {
+            Button {
+                
+            } label: {
+                
+                Text("Xem tất cả")
+                
+                Image(systemName: "arrow.right")
+                
+            }
+            .font(.caption)
+            .foregroundColor(.secondary)
+        } content: {
+            VStack(spacing: 30) {
+                
+                ForEach(0..<3) { _index in
+                    
+                    ReviewItem.preview
+                    
+                }
+                
+            }
+        }
+
     }
 }
 
-struct StoryReviewsView_Previews: PreviewProvider {
+extension StoryReviews {
+    func getReviews() -> Void {
+        let filter = GetReviewsFilter(limit: 3, offset: 0, sort: "createdAt", story: viewModel.story?.id)
+        Network.useApollo.fetch(query: GetReviewsQuery(input: filter)) { result in
+            switch result {
+            case .success(let graphQLResult):
+                
+                guard let reviews = graphQLResult.data?.reviews else {
+                    return
+                }
+                
+                self.reviews = reviews
+                
+                break
+            case .failure(_): break
+                //
+            }
+        }
+    }
+}
+
+struct StoryReviews_Previews: PreviewProvider {
     static var previews: some View {
-        // StoryView(story: _stories.first!)
-        EmptyView()
+        PreviewWrapper {
+            
+            StoryView(slug: "can-ke-tiep-xuc-2")
+            
+        }
     }
 }

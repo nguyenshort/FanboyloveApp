@@ -35,7 +35,7 @@ class StoryViewModel: ObservableObject {
                 
                 if graphQLResult.data?.story != nil {
                     self.story = graphQLResult.data?.story
-                    withAnimation {
+                    withAnimation(.easeInOut) {
                         self.isReady = true
                     }
                 }
@@ -97,9 +97,7 @@ class StoryViewModel: ObservableObject {
                 
                 if graphQLResult.data?.chapters != nil {
                     self.chapters = graphQLResult.data!.chapters
-                    withAnimation {
-                        self.isReadyChapters = true
-                    }
+                    self.isReadyChapters = true
                 }
                 
                 break

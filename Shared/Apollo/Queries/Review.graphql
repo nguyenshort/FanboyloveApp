@@ -1,0 +1,12 @@
+query GetReviews($input: GetReviewsFilter!) {
+	reviews(input: $input) {
+		id
+		rating
+		createdAt
+		content
+		user {
+			id
+			...UserBase
+		}
+	}
+}

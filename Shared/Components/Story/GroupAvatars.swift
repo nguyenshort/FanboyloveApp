@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct StoryFlowers: View {
+struct GroupAvatars: View {
+    
+    // User báe
     
     var body: some View {
         // Mỗi avatar sẽ là 34 x 34
@@ -35,10 +37,34 @@ struct StoryFlowers: View {
         }
         .frame(width: CGFloat((_bookmarkers.count - 2) * (34/2)))
     }
+    
+    static var preview: some View {
+        ZStack {
+            
+            ForEach(1..<5, id: \.self) { index in
+                
+                Circle()
+                    .fill(Color("Placeholder"))
+                    .frame(width: 34, height: 34)
+                    .cornerRadius(34)
+                    .overlay(
+                        
+                        Circle()
+                            .stroke(.white, lineWidth: 2)
+                        
+                    )
+                    .offset(x: -CGFloat(index * 34/2))
+                    .zIndex(Double(5 - index))
+                
+            }
+            
+        }
+        .frame(width: CGFloat((5 - 2) * (34/2)))
+    }
 }
 
 struct StoryFlowers_Previews: PreviewProvider {
     static var previews: some View {
-        StoryFlowers()
+        GroupAvatars.preview
     }
 }

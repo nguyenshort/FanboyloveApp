@@ -1,0 +1,7 @@
+fragment UserBase on User {
+	id
+	name
+	slug
+	avatar
+	uid
+}

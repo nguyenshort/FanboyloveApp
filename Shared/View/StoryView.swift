@@ -25,18 +25,29 @@ struct StoryView: View {
                 
                 VStack(alignment: .leading, spacing: 30){
                     
-                    StoryInfoView()
+                    
                     
                     if viewModel.isReady {
+                        
+                        StoryInfoView()
                         StoryChapters()
+                        StoryReviews()
+                        StoryMayLike()
+                        
                     } else {
+                        StoryInfoView.preview
+                            .redacted(reason: .placeholder)
+
                         StoryChapters.preview
                             .redacted(reason: .placeholder)
+
+                        StoryReviews.preview
+                            .redacted(reason: .placeholder)
+                        StoryMayLike.preview
+                            .redacted(reason: .placeholder)
+
+                        
                     }
-                    
-                    StoryReviewsView()
-                    
-                    StoryMayLikeView()
                     
                 }
                 .padding(.bottom, 60)
@@ -47,6 +58,7 @@ struct StoryView: View {
                 .overlay(alignment: .topTrailing) {
                     StoryBookmark()
                         .offset(x: -20, y: -60/2)
+                        .redacted(reason: viewModel.isReady ? [] : .placeholder)
                 }
                 .offset(y: -40)
                 
