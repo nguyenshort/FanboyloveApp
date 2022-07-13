@@ -10,7 +10,7 @@ import SwiftUIX
 
 struct StorySimple: View {
     
-    var story: BaseStory
+    var story: StoryBase
     
     var body: some View {
         
@@ -38,6 +38,7 @@ struct StorySimple: View {
                 }
                 Text(story.name)
                     .foregroundColor(Color("TextColor"))
+                    .multilineTextAlignment(.leading)
                 
             }
             

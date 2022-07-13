@@ -10,7 +10,7 @@ import SwiftUIX
 
 struct StoryItemView: View {
         
-    var story: Story
+    var story: Story1
     @State var height: CGFloat = .zero
     
     @State var test: CGFloat = .zero

@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct GridStories<ItemView: View, Data>: View {
+struct GridStories<Content: View, Data>: View {
     
     let items: [Data]
-    @ViewBuilder let viewMapping: (Data) -> ItemView
+    @ViewBuilder let viewMapping: (Data) -> Content
     
-    init(items: [Data], @ViewBuilder itemView: @escaping (Data) -> ItemView) {
+    init(items: [Data], @ViewBuilder itemView: @escaping (Data) -> Content) {
         self.items = items
         self.viewMapping = itemView
     }

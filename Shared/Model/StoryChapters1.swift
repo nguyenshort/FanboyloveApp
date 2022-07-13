@@ -7,70 +7,70 @@
 
 import SwiftUI
 
-struct StoryChapters: Identifiable {
+struct StoryChapters1: Identifiable {
     var id: String = UUID().uuidString
-    var story: Story
+    var story: Story1
     var chapters: [Chapter]
 }
 
-let _storyChaterss: [StoryChapters] = [
-    StoryChapters(
+let _storyChaterss: [StoryChapters1] = [
+    StoryChapters1(
         story: _stories.first!,
         chapters: [
             Chapter(id: "1", name: "Chapter 1 - Vừa Gặp Đã Yêu", slug: "chapter-1", avatar: "https://f2.kkmh.com/image/220413/dKkAJKakg.webp-w750.jpg", createdAt: 1234567656),
             Chapter(id: "2", name: "Chapter 2", slug: "chapter-2", avatar: "https://f2.kkmh.com/image/220413/dKkAJKakg.webp-w750.jpg", createdAt: 1234567656)
         ]
     ),
-    StoryChapters(
+    StoryChapters1(
         story: _stories.first!,
         chapters: [
             Chapter(id: "1", name: "Chapter 1 - Vừa Gặp Đã Yêu", slug: "chapter-1", avatar: "https://f2.kkmh.com/image/220413/dKkAJKakg.webp-w750.jpg", createdAt: 1234567656),
             Chapter(id: "2", name: "Chapter 2", slug: "chapter-2", avatar: "https://f2.kkmh.com/image/220413/dKkAJKakg.webp-w750.jpg", createdAt: 1234567656)
         ]
     ),
-    StoryChapters(
+    StoryChapters1(
         story: _stories.first!,
         chapters: [
             Chapter(id: "1", name: "Chapter 1 - Vừa Gặp Đã Yêu", slug: "chapter-1", avatar: "https://f2.kkmh.com/image/220413/dKkAJKakg.webp-w750.jpg", createdAt: 1234567656),
             Chapter(id: "2", name: "Chapter 2", slug: "chapter-2", avatar: "https://f2.kkmh.com/image/220413/dKkAJKakg.webp-w750.jpg", createdAt: 1234567656)
         ]
     ),
-    StoryChapters(
+    StoryChapters1(
         story: _stories.first!,
         chapters: [
             Chapter(id: "1", name: "Chapter 1 - Vừa Gặp Đã Yêu", slug: "chapter-1", avatar: "https://f2.kkmh.com/image/220413/dKkAJKakg.webp-w750.jpg", createdAt: 1234567656),
             Chapter(id: "2", name: "Chapter 2", slug: "chapter-2", avatar: "https://f2.kkmh.com/image/220413/dKkAJKakg.webp-w750.jpg", createdAt: 1234567656)
         ]
     ),
-    StoryChapters(
+    StoryChapters1(
         story: _stories.first!,
         chapters: [
             Chapter(id: "1", name: "Chapter 1 - Vừa Gặp Đã Yêu", slug: "chapter-1", avatar: "https://f2.kkmh.com/image/220413/dKkAJKakg.webp-w750.jpg", createdAt: 1234567656),
             Chapter(id: "2", name: "Chapter 2", slug: "chapter-2", avatar: "https://f2.kkmh.com/image/220413/dKkAJKakg.webp-w750.jpg", createdAt: 1234567656)
         ]
     ),
-    StoryChapters(
+    StoryChapters1(
         story: _stories.first!,
         chapters: [
             Chapter(id: "1", name: "Chapter 1 - Vừa Gặp Đã Yêu", slug: "chapter-1", avatar: "https://f2.kkmh.com/image/220413/dKkAJKakg.webp-w750.jpg", createdAt: 1234567656),
             Chapter(id: "2", name: "Chapter 2", slug: "chapter-2", avatar: "https://f2.kkmh.com/image/220413/dKkAJKakg.webp-w750.jpg", createdAt: 1234567656)
         ]
     ),
-    StoryChapters(
+    StoryChapters1(
         story: _stories.first!,
         chapters: [
             Chapter(id: "1", name: "Chapter 1 - Vừa Gặp Đã Yêu", slug: "chapter-1", avatar: "https://f2.kkmh.com/image/220413/dKkAJKakg.webp-w750.jpg", createdAt: 1234567656),
             Chapter(id: "2", name: "Chapter 2", slug: "chapter-2", avatar: "https://f2.kkmh.com/image/220413/dKkAJKakg.webp-w750.jpg", createdAt: 1234567656)
         ]
     ),
-    StoryChapters(
+    StoryChapters1(
         story: _stories.first!,
         chapters: [
             Chapter(id: "1", name: "Chapter 1 - Vừa Gặp Đã Yêu", slug: "chapter-1", avatar: "https://f2.kkmh.com/image/220413/dKkAJKakg.webp-w750.jpg", createdAt: 1234567656),
             Chapter(id: "2", name: "Chapter 2", slug: "chapter-2", avatar: "https://f2.kkmh.com/image/220413/dKkAJKakg.webp-w750.jpg", createdAt: 1234567656)
         ]
     ),
-    StoryChapters(
+    StoryChapters1(
         story: _stories.first!,
         chapters: [
             Chapter(id: "1", name: "Chapter 1 - Vừa Gặp Đã Yêu", slug: "chapter-1", avatar: "https://f2.kkmh.com/image/220413/dKkAJKakg.webp-w750.jpg", createdAt: 1234567656),

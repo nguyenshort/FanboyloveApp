@@ -10,7 +10,7 @@ import Apollo
 
 struct HomeTopViews: View {
     
-    @State var stories: [BaseStory] = [BaseStory]()
+    @State var stories: [StoryBase] = [StoryBase]()
     
     let query: GetStoriesFilter = GetStoriesFilter(limit: 6, offset: 0, sort: "VIEW-TOTAL")
     
@@ -19,7 +19,7 @@ struct HomeTopViews: View {
             switch result {
             case .success(let graphQLResult):
                 stories = (graphQLResult.data?.stories ?? []).map({ item in
-                    return item.fragments.baseStory
+                    return item.fragments.storyBase
                 })
                 break
             case .failure(_): break
@@ -31,19 +31,18 @@ struct HomeTopViews: View {
     var body: some View {
         
         
-        VStack(alignment: .leading, spacing: 15) {
+        SessionBlock(title: "Xem Nhiều") {
             
-            TitleView(title: "Xem Nhiều") {
-                Button {
-                    
-                } label: {
-                    
-                    Image(systemName: "arrow.right")
-                        .foregroundColor(.secondary)
-                    
-                }
+            Button {
+                
+            } label: {
+                
+                Image(systemName: "arrow.right")
+                    .foregroundColor(.secondary)
+                
             }
             
+        } content: {
             if stories.isEmpty {
                 
                 GridStories(items: Array(repeating: 1, count: 6)) { _ in
@@ -57,7 +56,6 @@ struct HomeTopViews: View {
                     StorySimple(story: story)
                 }
             }
-            
         }
         .task {
             getTopView()

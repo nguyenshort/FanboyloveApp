@@ -10,12 +10,14 @@ import SwiftUIX
 
 struct StoryHorizontal: View {
     
-    var story: BaseStory
+    @State var story: StoryBase
     var content: String
     
     var body: some View {
         
         NavigationLink {
+            
+            StoryView(slug: story.slug)
             
         } label: {
             

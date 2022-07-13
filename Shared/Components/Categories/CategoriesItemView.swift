@@ -64,7 +64,7 @@ struct CategoriesItemView: View {
     }
     
     @ViewBuilder
-    private func StoriesPreview(stories: [Story], proxy: IntrinsicGeometryProxy) -> some View {
+    private func StoriesPreview(stories: [Story1], proxy: IntrinsicGeometryProxy) -> some View {
        
         ZStack(alignment: .leading) {
             

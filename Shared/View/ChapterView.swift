@@ -10,7 +10,7 @@ import SwiftUIX
 
 struct ChapterView: View {
     
-    var story: Story
+    var story: Story1
     
     @StateObject var viewModel: ChapterViewModel = ChapterViewModel()
     @State var lastOffset: CGFloat = .zero

@@ -11,7 +11,7 @@ public final class HomeTopViewQuery: GraphQLQuery {
     query HomeTopView($filter: GetStoriesFilter!) {
       stories(filter: $filter) {
         __typename
-        ...BaseStory
+        ...StoryBase
       }
     }
     """
@@ -20,7 +20,7 @@ public final class HomeTopViewQuery: GraphQLQuery {
 
   public var queryDocument: String {
     var document: String = operationDefinition
-    document.append("\n" + BaseStory.fragmentDefinition)
+    document.append("\n" + StoryBase.fragmentDefinition)
     return document
   }
 
@@ -68,7 +68,7 @@ public final class HomeTopViewQuery: GraphQLQuery {
       public static var selections: [GraphQLSelection] {
         return [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLFragmentSpread(BaseStory.self),
+          GraphQLFragmentSpread(StoryBase.self),
         ]
       }
 
@@ -107,9 +107,9 @@ public final class HomeTopViewQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public var baseStory: BaseStory {
+        public var storyBase: StoryBase {
           get {
-            return BaseStory(unsafeResultMap: resultMap)
+            return StoryBase(unsafeResultMap: resultMap)
           }
           set {
             resultMap += newValue.resultMap
@@ -127,7 +127,8 @@ public final class HomeEndStoryQuery: GraphQLQuery {
     query HomeEndStory($filter: GetStoriesFilter!) {
       stories(filter: $filter) {
         __typename
-        ...BaseStory
+        id
+        ...StoryBase
         content
         counter {
           __typename
@@ -144,7 +145,7 @@ public final class HomeEndStoryQuery: GraphQLQuery {
 
   public var queryDocument: String {
     var document: String = operationDefinition
-    document.append("\n" + BaseStory.fragmentDefinition)
+    document.append("\n" + StoryBase.fragmentDefinition)
     return document
   }
 
@@ -192,7 +193,8 @@ public final class HomeEndStoryQuery: GraphQLQuery {
       public static var selections: [GraphQLSelection] {
         return [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLFragmentSpread(BaseStory.self),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLFragmentSpread(StoryBase.self),
           GraphQLField("content", type: .nonNull(.scalar(String.self))),
           GraphQLField("counter", type: .nonNull(.list(.nonNull(.object(Counter.selections))))),
         ]
@@ -210,6 +212,15 @@ public final class HomeEndStoryQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return resultMap["id"]! as! GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "id")
         }
       }
 
@@ -247,9 +258,9 @@ public final class HomeEndStoryQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public var baseStory: BaseStory {
+        public var storyBase: StoryBase {
           get {
-            return BaseStory(unsafeResultMap: resultMap)
+            return StoryBase(unsafeResultMap: resultMap)
           }
           set {
             resultMap += newValue.resultMap
@@ -339,7 +350,7 @@ public final class SomeStoriesQuery: GraphQLQuery {
     query SomeStories($filter: SomeStoriesFilter!) {
       someStories(filter: $filter) {
         __typename
-        ...BaseStory
+        ...StoryBase
       }
     }
     """
@@ -348,7 +359,7 @@ public final class SomeStoriesQuery: GraphQLQuery {
 
   public var queryDocument: String {
     var document: String = operationDefinition
-    document.append("\n" + BaseStory.fragmentDefinition)
+    document.append("\n" + StoryBase.fragmentDefinition)
     return document
   }
 
@@ -396,7 +407,7 @@ public final class SomeStoriesQuery: GraphQLQuery {
       public static var selections: [GraphQLSelection] {
         return [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-          GraphQLFragmentSpread(BaseStory.self),
+          GraphQLFragmentSpread(StoryBase.self),
         ]
       }
 
@@ -435,9 +446,9 @@ public final class SomeStoriesQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public var baseStory: BaseStory {
+        public var storyBase: StoryBase {
           get {
-            return BaseStory(unsafeResultMap: resultMap)
+            return StoryBase(unsafeResultMap: resultMap)
           }
           set {
             resultMap += newValue.resultMap

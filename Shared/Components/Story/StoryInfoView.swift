@@ -17,101 +17,120 @@ struct StoryInfoView: View {
     
     var body: some View {
         
-        VStack(alignment: .leading, spacing: 15) {
+        VStack(alignment: .leading, spacing: 10) {
             
-            HStack {
-                
-                Text(viewModel.story?.name ?? "")
-                    .foregroundColor(Color("TextColor"))
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .lineLimit(2)
-                
-                Spacer()
-                
-                // Mỗi avatar sẽ là 34 x 34
-                // sẽ xếp chồng 1/2 => 34/2 * length
-                ZStack {
+            Text(viewModel.getName())
+                .foregroundColor(Color("TextColor"))
+                .font(.title)
+                .fontWeight(.semibold)
+                .lineLimit(2)
                     
-                    ForEach(0..<_bookmarkers.count, id: \.self) { index in
-                        
-                        ImageView(_bookmarkers[index].avatar)
-                            .scaledToFill()
-                            .frame(width: 34, height: 34)
-                            .cornerRadius(34)
-                            .overlay(
-                                
-                                Circle()
-                                    .stroke(Color("TextColor").opacity(0.2), lineWidth: 2)
-                                
-                            )
-                            .shadow(color: .black.opacity(0.03), radius: 3, x: 0, y: 0)
-                            .offset(x: -CGFloat(index * 34/2))
-                            .zIndex(Double(_bookmarkers.count - index))
-                        
-                    }
-                    
-                }
-                .frame(width: CGFloat((_bookmarkers.count - 2) * (34/2)))
-                
+            if viewModel.isReady {
+                StoryCategories()
+            } else {
+                StoryCategories.preview
             }
             
+            // Rating
             HStack {
                 
-                Text("130 Lượt xem")
-                
-                Spacer()
-                
-                Text("34 sưu tập")
-                    .font(.subheadline)
-                    .opacity(0.7)
-                
-            }
-            .font(.callout)
-            .foregroundColor(Color("TextContentColor"))
-            
-            IntrinsicGeometryReader { proxy in
-                
-                Text(viewModel.story?.content ?? "")
-                    .font(.callout)
-                    .lineSpacing(6)
-                    .foregroundColor(Color("TextContentColor"))
-                    .lineLimit( limit ? 4 : nil)
-                    .onAppear {
+                VStack(alignment: .leading) {
+                    
+                    HStack(spacing: 6) {
                         
-                        if proxy.size.height > 95 {
-                            
-                            limit = true
-                            
+                        ForEach(0..<5, id: \.self) { _ in
+                            Image("star")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 17, height: 17)
                         }
                         
                     }
-                
-            }
-            
-            FlowLayout(mode: .vstack,
-                           items: ["Đam Mỹ", "Học Đường", "Rùng Rợn"],
-                           itemSpacing: 0) { item in
-                Button {
                     
-                } label: {
-                    
-                    Text( "#" + item)
-                        .foregroundColor(Color("MainStartColor"))
-                        .font(.callout)
+                    HStack {
+                        Text("4.7")
+                            .font(.callout)
+                            .fontWeight(.bold)
+                        
+                        Text("(127 Reviews)")
+                            .font(.subheadline)
+                            .foregroundColor(Color("TextContentColor"))
+                    }
                     
                 }
-                .padding(.trailing, 8)
+                
+                Spacer()
+                
+                StoryFlowers()
+                
+            }
+            .padding(.top, 15)
+            
+            Divider()
+                .padding(.vertical)
+            
+            HStack {
+                ForEach(1...3, id: \.self) { _ in
+                    
+                    VStack(spacing: 6) {
+                        
+                        HStack(spacing: 5) {
+                            
+                            Image("discovery")
+                                .renderingMode(.template)
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundColor(Color("MainStartColor"))
+                                .frame(width: 25, height: 25)
+                            
+                            Text("15K")
+                                .fontWeight(.semibold)
+                            
+                        }
+                        
+                        Text("Lượt Xem")
+                            .font(.caption)
+                            .foregroundColor(Color("TextContentColor"))
+                    }
+                    .frame(maxWidth: .infinity)
+                    
+                }
             }
             
+            SessionBlock(title: "Tóm Tắt") {
+                IntrinsicGeometryReader { proxy in
+                    
+                    Text(viewModel.getContent())
+                        .font(.callout)
+                        .lineSpacing(6)
+                        .foregroundColor(Color("TextContentColor"))
+                        .lineLimit( limit ? 4 : nil)
+                        .onAppear {
+                            
+                            if proxy.size.height > 95 {
+                                
+                                limit = true
+                                
+                            }
+                            
+                        }
+                    
+                }
+            }
+            .padding(.top, 20)
+            
         }
+        .redacted(reason: viewModel.isReady ? [] : .placeholder)
         
     }
 }
 
 struct StoryInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        // StoryView(story: _stories.first!)
-        EmptyView()
+        PreviewWrapper {
+            
+            StoryView(slug: "cham-vao-giai-dieu")
+            
+        }
     }
 }

@@ -9,14 +9,17 @@ import SwiftUI
 
 struct TitleView<Content> : View where Content : View {
     
-    var content: Content
+    var action: () -> Content?
     var title: String
     
-    public init(title: String, @ViewBuilder label: () -> Content) {
-        
-        self.content = label()
+    public init(title: String, @ViewBuilder action: @escaping () -> Content) {
         self.title = title
-        
+        self.action = action
+    }
+    
+    public init(title: String) {
+        self.title = title
+        self.action = { nil }
     }
     
     var body: some View {
@@ -24,13 +27,14 @@ struct TitleView<Content> : View where Content : View {
         HStack {
             
             Text(title)
-                .font(.title2)
+                .font(.system(size: 20))
                 .fontWeight(.semibold)
-                .foregroundColor(Color("TextColor"))
+                .foregroundColor(Color("TextContentColor"))
             
             Spacer()
             
-            content
+            action()
+                .foregroundColor(Color("TextContentColor"))
             
         }
 

@@ -18,19 +18,18 @@ struct HomeCompleted: View {
     
     var body: some View {
         
-        VStack(alignment: .leading, spacing: 15) {
+        SessionBlock(title: "Đã Kết Thức") {
             
-            TitleView(title: "Đã Kết Thức") {
-                Button {
-                    
-                } label: {
-                    
-                    Image(systemName: "arrow.right")
-                        .foregroundColor(.secondary)
-                    
-                }
+            Button {
+                
+            } label: {
+                
+                Image(systemName: "arrow.right")
+                    .foregroundColor(.secondary)
+                
             }
             
+        } content: {
             if stories.isEmpty {
                 VStack(spacing: 20) {
                     
@@ -47,7 +46,7 @@ struct HomeCompleted: View {
                 
                 VStack(spacing: 20) {
                     
-                    ForEach(stories, id: \.fragments.baseStory.id) { story in
+                    ForEach(stories, id: \.id) { story in
 
                         StoryHorizontal(story: getBaseStory(story: story), content: getStoryContent(story: story))
 
@@ -55,7 +54,6 @@ struct HomeCompleted: View {
                     
                 }
             }
-            
         }
         .task {
             getStories()
@@ -82,8 +80,8 @@ extension HomeCompleted {
         }
     }
     
-    func getBaseStory(story: CompletedStory) -> BaseStory {
-        return story.fragments.baseStory
+    func getBaseStory(story: CompletedStory) -> StoryBase {
+        return story.fragments.storyBase
     }
     
     func getStoryContent(story: CompletedStory) -> String {

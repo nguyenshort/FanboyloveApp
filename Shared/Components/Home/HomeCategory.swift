@@ -19,21 +19,19 @@ struct HomeCategory: View {
     }
     
     @State var loading: Bool = false
-    @State var stories: [BaseStory] = [BaseStory]()
+    @State var stories: [StoryBase] = [StoryBase]()
     @State var count: Int = 0
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
-            
-            TitleView(title: category.name) {
-                Button {
-                    
-                } label: {
-                    Image(systemName: "arrow.right")
-                        .foregroundColor(.secondary)
-                }
+        
+        SessionBlock(title: category.name) {
+            Button {
+                
+            } label: {
+                Image(systemName: "arrow.right")
+                    .foregroundColor(.secondary)
             }
-            
+        } content: {
             if stories.isEmpty {
                 
                 GridStories(items: Array(repeating: 1, count: 6)) { _ in
@@ -80,7 +78,6 @@ struct HomeCategory: View {
                     }
                     .disabled(loading)
             }
-            
         }
         .task {
             getStories()
@@ -99,7 +96,7 @@ extension HomeCategory {
             case .success(let graphQLResult):
                 DispatchQueue.main.async {
                     self.stories = (graphQLResult.data?.someStories ?? []).map({ item in
-                        return item.fragments.baseStory
+                        return item.fragments.storyBase
                     })
                     self.loading = false
                 }

@@ -1,0 +1,28 @@
+
+fragment StoryBase on Story {
+	id
+	name
+	avatar
+	slug
+}
+
+query GetStory($slug: String!) {
+	story(slug: $slug) {
+		...StoryBase
+		id
+		content
+		name
+		categories {
+			...CategoryBase
+		}
+		status
+		teams
+		updatedAt
+		avatar
+		authors
+		createdAt
+		counter {
+			...CounterBase
+		}
+	}
+}

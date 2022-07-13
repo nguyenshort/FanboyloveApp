@@ -10,7 +10,7 @@ import SwiftUIX
 
 struct StoryChaptersItem: View {
     
-    var item: StoryChapters
+    var item: StoryChapters1
     
     var body: some View {
         

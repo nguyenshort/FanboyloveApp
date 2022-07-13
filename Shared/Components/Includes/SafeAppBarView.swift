@@ -23,6 +23,8 @@ struct SafeAppBarView: View {
             
             Button {
                 
+                presentationMode.wrappedValue.dismiss()
+                
             } label: {
                 
                 Image(systemName: "arrow.backward")

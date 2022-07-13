@@ -4,6 +4,56 @@
 import Apollo
 import Foundation
 
+public struct GetChaptersFilter: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  /// - Parameters:
+  ///   - limit
+  ///   - offset
+  ///   - sort: Sắp xếp của bình luận
+  ///   - story
+  public init(limit: Swift.Optional<Int?> = nil, offset: Swift.Optional<Int?> = nil, sort: Swift.Optional<String?> = nil, story: Swift.Optional<GraphQLID?> = nil) {
+    graphQLMap = ["limit": limit, "offset": offset, "sort": sort, "story": story]
+  }
+
+  public var limit: Swift.Optional<Int?> {
+    get {
+      return graphQLMap["limit"] as? Swift.Optional<Int?> ?? Swift.Optional<Int?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "limit")
+    }
+  }
+
+  public var offset: Swift.Optional<Int?> {
+    get {
+      return graphQLMap["offset"] as? Swift.Optional<Int?> ?? Swift.Optional<Int?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "offset")
+    }
+  }
+
+  /// Sắp xếp của bình luận
+  public var sort: Swift.Optional<String?> {
+    get {
+      return graphQLMap["sort"] as? Swift.Optional<String?> ?? Swift.Optional<String?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "sort")
+    }
+  }
+
+  public var story: Swift.Optional<GraphQLID?> {
+    get {
+      return graphQLMap["story"] as? Swift.Optional<GraphQLID?> ?? Swift.Optional<GraphQLID?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "story")
+    }
+  }
+}
+
 public struct GetStoriesFilter: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 

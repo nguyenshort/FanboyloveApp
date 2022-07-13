@@ -1,0 +1,18 @@
+fragment ChapterBase on Chapter {
+	id
+	name
+	slug
+	avatar
+}
+
+query GetChapters($filter: GetChaptersFilter!) {
+	chapters(filter: $filter) {
+		id
+		...ChapterBase
+		counter {
+			...CounterBase
+		}
+		order
+		createdAt
+	}
+}

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Story: Identifiable {
+struct Story1: Identifiable {
     var id: String
     var name: String
     var slug: String
@@ -17,4 +17,4 @@ struct Story: Identifiable {
     var countChapters: Int = 0
 }
 
-let _stories: [Story] = []
+let _stories: [Story1] = []

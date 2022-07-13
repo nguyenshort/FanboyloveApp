@@ -19,22 +19,24 @@ struct StoryView: View {
             
             VStack(spacing: 0) {
                 
-                StretchView(image: "https://i.imgur.com/tE4FCAJ.jpg") {
+                StretchView(image: viewModel.story?.avatar ?? "https://i.imgur.com/tE4FCAJ.jpg") {
                     
                 }
                 
                 VStack(alignment: .leading, spacing: 30){
-                
                     
                     StoryInfoView()
                     
-                    StoryChaptersView()
+                    if viewModel.isReady {
+                        StoryChapters()
+                    } else {
+                        StoryChapters.preview
+                            .redacted(reason: .placeholder)
+                    }
                     
                     StoryReviewsView()
                     
                     StoryMayLikeView()
-                                        
-                
                     
                 }
                 .padding(.bottom, 60)
@@ -42,6 +44,10 @@ struct StoryView: View {
                 .padding(.horizontal, 20)
                 .background(Color.white)
                 .clipShape(BorderOnlyShape(radius: 40, corners: [.topRight, .topLeft]))
+                .overlay(alignment: .topTrailing) {
+                    StoryBookmark()
+                        .offset(x: -20, y: -60/2)
+                }
                 .offset(y: -40)
                 
             }
@@ -50,7 +56,7 @@ struct StoryView: View {
         .overlay(
             
             
-            SafeAppBarView(offset: $viewModel.offset, title: "Chạm Vào Giai Điệu", anchor: 100)
+            SafeAppBarView(offset: $viewModel.offset, title: viewModel.getName(), anchor: 100)
             
             ,alignment: .top
             
@@ -58,12 +64,16 @@ struct StoryView: View {
         .overlay (
             
             StoryFloatingButtonView()
+                .redacted(reason: viewModel.isReady ? [] : .placeholder)
             
             ,alignment: .bottom
             
         )
         .ignoresSafeArea(.all, edges: .top)
         .environmentObject(viewModel)
+        .task {
+            viewModel.getStory(slug: slug)
+        }
         
     }
 }
@@ -73,7 +83,7 @@ struct StoryView_Previews: PreviewProvider {
         
         PreviewWrapper {
             
-            StoryView(slug: "")
+            StoryView(slug: "cham-vao-giai-dieu")
             
         }
     }

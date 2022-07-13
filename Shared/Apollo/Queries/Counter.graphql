@@ -1,0 +1,6 @@
+fragment CounterBase on Counter {
+	id
+	name
+	scope
+	value
+}
