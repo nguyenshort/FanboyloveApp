@@ -4,6 +4,57 @@
 import Apollo
 import Foundation
 
+/// Nếu truyền story thì sẽ là public query
+public struct GetBookmarksFilter: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  /// - Parameters:
+  ///   - limit
+  ///   - offset
+  ///   - sort: Sắp xếp của bình luận
+  ///   - story
+  public init(limit: Int, offset: Int, sort: String, story: Swift.Optional<GraphQLID?> = nil) {
+    graphQLMap = ["limit": limit, "offset": offset, "sort": sort, "story": story]
+  }
+
+  public var limit: Int {
+    get {
+      return graphQLMap["limit"] as! Int
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "limit")
+    }
+  }
+
+  public var offset: Int {
+    get {
+      return graphQLMap["offset"] as! Int
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "offset")
+    }
+  }
+
+  /// Sắp xếp của bình luận
+  public var sort: String {
+    get {
+      return graphQLMap["sort"] as! String
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "sort")
+    }
+  }
+
+  public var story: Swift.Optional<GraphQLID?> {
+    get {
+      return graphQLMap["story"] as? Swift.Optional<GraphQLID?> ?? Swift.Optional<GraphQLID?>.none
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "story")
+    }
+  }
+}
+
 public struct GetChaptersFilter: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 

@@ -47,13 +47,18 @@ struct StoryInfoView: View {
                         
                     }
                     
-                    HStack {
-                        Text("4.7")
-                            .font(.callout)
-                            .fontWeight(.bold)
-                        
-                        Text("(127 Reviews)")
-                            .font(.subheadline)
+                    if viewModel.countRating() != 0 {
+                        HStack {
+                            Text("\(viewModel.ratingScore().clean)")
+                                .font(.callout)
+                                .fontWeight(.bold)
+                            
+                            Text("(\(viewModel.countRating()) Đánh giá)")
+                                .font(.subheadline)
+                                .foregroundColor(Color("TextContentColor"))
+                        }
+                    } else {
+                        Text("--")
                             .foregroundColor(Color("TextContentColor"))
                     }
                     
@@ -61,7 +66,27 @@ struct StoryInfoView: View {
                 
                 Spacer()
                 
-                GroupAvatars()
+                if viewModel.countRating() != 0 {
+                    GroupAvatars()
+                } else {
+                    
+                    Button {
+                        
+                    } label: {
+                        
+                        Text("+ Đánh Giá")
+                            .font(.callout)
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 5)
+                            .background(Color("MainStartColor"))
+                            .cornerRadius(20)
+                            .shadow(color: Color("MainStartColor").opacity(0.3), radius: 4, x: 0, y: 0)
+                        
+                    }
+
+                    
+                }
                 
             }
             .padding(.top, 15)
@@ -70,31 +95,9 @@ struct StoryInfoView: View {
                 .padding(.vertical)
             
             HStack {
-                ForEach(1...3, id: \.self) { _ in
-                    
-                    VStack(spacing: 6) {
-                        
-                        HStack(spacing: 5) {
-                            
-                            Image("discovery")
-                                .renderingMode(.template)
-                                .resizable()
-                                .scaledToFit()
-                                .foregroundColor(Color("MainStartColor"))
-                                .frame(width: 25, height: 25)
-                            
-                            Text("15K")
-                                .fontWeight(.semibold)
-                            
-                        }
-                        
-                        Text("Lượt Xem")
-                            .font(.caption)
-                            .foregroundColor(Color("TextContentColor"))
-                    }
-                    .frame(maxWidth: .infinity)
-                    
-                }
+                CounterComponent(image: "discovery", label: "Năng Động")
+                CounterComponent(image: "eye", label: "Lượt Xem")
+                CounterComponent(image: "open-book", label: "Chương")
             }
             
             SessionBlock(title: "Tóm Tắt") {
@@ -125,6 +128,34 @@ struct StoryInfoView: View {
             .padding(.top, 20)
             
         }
+    }
+    
+    func ratingScore() -> String {
+        return String(format: "%.1f", viewModel.ratingScore())
+    }
+    
+    fileprivate func CounterComponent(image: String, label: String) -> some View {
+        return VStack(spacing: 6) {
+            
+            HStack(spacing: 5) {
+                
+                Image(image)
+                    .renderingMode(.template)
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundColor(Color("MainStartColor"))
+                    .frame(width: 25, height: 25)
+                
+                Text("15K")
+                    .fontWeight(.semibold)
+                
+            }
+            
+            Text(label)
+                .font(.caption)
+                .foregroundColor(Color("TextContentColor"))
+        }
+        .frame(maxWidth: .infinity)
     }
     
     static var preview: some View {
@@ -223,7 +254,7 @@ struct StoryInfoView_Previews: PreviewProvider {
     static var previews: some View {
         PreviewWrapper {
             
-            StoryView(slug: "cham-vao-giai-dieu")
+            StoryView(slug: "can-ke-tiep-xuc-5")
             
         }
     }

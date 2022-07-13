@@ -15,14 +15,6 @@ class StoryViewModel: ObservableObject {
     // Show data hoặc placeholder
     @Published var isReady: Bool = false
     
-    @Published var story1: Story1?
-    
-    @Published var offset: CGFloat = .zero
-    
-    // Dữ liệu chương
-    @Published var isReadyChapters: Bool = false
-    @Published var chapters: [GetChaptersQuery.Data.Chapter] = [GetChaptersQuery.Data.Chapter]()
-    
     
     func getStory(slug: String) -> Void {
         isReady = false
@@ -86,26 +78,13 @@ class StoryViewModel: ObservableObject {
         return 0
     }
     
+    func countRating() -> Int {
+        return extractCounter(name: .review, scope: .total)?.value ?? 0
+    }
     
-    func getChapters() -> Void {
-        Network.useApollo.fetch(query: GetChaptersQuery(filter: GetChaptersFilter(limit: 5, sort: "order", story: story?.id))) { [weak self] result in
-            
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let graphQLResult):
-                
-                if graphQLResult.data?.chapters != nil {
-                    self.chapters = graphQLResult.data!.chapters
-                    self.isReadyChapters = true
-                }
-                
-                break
-            case .failure(_): break
-                //
-            }
-            
-        }
+    func ratingScore() -> Double {
+        let score = extractCounter(name: .reviewScore, scope: .total)?.value ?? 0
+        return Double(score) / Double(countRating()) / Double(5)
     }
     
     func extractCounter(name: CounterName, scope: CounterScope) -> CounterBase? {

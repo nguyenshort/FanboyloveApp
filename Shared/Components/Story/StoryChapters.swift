@@ -6,60 +6,84 @@
 //
 
 import SwiftUI
+import Apollo
 
 struct StoryChapters: View {
     
     @EnvironmentObject var viewModel: StoryViewModel
     
+    @State var isReady: Bool = false
+    @State var chapters: [GetChaptersQuery.Data.Chapter] = [GetChaptersQuery.Data.Chapter]()
+    
     var body: some View {
         
-        VStack(alignment: .leading, spacing: 15) {
+        Group {
             
-            TitleView(title: "Chương Mục") {
-                
-                Button {
+            if isReady {
+                VStack(alignment: .leading, spacing: 15) {
                     
-                } label: {
-                    
-                    Text("Xem tất cả")
-                    
-                    Image(systemName: "arrow.right")
-                    
-                }
-                .font(.caption)
-                .foregroundColor(.secondary)
+                    TitleView(title: "Chương Mục") {
+                        
+                        if !chapters.isEmpty {
+                            Button {
+                                
+                            } label: {
+                                
+                                Text("Xem tất cả")
+                                
+                                Image(systemName: "arrow.right")
+                                
+                            }
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        }
 
-        
-            }
-            
-            VStack(spacing: 15) {
                 
-                ForEach(viewModel.chapters, id: \.id) { chapter in
+                    }
                     
-                    VStack(spacing: 0) {
+                    if chapters.isEmpty {
                         
-                        ChapterItemView(
-                            chapter: chapter.fragments.chapterBase,
-                            countView: viewModel.extractCounter(name: .view, scope: .total)?.value ?? 0,
-                            createdAt: chapter.createdAt
-                        )
+                        EmptySession()
+                            .frame(height: 200)
                         
-                        if _chapters.last?.id != chapter.id {
+                    } else {
+                        
+                        VStack(spacing: 15) {
                             
-                            Divider()
-                                .padding(.top, 15)
+                            ForEach(chapters, id: \.id) { chapter in
+                                
+                                VStack(spacing: 0) {
+                                    
+                                    ChapterItemView(
+                                        chapter: chapter.fragments.chapterBase,
+                                        countView: viewModel.extractCounter(name: .view, scope: .total)?.value ?? 0,
+                                        createdAt: chapter.createdAt
+                                    )
+                                    
+                                    if chapters.last?.id != chapter.id {
+                                        
+                                        Divider()
+                                            .padding(.top, 15)
+                                        
+                                    }
+                                    
+                                }
+                                
+                            }
                             
                         }
                         
                     }
                     
                 }
-                
+            } else {
+                StoryChapters.preview
+                    .redacted(reason: .placeholder)
             }
             
         }
         .task {
-            viewModel.getChapters()
+            getChapters()
         }
         
     }
@@ -111,6 +135,26 @@ struct StoryChapters: View {
 
 extension StoryChapters {
     
+    func getChapters() -> Void {
+        let query: GetChaptersQuery = GetChaptersQuery(filter: GetChaptersFilter(limit: 5, sort: "order", story: viewModel.story?.id))
+        Network.useApollo.fetch(query: query) { result in
+            
+            switch result {
+            case .success(let graphQLResult):
+                
+                if graphQLResult.data?.chapters != nil {
+                    self.chapters = graphQLResult.data!.chapters
+                    self.isReady = true
+                }
+                
+                break
+            case .failure(_): break
+                //
+            }
+            
+        }
+    }
+    
     func getCounter(_ chapter: GetChaptersQuery.Data.Chapter) -> [CounterBase] {
         return chapter.counter.map({ item in
             return item.fragments.counterBase
@@ -123,7 +167,7 @@ struct StoryChapters_Previews: PreviewProvider {
     static var previews: some View {
         PreviewWrapper {
             
-            StoryView(slug: "cham-vao-giai-dieu")
+            StoryView(slug: "can-ke-tiep-xuc-2")
             
         }
     }

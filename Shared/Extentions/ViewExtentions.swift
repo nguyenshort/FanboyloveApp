@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+public enum RoundingPrecision {
+    case ones
+    case tenths
+    case hundredths
+}
+
 extension View {
     
     //func safeArea() -> UIEdgeInsets? {
@@ -21,4 +27,26 @@ extension View {
         return formatter.localizedString(for: date, relativeTo: Date())
     }
     
+    func preciseRound(
+        _ value: Double,
+        precision: RoundingPrecision = .ones) -> Double
+    {
+        switch precision {
+        case .ones:
+            return round(value)
+        case .tenths:
+            return round(value * 10) / 10.0
+        case .hundredths:
+            return round(value * 100) / 100.0
+        }
+    }
+    
+}
+
+
+extension Float {
+    func rounded(toPlaces places:Int) -> Float {
+        let divisor = pow(10.0, Float(places))
+        return (self * divisor).rounded() / divisor
+    }
 }

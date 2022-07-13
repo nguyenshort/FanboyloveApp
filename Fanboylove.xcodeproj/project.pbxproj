@@ -23,6 +23,17 @@
 		1C16216C28783BF5001BE196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C16216A28783BF5001BE196 /* AppDelegate.swift */; };
 		1C1BB8B6287ECC4400B5D7C5 /* StoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1BB8B5287ECC4400B5D7C5 /* StoryHeader.swift */; };
 		1C1BB8B7287ECC4400B5D7C5 /* StoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1BB8B5287ECC4400B5D7C5 /* StoryHeader.swift */; };
+		1C1BB8BF287F0DDB00B5D7C5 /* Bookmark.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 1C1BB8BE287F0DDB00B5D7C5 /* Bookmark.graphql */; };
+		1C1BB8C0287F0DDB00B5D7C5 /* Bookmark.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 1C1BB8BE287F0DDB00B5D7C5 /* Bookmark.graphql */; };
+		1C1BB8C2287F0E3800B5D7C5 /* Bookmark.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1BB8C1287F0E3800B5D7C5 /* Bookmark.graphql.swift */; };
+		1C1BB8C3287F0E3800B5D7C5 /* Bookmark.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1BB8C1287F0E3800B5D7C5 /* Bookmark.graphql.swift */; };
+		1C1BB8C6287F12B300B5D7C5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 1C1BB8C5287F12B300B5D7C5 /* Lottie */; };
+		1C1BB8CC287F130100B5D7C5 /* lazydoge-sleeping.json in Resources */ = {isa = PBXBuildFile; fileRef = 1C1BB8CB287F130100B5D7C5 /* lazydoge-sleeping.json */; };
+		1C1BB8CD287F130100B5D7C5 /* lazydoge-sleeping.json in Resources */ = {isa = PBXBuildFile; fileRef = 1C1BB8CB287F130100B5D7C5 /* lazydoge-sleeping.json */; };
+		1C1BB8CF287F133800B5D7C5 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1BB8CE287F133800B5D7C5 /* LottieView.swift */; };
+		1C1BB8D0287F133800B5D7C5 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1BB8CE287F133800B5D7C5 /* LottieView.swift */; };
+		1C1BB8D2287F136B00B5D7C5 /* EmptySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1BB8D1287F136B00B5D7C5 /* EmptySession.swift */; };
+		1C1BB8D3287F136B00B5D7C5 /* EmptySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1BB8D1287F136B00B5D7C5 /* EmptySession.swift */; };
 		1C3AFA00287981490003DE5A /* CloseSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3AF9FF287981490003DE5A /* CloseSidebarView.swift */; };
 		1C3AFA01287981490003DE5A /* CloseSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3AF9FF287981490003DE5A /* CloseSidebarView.swift */; };
 		1C652B75287840590037CCBA /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1C652B74287840590037CCBA /* FirebaseAuth */; };
@@ -174,8 +185,8 @@
 		1CB02DEA2879CBE1000E9036 /* StorySimple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB02DE82879CBE1000E9036 /* StorySimple.swift */; };
 		1CB02DEF287A03C8000E9036 /* Home.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 1CB02DEE287A03C8000E9036 /* Home.graphql */; };
 		1CB02DF0287A03C8000E9036 /* Home.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 1CB02DEE287A03C8000E9036 /* Home.graphql */; };
-		1CC149CB287E560D00DCBA87 /* StringExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC149CA287E560D00DCBA87 /* StringExtentions.swift */; };
-		1CC149CC287E560D00DCBA87 /* StringExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC149CA287E560D00DCBA87 /* StringExtentions.swift */; };
+		1CC149CB287E560D00DCBA87 /* HelpExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC149CA287E560D00DCBA87 /* HelpExtentions.swift */; };
+		1CC149CC287E560D00DCBA87 /* HelpExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC149CA287E560D00DCBA87 /* HelpExtentions.swift */; };
 		1CC149D0287E5AF200DCBA87 /* StoryBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC149CF287E5AF200DCBA87 /* StoryBookmark.swift */; };
 		1CC149D1287E5AF200DCBA87 /* StoryBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC149CF287E5AF200DCBA87 /* StoryBookmark.swift */; };
 		1CC149D3287E683700DCBA87 /* SessionBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC149D2287E683700DCBA87 /* SessionBlock.swift */; };
@@ -204,6 +215,11 @@
 		1C16216728783893001BE196 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1C16216A28783BF5001BE196 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C1BB8B5287ECC4400B5D7C5 /* StoryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryHeader.swift; sourceTree = "<group>"; };
+		1C1BB8BE287F0DDB00B5D7C5 /* Bookmark.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Bookmark.graphql; sourceTree = "<group>"; };
+		1C1BB8C1287F0E3800B5D7C5 /* Bookmark.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bookmark.graphql.swift; sourceTree = "<group>"; };
+		1C1BB8CB287F130100B5D7C5 /* lazydoge-sleeping.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "lazydoge-sleeping.json"; sourceTree = "<group>"; };
+		1C1BB8CE287F133800B5D7C5 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		1C1BB8D1287F136B00B5D7C5 /* EmptySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptySession.swift; sourceTree = "<group>"; };
 		1C3AF9FF287981490003DE5A /* CloseSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseSidebarView.swift; sourceTree = "<group>"; };
 		1C76C68828788E3300B3C7FD /* HomeCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategories.swift; sourceTree = "<group>"; };
 		1C76C68928788E3300B3C7FD /* HomeUpdatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUpdatedView.swift; sourceTree = "<group>"; };
@@ -276,7 +292,7 @@
 		1CB02DE228799A41000E9036 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		1CB02DE82879CBE1000E9036 /* StorySimple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorySimple.swift; sourceTree = "<group>"; };
 		1CB02DEE287A03C8000E9036 /* Home.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Home.graphql; sourceTree = "<group>"; };
-		1CC149CA287E560D00DCBA87 /* StringExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtentions.swift; sourceTree = "<group>"; };
+		1CC149CA287E560D00DCBA87 /* HelpExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpExtentions.swift; sourceTree = "<group>"; };
 		1CC149CF287E5AF200DCBA87 /* StoryBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryBookmark.swift; sourceTree = "<group>"; };
 		1CC149D2287E683700DCBA87 /* SessionBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionBlock.swift; sourceTree = "<group>"; };
 		1CC149D6287E7CFD00DCBA87 /* ReviewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewItem.swift; sourceTree = "<group>"; };
@@ -298,6 +314,7 @@
 				1CB02DD92879961F000E9036 /* ApolloWebSocket in Frameworks */,
 				1C76C65C287863CF00B3C7FD /* SwiftUIX in Frameworks */,
 				1C76C65F2878649E00B3C7FD /* SwiftUIFlowLayout in Frameworks */,
+				1C1BB8C6287F12B300B5D7C5 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,6 +350,7 @@
 				1C76C6742878661100B3C7FD /* Apollo */,
 				1C76C68628788E3300B3C7FD /* Components */,
 				1C76C6AF28788E3600B3C7FD /* Extentions */,
+				1C1BB8C7287F12DC00B5D7C5 /* Lottie */,
 				1C76C6B128788E3900B3C7FD /* Model */,
 				1C76C6BA28788E3C00B3C7FD /* Shape */,
 				1C27F5F3287C94C300A5D474 /* Services */,
@@ -359,6 +377,15 @@
 			path = macOS;
 			sourceTree = "<group>";
 		};
+		1C1BB8C7287F12DC00B5D7C5 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				1C1BB8CB287F130100B5D7C5 /* lazydoge-sleeping.json */,
+				1C1BB8CE287F133800B5D7C5 /* LottieView.swift */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
 		1C27F5F3287C94C300A5D474 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -370,6 +397,7 @@
 		1C27F5F9287C9A6500A5D474 /* Codegen */ = {
 			isa = PBXGroup;
 			children = (
+				1C1BB8C1287F0E3800B5D7C5 /* Bookmark.graphql.swift */,
 				1CC149E2287E801700DCBA87 /* Review.graphql.swift */,
 				1CC149E3287E801700DCBA87 /* User.graphql.swift */,
 				1C9E513F287DC22A0087314C /* Chapter.graphql.swift */,
@@ -455,6 +483,7 @@
 				1C76C69E28788E3300B3C7FD /* SafeAppBarView.swift */,
 				1C9E5115287D71130087314C /* GridStories.swift */,
 				1CC149D2287E683700DCBA87 /* SessionBlock.swift */,
+				1C1BB8D1287F136B00B5D7C5 /* EmptySession.swift */,
 			);
 			path = Includes;
 			sourceTree = "<group>";
@@ -507,7 +536,7 @@
 			isa = PBXGroup;
 			children = (
 				1C76C6B028788E3600B3C7FD /* ViewExtentions.swift */,
-				1CC149CA287E560D00DCBA87 /* StringExtentions.swift */,
+				1CC149CA287E560D00DCBA87 /* HelpExtentions.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -572,6 +601,7 @@
 				1C9E513C287DC2070087314C /* Chapter.graphql */,
 				1CC149DC287E7F6000DCBA87 /* Review.graphql */,
 				1CC149DF287E7F7100DCBA87 /* User.graphql */,
+				1C1BB8BE287F0DDB00B5D7C5 /* Bookmark.graphql */,
 			);
 			path = Queries;
 			sourceTree = "<group>";
@@ -609,6 +639,7 @@
 				1C76C73D2878AFF700B3C7FD /* PageView */,
 				1CB02DD62879961F000E9036 /* Apollo */,
 				1CB02DD82879961F000E9036 /* ApolloWebSocket */,
+				1C1BB8C5287F12B300B5D7C5 /* Lottie */,
 			);
 			productName = "Fanboylove (iOS)";
 			productReference = 1C1621342878320A001BE196 /* Fanboylove.app */;
@@ -665,6 +696,7 @@
 				1C76C73928788FAF00B3C7FD /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				1C76C73C2878AFF700B3C7FD /* XCRemoteSwiftPackageReference "PageView" */,
 				1CB02DD52879961F000E9036 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				1C1BB8C4287F12B200B5D7C5 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 1C1621352878320A001BE196 /* Products */;
 			projectDirPath = "";
@@ -682,10 +714,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CC149E0287E7F7100DCBA87 /* User.graphql in Resources */,
+				1C1BB8BF287F0DDB00B5D7C5 /* Bookmark.graphql in Resources */,
 				1C1621452878320A001BE196 /* Assets.xcassets in Resources */,
 				1C9E513D287DC2070087314C /* Chapter.graphql in Resources */,
 				1CB02DCF287990B6000E9036 /* Categories.graphql in Resources */,
 				1C9E511F287DA2DB0087314C /* Counter.graphql in Resources */,
+				1C1BB8CC287F130100B5D7C5 /* lazydoge-sleeping.json in Resources */,
 				1C9E511C287DA2BC0087314C /* Story.graphql in Resources */,
 				1CC149DD287E7F6000DCBA87 /* Review.graphql in Resources */,
 				1C16216828783893001BE196 /* GoogleService-Info.plist in Resources */,
@@ -698,10 +732,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CC149E1287E7F7100DCBA87 /* User.graphql in Resources */,
+				1C1BB8C0287F0DDB00B5D7C5 /* Bookmark.graphql in Resources */,
 				1C1621462878320A001BE196 /* Assets.xcassets in Resources */,
 				1C9E513E287DC2070087314C /* Chapter.graphql in Resources */,
 				1CB02DD0287990B6000E9036 /* Categories.graphql in Resources */,
 				1C9E5120287DA2DB0087314C /* Counter.graphql in Resources */,
+				1C1BB8CD287F130100B5D7C5 /* lazydoge-sleeping.json in Resources */,
 				1C9E511D287DA2BC0087314C /* Story.graphql in Resources */,
 				1CC149DE287E7F6000DCBA87 /* Review.graphql in Resources */,
 				1C16216928783893001BE196 /* GoogleService-Info.plist in Resources */,
@@ -740,7 +776,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C76C6EE28788ED700B3C7FD /* StretchView.swift in Sources */,
-				1CC149CB287E560D00DCBA87 /* StringExtentions.swift in Sources */,
+				1CC149CB287E560D00DCBA87 /* HelpExtentions.swift in Sources */,
+				1C1BB8CF287F133800B5D7C5 /* LottieView.swift in Sources */,
 				1C76C6CB28788EAC00B3C7FD /* StoryView.swift in Sources */,
 				1C9E512C287DA3E50087314C /* Categories.graphql.swift in Sources */,
 				1C76C6D128788EC000B3C7FD /* HomeSearchView.swift in Sources */,
@@ -778,6 +815,7 @@
 				1C76C6EB28788ED700B3C7FD /* SafeAppBarView.swift in Sources */,
 				1C16213D2878320A001BE196 /* Fanboylove.xcdatamodeld in Sources */,
 				1C9E5128287DA3E50087314C /* Home.graphql.swift in Sources */,
+				1C1BB8D2287F136B00B5D7C5 /* EmptySession.swift in Sources */,
 				1C76C6DD28788EC600B3C7FD /* CategoryStretchView.swift in Sources */,
 				1C76C71128788F0E00B3C7FD /* Review.swift in Sources */,
 				1C76C6F528788EDD00B3C7FD /* ChapterAppBarView.swift in Sources */,
@@ -807,6 +845,7 @@
 				1C76C6E128788ECE00B3C7FD /* StoryItemView.swift in Sources */,
 				1C76C6E328788ECE00B3C7FD /* ChapterItemView.swift in Sources */,
 				1C76C71528788F0E00B3C7FD /* StoryChapters1.swift in Sources */,
+				1C1BB8C2287F0E3800B5D7C5 /* Bookmark.graphql.swift in Sources */,
 				1C76C70128788EF800B3C7FD /* StoryFloatingButtonView.swift in Sources */,
 				1C76C73228788F2A00B3C7FD /* CategoryViewModel.swift in Sources */,
 				1CB02DE92879CBE1000E9036 /* StorySimple.swift in Sources */,
@@ -826,7 +865,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C76C6F428788ED700B3C7FD /* StretchView.swift in Sources */,
-				1CC149CC287E560D00DCBA87 /* StringExtentions.swift in Sources */,
+				1CC149CC287E560D00DCBA87 /* HelpExtentions.swift in Sources */,
+				1C1BB8D0287F133800B5D7C5 /* LottieView.swift in Sources */,
 				1C76C6CC28788EAD00B3C7FD /* StoryView.swift in Sources */,
 				1C9E512D287DA3E50087314C /* Categories.graphql.swift in Sources */,
 				1C76C6D928788EC100B3C7FD /* HomeSearchView.swift in Sources */,
@@ -864,6 +904,7 @@
 				1C76C6F128788ED700B3C7FD /* SafeAppBarView.swift in Sources */,
 				1C16213E2878320A001BE196 /* Fanboylove.xcdatamodeld in Sources */,
 				1C9E5129287DA3E50087314C /* Home.graphql.swift in Sources */,
+				1C1BB8D3287F136B00B5D7C5 /* EmptySession.swift in Sources */,
 				1C76C6DE28788EC700B3C7FD /* CategoryStretchView.swift in Sources */,
 				1C76C71928788F0E00B3C7FD /* Review.swift in Sources */,
 				1C76C6F728788EDE00B3C7FD /* ChapterAppBarView.swift in Sources */,
@@ -893,6 +934,7 @@
 				1C76C6E628788ECE00B3C7FD /* StoryItemView.swift in Sources */,
 				1C76C6E828788ECE00B3C7FD /* ChapterItemView.swift in Sources */,
 				1C76C71D28788F0E00B3C7FD /* StoryChapters1.swift in Sources */,
+				1C1BB8C3287F0E3800B5D7C5 /* Bookmark.graphql.swift in Sources */,
 				1C76C70828788EF800B3C7FD /* StoryFloatingButtonView.swift in Sources */,
 				1C76C73828788F2A00B3C7FD /* CategoryViewModel.swift in Sources */,
 				1CB02DEA2879CBE1000E9036 /* StorySimple.swift in Sources */,
@@ -1170,6 +1212,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1C1BB8C4287F12B200B5D7C5 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		1C652B73287840590037CCBA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -1221,6 +1271,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1C1BB8C5287F12B300B5D7C5 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C1BB8C4287F12B200B5D7C5 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		1C652B74287840590037CCBA /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1C652B73287840590037CCBA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

@@ -16,74 +16,97 @@ struct StoryReviews: View {
     @State var showSheet: Bool = false
     
     @State var reviews: [ReviewInstance] = [ReviewInstance]()
+    @State var isReady: Bool = false
     
     var body: some View {
         
-        VStack(alignment: .leading, spacing: 15) {
+        Group {
             
-            TitleView(title: "Đánh Giá") {
+            if isReady {
                 
-                Button {
+                VStack(alignment: .leading, spacing: 15) {
                     
-                } label: {
+                    TitleView(title: "Đánh Giá") {
+                        
+                        if viewModel.extractCounter(name: .review, scope: .total) != nil {
+                            Button {
+                                
+                            } label: {
+                                
+                                Text("Xem tất cả")
+                                
+                                Image(systemName: "arrow.right")
+                                
+                            }
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        }
+                        
+                    }
                     
-                    Text("Xem tất cả")
+                    Button {
+                        
+                        showSheet.toggle()
+                        
+                    } label: {
                     
-                    Image(systemName: "arrow.right")
+                        TextField("Bình luận ngay", text: .constant(""))
+                            .font(.callout)
+                            .foregroundColor(Color("TextColor"))
+                            .padding(.vertical, 17)
+                            .padding(.horizontal, 25)
+                            .background(Color("Color2"))
+                            .cornerRadius(40)
+                            .overlay(
+                            
+                                Image(systemName: "paperplane")
+                                    .resizable()
+                                    .scaledToFill()
+                                    .foregroundColor(.gray)
+                                    .frame(width: 20, height: 20)
+                                    .offset(x: -20)
+                                
+                                ,alignment: .trailing
+                                
+                            )
+                            .disabled(true)
+                            .accentColor(Color("TextColor"))
+                        
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .sheet(isPresented: $showSheet) {
+                        
+                        Text("123456789")
+                        
+                    }
+                    
+                    
+                    if reviews.isEmpty {
+                        
+                        EmptySession()
+                            .frame(height: 250)
+                        
+                    } else {
+                        
+                        VStack(spacing: 30) {
+                            
+                            ForEach(reviews, id: \.id) { review in
+                                
+                                ReviewItem(review: review)
+
+                            }
+                            
+                        }
+                        
+                    }
+
                     
                 }
-                .font(.caption)
-                .foregroundColor(.secondary)
                 
+            } else {
+                StoryReviews.preview
+                    .redacted(reason: .placeholder)
             }
-            
-            Button {
-                
-                showSheet.toggle()
-                
-            } label: {
-            
-                TextField("Bình luận ngay", text: .constant(""))
-                    .font(.callout)
-                    .foregroundColor(Color("TextColor"))
-                    .padding(.vertical, 17)
-                    .padding(.horizontal, 25)
-                    .background(Color("Color2"))
-                    .cornerRadius(40)
-                    .overlay(
-                    
-                        Image(systemName: "paperplane")
-                            .resizable()
-                            .scaledToFill()
-                            .foregroundColor(.gray)
-                            .frame(width: 20, height: 20)
-                            .offset(x: -20)
-                        
-                        ,alignment: .trailing
-                        
-                    )
-                    .disabled(true)
-                    .accentColor(Color("TextColor"))
-                
-            }
-            .buttonStyle(PlainButtonStyle())
-            .sheet(isPresented: $showSheet) {
-                
-                Text("123456789")
-                
-            }
-            
-            
-            VStack(spacing: 30) {
-                
-                ForEach(reviews, id: \.id) { review in
-                    
-                    ReviewItem(review: review)
-
-                }
-                
-            }
-
             
         }
         .task {
@@ -126,6 +149,8 @@ extension StoryReviews {
         Network.useApollo.fetch(query: GetReviewsQuery(input: filter)) { result in
             switch result {
             case .success(let graphQLResult):
+                
+                self.isReady = true
                 
                 guard let reviews = graphQLResult.data?.reviews else {
                     return

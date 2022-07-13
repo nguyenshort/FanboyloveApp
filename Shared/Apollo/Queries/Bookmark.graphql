@@ -1,0 +1,9 @@
+query Bookmarks($filter: GetBookmarksFilter!) {
+  bookmarks(filter: $filter) {
+	id
+	createdAt
+	user {
+	  ...UserBase
+	}
+  }
+}

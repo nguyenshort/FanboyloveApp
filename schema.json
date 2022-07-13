@@ -1214,7 +1214,7 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "GetBookmarksFilter",
-        "description": null,
+        "description": "Nếu truyền story thì sẽ là public query",
         "fields": null,
         "inputFields": [
           {
@@ -1256,6 +1256,16 @@
                 "name": "String",
                 "ofType": null
               }
+            },
+            "defaultValue": null
+          },
+          {
+            "name": "story",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "ID",
+              "ofType": null
             },
             "defaultValue": null
           }

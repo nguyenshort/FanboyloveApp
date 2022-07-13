@@ -4,27 +4,24 @@
 import Apollo
 import Foundation
 
-public final class GetReviewsQuery: GraphQLQuery {
+public final class BookmarksQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
     """
-    query GetReviews($input: GetReviewsFilter!) {
-      reviews(input: $input) {
+    query Bookmarks($filter: GetBookmarksFilter!) {
+      bookmarks(filter: $filter) {
         __typename
         id
-        rating
         createdAt
-        content
         user {
           __typename
-          id
           ...UserBase
         }
       }
     }
     """
 
-  public let operationName: String = "GetReviews"
+  public let operationName: String = "Bookmarks"
 
   public var queryDocument: String {
     var document: String = operationDefinition
@@ -32,14 +29,14 @@ public final class GetReviewsQuery: GraphQLQuery {
     return document
   }
 
-  public var input: GetReviewsFilter
+  public var filter: GetBookmarksFilter
 
-  public init(input: GetReviewsFilter) {
-    self.input = input
+  public init(filter: GetBookmarksFilter) {
+    self.filter = filter
   }
 
   public var variables: GraphQLMap? {
-    return ["input": input]
+    return ["filter": filter]
   }
 
   public struct Data: GraphQLSelectionSet {
@@ -47,7 +44,7 @@ public final class GetReviewsQuery: GraphQLQuery {
 
     public static var selections: [GraphQLSelection] {
       return [
-        GraphQLField("reviews", arguments: ["input": GraphQLVariable("input")], type: .nonNull(.list(.nonNull(.object(Review.selections))))),
+        GraphQLField("bookmarks", arguments: ["filter": GraphQLVariable("filter")], type: .nonNull(.list(.nonNull(.object(Bookmark.selections))))),
       ]
     }
 
@@ -57,29 +54,27 @@ public final class GetReviewsQuery: GraphQLQuery {
       self.resultMap = unsafeResultMap
     }
 
-    public init(reviews: [Review]) {
-      self.init(unsafeResultMap: ["__typename": "Query", "reviews": reviews.map { (value: Review) -> ResultMap in value.resultMap }])
+    public init(bookmarks: [Bookmark]) {
+      self.init(unsafeResultMap: ["__typename": "Query", "bookmarks": bookmarks.map { (value: Bookmark) -> ResultMap in value.resultMap }])
     }
 
-    public var reviews: [Review] {
+    public var bookmarks: [Bookmark] {
       get {
-        return (resultMap["reviews"] as! [ResultMap]).map { (value: ResultMap) -> Review in Review(unsafeResultMap: value) }
+        return (resultMap["bookmarks"] as! [ResultMap]).map { (value: ResultMap) -> Bookmark in Bookmark(unsafeResultMap: value) }
       }
       set {
-        resultMap.updateValue(newValue.map { (value: Review) -> ResultMap in value.resultMap }, forKey: "reviews")
+        resultMap.updateValue(newValue.map { (value: Bookmark) -> ResultMap in value.resultMap }, forKey: "bookmarks")
       }
     }
 
-    public struct Review: GraphQLSelectionSet {
-      public static let possibleTypes: [String] = ["Review"]
+    public struct Bookmark: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["Bookmark"]
 
       public static var selections: [GraphQLSelection] {
         return [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
-          GraphQLField("rating", type: .nonNull(.scalar(Int.self))),
           GraphQLField("createdAt", type: .nonNull(.scalar(Double.self))),
-          GraphQLField("content", type: .nonNull(.scalar(String.self))),
           GraphQLField("user", type: .nonNull(.object(User.selections))),
         ]
       }
@@ -90,8 +85,8 @@ public final class GetReviewsQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(id: GraphQLID, rating: Int, createdAt: Double, content: String, user: User) {
-        self.init(unsafeResultMap: ["__typename": "Review", "id": id, "rating": rating, "createdAt": createdAt, "content": content, "user": user.resultMap])
+      public init(id: GraphQLID, createdAt: Double, user: User) {
+        self.init(unsafeResultMap: ["__typename": "Bookmark", "id": id, "createdAt": createdAt, "user": user.resultMap])
       }
 
       public var __typename: String {
@@ -112,30 +107,12 @@ public final class GetReviewsQuery: GraphQLQuery {
         }
       }
 
-      public var rating: Int {
-        get {
-          return resultMap["rating"]! as! Int
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "rating")
-        }
-      }
-
       public var createdAt: Double {
         get {
           return resultMap["createdAt"]! as! Double
         }
         set {
           resultMap.updateValue(newValue, forKey: "createdAt")
-        }
-      }
-
-      public var content: String {
-        get {
-          return resultMap["content"]! as! String
-        }
-        set {
-          resultMap.updateValue(newValue, forKey: "content")
         }
       }
 
@@ -154,7 +131,6 @@ public final class GetReviewsQuery: GraphQLQuery {
         public static var selections: [GraphQLSelection] {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
-            GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
             GraphQLFragmentSpread(UserBase.self),
           ]
         }
@@ -175,15 +151,6 @@ public final class GetReviewsQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "__typename")
-          }
-        }
-
-        public var id: GraphQLID {
-          get {
-            return resultMap["id"]! as! GraphQLID
-          }
-          set {
-            resultMap.updateValue(newValue, forKey: "id")
           }
         }
 
