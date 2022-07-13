@@ -45,6 +45,7 @@ struct StoryView: View {
 
                             StoryReviews.preview
                                 .redacted(reason: .placeholder)
+                            
                             StoryMayLike.preview
                                 .redacted(reason: .placeholder)
 

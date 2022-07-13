@@ -11,24 +11,33 @@ import Apollo
 struct StoryMayLike: View {
     
     @State var stories: [StoryBase] = [StoryBase]()
+    @State var isReady: Bool = false
     
     var body: some View {
         
-        SessionBlock(title: "Có Thể Bạn Thích") {
-            Button {
+        Group {
+            if isReady {
                 
-            } label: {
+                SessionBlock(title: "Có Thể Bạn Thích") {
+                    Button {
+                        
+                    } label: {
+                        
+                        Text("Xem tất cả")
+                        
+                        Image(systemName: "arrow.right")
+                        
+                    }
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                } content: {
+                    GridStories(items: stories) { story in
+                        StorySimple(story: story)
+                    }
+                }
                 
-                Text("Xem tất cả")
-                
-                Image(systemName: "arrow.right")
-                
-            }
-            .font(.caption)
-            .foregroundColor(.secondary)
-        } content: {
-            GridStories(items: stories) { story in
-                StorySimple(story: story)
+            } else {
+                StoryMayLike.preview
             }
         }
         .task {
@@ -69,6 +78,7 @@ extension StoryMayLike {
                     self.stories = (graphQLResult.data?.someStories ?? []).map({ item in
                         return item.fragments.storyBase
                     })
+                    self.isReady = true
                 }
                 break
             case .failure(_): break
