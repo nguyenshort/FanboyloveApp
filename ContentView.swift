@@ -16,9 +16,11 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            AuthView()
+            MainView()
                 .onAppear {
+                    
                     UINavigationBar.appearance().isHidden = true
+                    
                 }
         }
         .task {
@@ -49,6 +51,8 @@ struct ContentView: View {
             Auth.auth().removeStateDidChangeListener(handle as! NSObjectProtocol)
         }
         .environmentObject(appViewModel)
+        .environment(\.authKey, appViewModel.auth)
+        .environment(\.currentUserKey, appViewModel.user)
     }
 }
 

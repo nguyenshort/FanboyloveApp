@@ -13,6 +13,9 @@ struct HomeView: View {
     
     @State var categories: [CategoryBase] = []
     
+    @Environment(\.authKey) var auth
+    @Environment(\.currentUserKey) var currentUser
+    
     var body: some View {
         VStack {
             
@@ -24,16 +27,29 @@ struct HomeView: View {
             }
             .frame(maxWidth: .infinity)
             .overlay(alignment: .trailing) {
+                
                 Button {
                     
                 } label: {
                     
-                    ImageView("https://lh3.googleusercontent.com/ogw/ADea4I5v7BxfpIZM29kxVScZ_7Kg6nH7XgovzklB0MzQ")
+                    Group {
+                        if auth {
+                            
+                            ImageView(currentUser?.avatar)
+                            
+                        } else {
+                            
+                            Image("avatar")
+                                .resizable()
+                            
+                        }
+                    }
                         .scaledToFill()
                         .frame(width: 45, height: 45)
                         .clipShape(Circle())
                     
                 }
+                .withAuth()
             }
             .padding()
             
@@ -76,7 +92,12 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-            .previewInterfaceOrientation(.portrait)
+        
+        PreviewWrapper {
+            
+            HomeView()
+            
+        }
+        
     }
 }

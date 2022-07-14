@@ -9,7 +9,7 @@ import SwiftUI
 
 class MainViewModel: ObservableObject {
     
-    @Published var showMenu: Bool = false
+    @Published var showMenu: Bool = true
     
     @Published var currentTab: MainTab = .Home
     

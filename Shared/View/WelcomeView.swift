@@ -15,6 +15,8 @@ struct WelcomeView: View {
     
     @State var offset: CGFloat = .zero
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
     var body: some View {
         
         WelcomeKids(offset: $offset)
@@ -50,6 +52,8 @@ struct WelcomeView: View {
         .overlay(alignment: .topTrailing) {
             
             Button {
+                
+                presentationMode.wrappedValue.dismiss()
                 
             } label: {
                 

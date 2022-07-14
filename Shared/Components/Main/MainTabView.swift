@@ -15,29 +15,39 @@ struct MainTabView: View {
     
     @Namespace var animation
     
+    // let nsObject: AnyObject? = Bundle.main.infoDictionary!["CFBundleShortVersionString"]
+    
+    @Environment(\.authKey) var auth
+    @Environment(\.currentUserKey) var currentUser
+    
+    
     var body: some View {
         VStack(alignment: .leading) {
-
-            Button {
-                
-            } label: {
-                
-                ImageView("https://lh3.googleusercontent.com/ogw/ADea4I5v7BxfpIZM29kxVScZ_7Kg6nH7XgovzklB0MzQ")
-                    .scaledToFill()
-                    .frame(width: 70, height: 70)
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
-                
-            }
-            .padding(.top, 30)
-            .padding(.horizontal, 20)
             
-            Text("Nguyên Trần")
+            Group {
+                if auth {
+                    
+                    ImageView(currentUser?.avatar)
+                    
+                } else {
+                    Image("avatar")
+                        .resizable()
+                }
+            }
+                .scaledToFill()
+                .frame(width: 70, height: 70)
+                .clipShape(Circle())
+                .padding(.top, 30)
+                .padding(.horizontal, 20)
+                .withAuth()
+            
+            Text(auth ? "" : "--")
                 .foregroundColor(.white)
                 .fontWeight(.semibold)
                 .font(.title)
                 .padding(.top, 5)
                 .padding(.horizontal, 20)
-
+            
             
             VStack(alignment: .leading, spacing: 10) {
                 
@@ -47,11 +57,13 @@ struct MainTabView: View {
                 
                 MainTabBuilder(icon: "rosette", tabIndex: 2, title: "Xếp Hạng")
                 
-                MainTabBuilder(icon: "person", tabIndex: 3, title: "Cài Đặt")
+                if auth {
+                    MainTabBuilder(icon: "person", tabIndex: 3, title: "Cài Đặt")
+                }
                 
             }
             .padding(.top, 10)
-
+            
             
         }
         //.padding(.horizontal, 20)
@@ -70,7 +82,7 @@ struct MainTabView: View {
                     .font(.caption)
                     .foregroundColor(.white)
                     .opacity(0.7)
-
+                
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 40)
@@ -118,17 +130,23 @@ struct MainTabView: View {
                     }
                     
                 }
-            
+                
             )
             
         }
-
+        
         
     }
 }
 
 struct MainTabView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        
+        PreviewWrapper {
+            
+            MainView()
+            
+        }
+        
     }
 }

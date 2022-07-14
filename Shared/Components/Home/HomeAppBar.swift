@@ -7,10 +7,13 @@
 
 import SwiftUI
 
-struct HomeAppBarView: View {
+struct HomeAppBar: View {
     
     @EnvironmentObject var mainApp: MainViewModel
     @EnvironmentObject var homeApp: HomeViewModel
+    
+    @Environment(\.authKey) var auth
+    @Environment(\.currentUserKey) var currentUser
     
     @Namespace var animation
     
@@ -25,7 +28,7 @@ struct HomeAppBarView: View {
                 }
                 
             } label: {
-                
+
                 Image(systemName: "line.3.horizontal")
                     .font(.title3)
                 
@@ -35,18 +38,28 @@ struct HomeAppBarView: View {
             
             Spacer()
             
-            Spacer()
-            
             Button {
                 
             } label: {
                 
-                ImageView("https://lh3.googleusercontent.com/ogw/ADea4I5v7BxfpIZM29kxVScZ_7Kg6nH7XgovzklB0MzQ")
-                    .scaledToFill()
-                    .frame(width: 45, height: 45)
-                    .clipShape(Circle())
+                if auth {
+                    
+                    ImageView(currentUser?.avatar)
+                        .scaledToFill()
+                        .frame(width: 45, height: 45)
+                        .clipShape(Circle())
+                } else {
+                    
+                    Image("avatar")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 45, height: 45)
+                        .clipShape(Circle())
+                    
+                }
                 
             }
+            .withAuth()
 
             
         }
@@ -56,9 +69,14 @@ struct HomeAppBarView: View {
     }
 }
 
-struct HomeAppBarView_Previews: PreviewProvider {
+struct HomeAppBar_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-            .environment(\.colorScheme, .light)
+        
+        PreviewWrapper {
+            
+            MainView()
+            
+        }
+        
     }
 }
