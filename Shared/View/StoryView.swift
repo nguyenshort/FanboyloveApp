@@ -59,9 +59,14 @@ struct StoryView: View {
                     .background(Color.white)
                     .clipShape(BorderOnlyShape(radius: 40, corners: [.topRight, .topLeft]))
                     .overlay(alignment: .topTrailing) {
-                        StoryBookmark()
-                            .offset(x: -20, y: -60/2)
-                            .redacted(reason: viewModel.isReady ? [] : .placeholder)
+                        if viewModel.isReady {
+                            StoryBookmark()
+                                .offset(x: -20, y: -60/2)
+                        } else {
+                            StoryBookmark.preview
+                                .offset(x: -20, y: -60/2)
+                                .redacted(reason: .placeholder)
+                        }
                     }
                     .offset(y: -30)
                     

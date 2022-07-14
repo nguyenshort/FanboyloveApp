@@ -55,6 +55,44 @@ public struct GetBookmarksFilter: GraphQLMapConvertible {
   }
 }
 
+public struct CheckBookmarkFilter: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  /// - Parameters:
+  ///   - story
+  public init(story: GraphQLID) {
+    graphQLMap = ["story": story]
+  }
+
+  public var story: GraphQLID {
+    get {
+      return graphQLMap["story"] as! GraphQLID
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "story")
+    }
+  }
+}
+
+public struct ToggleBookmarkInput: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  /// - Parameters:
+  ///   - story
+  public init(story: GraphQLID) {
+    graphQLMap = ["story": story]
+  }
+
+  public var story: GraphQLID {
+    get {
+      return graphQLMap["story"] as! GraphQLID
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "story")
+    }
+  }
+}
+
 public struct GetChaptersFilter: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
@@ -537,26 +575,6 @@ public struct GetReviewsFilter: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "user")
-    }
-  }
-}
-
-public struct CreateUserInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
-
-  /// - Parameters:
-  ///   - name: Tên người dùng
-  public init(name: String) {
-    graphQLMap = ["name": name]
-  }
-
-  /// Tên người dùng
-  public var name: String {
-    get {
-      return graphQLMap["name"] as! String
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "name")
     }
   }
 }

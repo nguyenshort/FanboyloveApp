@@ -183,3 +183,189 @@ public final class GetBookmarkersQuery: GraphQLQuery {
     }
   }
 }
+
+public final class CheckBookmarkQuery: GraphQLQuery {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    query CheckBookmark($input: CheckBookmarkFilter!) {
+      bookmark(input: $input) {
+        __typename
+        id
+      }
+    }
+    """
+
+  public let operationName: String = "CheckBookmark"
+
+  public var input: CheckBookmarkFilter
+
+  public init(input: CheckBookmarkFilter) {
+    self.input = input
+  }
+
+  public var variables: GraphQLMap? {
+    return ["input": input]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Query"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("bookmark", arguments: ["input": GraphQLVariable("input")], type: .object(Bookmark.selections)),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(bookmark: Bookmark? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "bookmark": bookmark.flatMap { (value: Bookmark) -> ResultMap in value.resultMap }])
+    }
+
+    public var bookmark: Bookmark? {
+      get {
+        return (resultMap["bookmark"] as? ResultMap).flatMap { Bookmark(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "bookmark")
+      }
+    }
+
+    public struct Bookmark: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["Bookmark"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: GraphQLID) {
+        self.init(unsafeResultMap: ["__typename": "Bookmark", "id": id])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return resultMap["id"]! as! GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "id")
+        }
+      }
+    }
+  }
+}
+
+public final class ToogleBookmarkMutation: GraphQLMutation {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    mutation ToogleBookmark($input: ToggleBookmarkInput!) {
+      toogleBookmark(input: $input) {
+        __typename
+        id
+      }
+    }
+    """
+
+  public let operationName: String = "ToogleBookmark"
+
+  public var input: ToggleBookmarkInput
+
+  public init(input: ToggleBookmarkInput) {
+    self.input = input
+  }
+
+  public var variables: GraphQLMap? {
+    return ["input": input]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Mutation"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("toogleBookmark", arguments: ["input": GraphQLVariable("input")], type: .object(ToogleBookmark.selections)),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(toogleBookmark: ToogleBookmark? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "toogleBookmark": toogleBookmark.flatMap { (value: ToogleBookmark) -> ResultMap in value.resultMap }])
+    }
+
+    public var toogleBookmark: ToogleBookmark? {
+      get {
+        return (resultMap["toogleBookmark"] as? ResultMap).flatMap { ToogleBookmark(unsafeResultMap: $0) }
+      }
+      set {
+        resultMap.updateValue(newValue?.resultMap, forKey: "toogleBookmark")
+      }
+    }
+
+    public struct ToogleBookmark: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["Bookmark"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: GraphQLID) {
+        self.init(unsafeResultMap: ["__typename": "Bookmark", "id": id])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return resultMap["id"]! as! GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "id")
+        }
+      }
+    }
+  }
+}

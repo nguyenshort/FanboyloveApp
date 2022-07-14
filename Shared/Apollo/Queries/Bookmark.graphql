@@ -7,3 +7,18 @@ query GetBookmarkers($filter: GetBookmarksFilter!) {
 	}
   }
 }
+
+query CheckBookmark($input: CheckBookmarkFilter!) {
+  bookmark(input: $input) {
+	id
+  }
+}
+
+
+mutation ToogleBookmark($input: ToggleBookmarkInput!) {
+  toogleBookmark(input: $input) {
+	id
+  }
+}
+
+

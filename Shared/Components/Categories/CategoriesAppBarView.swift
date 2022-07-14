@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CategoriesAppBarView: View {
     
-    @EnvironmentObject var mainApp: MainViewModel
     
     var body: some View {
         
@@ -32,7 +31,7 @@ struct CategoriesAppBarView: View {
             Button {
                 
                 withAnimation(.spring()) {
-                    mainApp.showMenu.toggle()
+                    // mainApp.showMenu.toggle()
                 }
                 
             } label: {

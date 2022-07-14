@@ -16,8 +16,6 @@ extension View {
 
 struct WithAuth: ViewModifier {
     
-    @State private var isActive: Bool = false
-    
     @Environment(\.authKey) private var authKey
     
     func body(content: Content) -> some View {
@@ -28,7 +26,7 @@ struct WithAuth: ViewModifier {
                 content
             } else {
                 
-                NavigationLink( destination: WelcomeView()) {
+                NavigationLink(destination: AuthView()) {
                     content.disabled(true)
                 }
                 .buttonStyle(PlainButtonStyle())
