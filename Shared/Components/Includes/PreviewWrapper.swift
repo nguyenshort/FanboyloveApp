@@ -9,6 +9,8 @@ import SwiftUI
 
 struct PreviewWrapper<Content> : View where Content : View {
     
+    @StateObject var authViewModel: AppViewModel = AppViewModel()
+    
     var content: Content
     
     public init(@ViewBuilder label: () -> Content) {
@@ -29,6 +31,7 @@ struct PreviewWrapper<Content> : View where Content : View {
             UINavigationBar.appearance().isHidden = true
             
         }
+        .environmentObject(authViewModel)
 
         
     }

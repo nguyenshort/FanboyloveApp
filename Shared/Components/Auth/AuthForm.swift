@@ -10,13 +10,13 @@ import FirebaseAuth
 
 struct AuthForm: View {
     
+    @EnvironmentObject var viewModel: AppViewModel
+    
     @Binding var isLogin: Bool
     
     @State var isLoading: Bool = false
     @State var email: String = ""
     @State var password: String = ""
-    
-    @State var test: String = ""
     
     var canSubmit: Bool {
         get {
@@ -29,8 +29,6 @@ struct AuthForm: View {
     var body: some View {
         
         VStack(spacing: 20) {
-            
-            Text(test)
             
             Group {
                 
@@ -65,6 +63,7 @@ struct AuthForm: View {
             
             TextField("Email", text: $email)
                 .autocapitalization(.none)
+                .textContentType(.emailAddress)
                 .font(.callout)
                 .foregroundColor(Color("TextContentColor"))
                 .padding(.vertical, 17)
@@ -144,7 +143,16 @@ struct AuthForm: View {
 extension AuthForm {
     
     func login() {
-        // Auth.auth().signIn(with: T##AuthCredential, completion: T##((AuthDataResult?, Error?) -> Void)?##((AuthDataResult?, Error?) -> Void)?##(AuthDataResult?, Error?) -> Void)
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if error != nil {
+                // Todo: Notify
+                return
+            }
+            guard (result?.user) != nil else { return }
+            
+            // Todo: Add listener
+            // đăng nhập thành công
+        }
     }
     
 }

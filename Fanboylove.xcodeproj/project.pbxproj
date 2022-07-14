@@ -21,6 +21,8 @@
 		1C16216928783893001BE196 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C16216728783893001BE196 /* GoogleService-Info.plist */; };
 		1C16216B28783BF5001BE196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C16216A28783BF5001BE196 /* AppDelegate.swift */; };
 		1C16216C28783BF5001BE196 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C16216A28783BF5001BE196 /* AppDelegate.swift */; };
+		1C164E3C28801E58008D0541 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C164E3B28801E58008D0541 /* AppViewModel.swift */; };
+		1C164E3D28801E58008D0541 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C164E3B28801E58008D0541 /* AppViewModel.swift */; };
 		1C1BB8B6287ECC4400B5D7C5 /* StoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1BB8B5287ECC4400B5D7C5 /* StoryHeader.swift */; };
 		1C1BB8B7287ECC4400B5D7C5 /* StoryHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1BB8B5287ECC4400B5D7C5 /* StoryHeader.swift */; };
 		1C1BB8BF287F0DDB00B5D7C5 /* Bookmark.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 1C1BB8BE287F0DDB00B5D7C5 /* Bookmark.graphql */; };
@@ -236,6 +238,7 @@
 		1C16213C2878320A001BE196 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		1C16216728783893001BE196 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1C16216A28783BF5001BE196 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1C164E3B28801E58008D0541 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		1C1BB8B5287ECC4400B5D7C5 /* StoryHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryHeader.swift; sourceTree = "<group>"; };
 		1C1BB8BE287F0DDB00B5D7C5 /* Bookmark.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Bookmark.graphql; sourceTree = "<group>"; };
 		1C1BB8C1287F0E3800B5D7C5 /* Bookmark.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bookmark.graphql.swift; sourceTree = "<group>"; };
@@ -622,12 +625,13 @@
 		1C76C6C428788E4400B3C7FD /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				1C76C6C528788E4400B3C7FD /* HomeViewModel.swift */,
-				1C76C6C628788E4400B3C7FD /* StoryViewModel.swift */,
+				1C164E3B28801E58008D0541 /* AppViewModel.swift */,
 				1C76C6C728788E4400B3C7FD /* CategoryViewModel.swift */,
-				1C76C6C828788E4400B3C7FD /* MainViewModel.swift */,
 				1C76C6C928788E4400B3C7FD /* ChapterViewModel.swift */,
+				1C76C6C528788E4400B3C7FD /* HomeViewModel.swift */,
+				1C76C6C828788E4400B3C7FD /* MainViewModel.swift */,
 				1C76C6CA28788E4400B3C7FD /* ProfileViewModel.swift */,
+				1C76C6C628788E4400B3C7FD /* StoryViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -826,7 +830,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Don't run this during index builds\nif [ $ACTION = \"indexbuild\" ]; then exit 0; fi\n\n# Lấy schema\n#\"${SCRIPT_PATH}\"/run-bundled-codegen.sh schema:download --endpoint=\"http://localhost:3000/graphql\"\n\n# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\n# cd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" Shared/Apollo/Codegen/\n";
+			shellScript = "# Don't run this during index builds\nif [ $ACTION = \"indexbuild\" ]; then exit 0; fi\n\n# Lấy schema\n# \"${SCRIPT_PATH}\"/run-bundled-codegen.sh schema:download --endpoint=\"http://localhost:3000/graphql\"\n\n# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\n# cd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" Shared/Apollo/Codegen/\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -843,6 +847,7 @@
 				1CAA494F287FA43700AFE153 /* OnBoardingPage.swift in Sources */,
 				1C76C6D228788EC000B3C7FD /* HomeTopViews.swift in Sources */,
 				1C76C6CE28788EC000B3C7FD /* HomeAppBarView.swift in Sources */,
+				1C164E3C28801E58008D0541 /* AppViewModel.swift in Sources */,
 				1CB02DE328799A41000E9036 /* Network.swift in Sources */,
 				1C76C70228788EF800B3C7FD /* StoryReviews.swift in Sources */,
 				1C76C70328788EF800B3C7FD /* StoryInfoView.swift in Sources */,
@@ -943,6 +948,7 @@
 				1CAA4950287FA43700AFE153 /* OnBoardingPage.swift in Sources */,
 				1C76C6DA28788EC100B3C7FD /* HomeTopViews.swift in Sources */,
 				1C76C6D628788EC100B3C7FD /* HomeAppBarView.swift in Sources */,
+				1C164E3D28801E58008D0541 /* AppViewModel.swift in Sources */,
 				1CB02DE428799A41000E9036 /* Network.swift in Sources */,
 				1C76C70928788EF800B3C7FD /* StoryReviews.swift in Sources */,
 				1C76C70A28788EF800B3C7FD /* StoryInfoView.swift in Sources */,

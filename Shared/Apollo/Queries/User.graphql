@@ -5,3 +5,10 @@ fragment UserBase on User {
 	avatar
 	uid
 }
+
+
+query GetMe {
+	me {
+		...UserBase
+	}
+}
