@@ -540,3 +540,23 @@ public struct GetReviewsFilter: GraphQLMapConvertible {
     }
   }
 }
+
+public struct CreateUserInput: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  /// - Parameters:
+  ///   - name: Tên người dùng
+  public init(name: String) {
+    graphQLMap = ["name": name]
+  }
+
+  /// Tên người dùng
+  public var name: String {
+    get {
+      return graphQLMap["name"] as! String
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "name")
+    }
+  }
+}

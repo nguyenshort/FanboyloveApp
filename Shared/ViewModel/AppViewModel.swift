@@ -12,16 +12,15 @@ import Apollo
 class AppViewModel: ObservableObject {
     
     @Published var user: UserBase?
+    @Published var autoRefresh: Bool = true
+    
     var auth: Bool {
         get {
             return user != nil
         }
     }
     
-    func getMe(token: String) -> Void {
-        
-        UserDefaults.standard.set(token, forKey: "firebase_token")
-        
+    func getMe() -> Void {
         Network.useApollo.fetch(query: GetMeQuery()) { [weak self] result in
             guard let strongSelf = self else { return }
             
@@ -42,7 +41,12 @@ class AppViewModel: ObservableObject {
         }
     }
     
+    func setToken(token: String) -> Void {
+        UserDefaults.standard.set(token, forKey: "firebase_token")
+    }
+    
     func logOut() -> Void {
         user = nil
+        UserDefaults.standard.removeObject(forKey: "firebase_token")
     }
 }

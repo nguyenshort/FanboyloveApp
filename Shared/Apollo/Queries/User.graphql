@@ -12,3 +12,14 @@ query GetMe {
 		...UserBase
 	}
 }
+
+
+mutation CreateUser($input: CreateUserInput!) {
+  createUser(input: $input) {
+	id
+	name
+	slug
+	uid
+	avatar
+  }
+}

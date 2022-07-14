@@ -15,13 +15,18 @@ struct AuthForm: View {
     @Binding var isLogin: Bool
     
     @State var isLoading: Bool = false
+    @State var name: String = ""
     @State var email: String = ""
     @State var password: String = ""
     
     var canSubmit: Bool {
         get {
             
-            return !isLoading && !email.isEmpty && !password.isEmpty
+            if isLogin {
+                return !isLoading && !email.isEmpty && !password.isEmpty
+            }
+            
+            return !isLoading && !email.isEmpty && !password.isEmpty && !name.isEmpty
             
         }
     }
@@ -34,7 +39,7 @@ struct AuthForm: View {
                 
                 if !isLogin {
                     
-                    TextField("Tên Người Dùng", text: .constant(""))
+                    TextField("Tên Người Dùng", text: $name)
                         .font(.callout)
                         .foregroundColor(Color("TextContentColor"))
                         .padding(.vertical, 17)
@@ -114,7 +119,11 @@ struct AuthForm: View {
             
             Button {
                 
-                login()
+                if isLogin {
+                    login()
+                } else {
+                    signup()
+                }
                 
             } label: {
                 
@@ -143,6 +152,7 @@ struct AuthForm: View {
 extension AuthForm {
     
     func login() {
+        self.isLoading = true
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if error != nil {
                 // Todo: Notify
@@ -150,8 +160,37 @@ extension AuthForm {
             }
             guard (result?.user) != nil else { return }
             
+            self.isLoading = false
             // Todo: Add listener
             // đăng nhập thành công
+        }
+    }
+    
+    func signup() -> Void {
+        self.isLoading = true
+        self.viewModel.autoRefresh = false
+        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+            if error != nil {
+                // Todo: Notify
+                return
+            }
+            guard let user = result?.user else { return }
+            // Todo: Notify
+            // Ddanwg kys thanhf cong
+            // Cập nhật tên
+            let changeRequest = user.createProfileChangeRequest()
+            
+            // Cập nhật tên
+            changeRequest.displayName = name
+            
+            changeRequest.commitChanges { error in
+                guard error == nil else { return }
+
+                self.viewModel.getMe()
+                self.isLoading = false
+                self.viewModel.autoRefresh = true
+                
+            }
         }
     }
     

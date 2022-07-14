@@ -35,7 +35,12 @@ struct ContentView: View {
                             return
                         }
                         guard let token = token else { return }
-                        appViewModel.getMe(token: token)
+                        
+                        appViewModel.setToken(token: token)
+                        
+                        if appViewModel.autoRefresh {
+                            appViewModel.getMe()
+                        }
                     }
                 }
             }
