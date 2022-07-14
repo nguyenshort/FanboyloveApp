@@ -23,6 +23,10 @@ extension View {
         return formatter.localizedString(for: date, relativeTo: Date())
     }
     
+    func screenWidth() -> CGFloat {
+        return UIScreen.main.bounds.width
+    }
+    
 }
 
 
