@@ -165,6 +165,10 @@
 		1C897F45287FC009000DDC79 /* WelcomeCrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C897F43287FC009000DDC79 /* WelcomeCrop.swift */; };
 		1C897F47287FC0C8000DDC79 /* WelcomeActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C897F46287FC0C8000DDC79 /* WelcomeActions.swift */; };
 		1C897F48287FC0C8000DDC79 /* WelcomeActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C897F46287FC0C8000DDC79 /* WelcomeActions.swift */; };
+		1C897F4E287FE692000DDC79 /* AuthForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C897F4D287FE692000DDC79 /* AuthForm.swift */; };
+		1C897F4F287FE692000DDC79 /* AuthForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C897F4D287FE692000DDC79 /* AuthForm.swift */; };
+		1C897F51287FE9BC000DDC79 /* SocialLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C897F50287FE9BC000DDC79 /* SocialLogin.swift */; };
+		1C897F52287FE9BC000DDC79 /* SocialLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C897F50287FE9BC000DDC79 /* SocialLogin.swift */; };
 		1C979507287D42D80029E6CA /* HomeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C979506287D42D80029E6CA /* HomeCategory.swift */; };
 		1C979508287D42D80029E6CA /* HomeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C979506287D42D80029E6CA /* HomeCategory.swift */; };
 		1C9E5116287D71130087314C /* GridStories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9E5115287D71130087314C /* GridStories.swift */; };
@@ -301,6 +305,8 @@
 		1C897F40287FBFDD000DDC79 /* WelcomeKids.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeKids.swift; sourceTree = "<group>"; };
 		1C897F43287FC009000DDC79 /* WelcomeCrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeCrop.swift; sourceTree = "<group>"; };
 		1C897F46287FC0C8000DDC79 /* WelcomeActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeActions.swift; sourceTree = "<group>"; };
+		1C897F4D287FE692000DDC79 /* AuthForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthForm.swift; sourceTree = "<group>"; };
+		1C897F50287FE9BC000DDC79 /* SocialLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLogin.swift; sourceTree = "<group>"; };
 		1C979506287D42D80029E6CA /* HomeCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategory.swift; sourceTree = "<group>"; };
 		1C9E5115287D71130087314C /* GridStories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridStories.swift; sourceTree = "<group>"; };
 		1C9E511B287DA2BC0087314C /* Story.graphql */ = {isa = PBXFileReference; lastKnownFileType = text; path = Story.graphql; sourceTree = "<group>"; };
@@ -449,6 +455,7 @@
 		1C76C68628788E3300B3C7FD /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				1C897F4C287FE687000DDC79 /* Auth */,
 				1C897F3F287FBFCD000DDC79 /* Welcome */,
 				1CC149D5287E7CF000DCBA87 /* Review */,
 				1C76C68728788E3300B3C7FD /* Home */,
@@ -633,6 +640,15 @@
 				1C897F46287FC0C8000DDC79 /* WelcomeActions.swift */,
 			);
 			path = Welcome;
+			sourceTree = "<group>";
+		};
+		1C897F4C287FE687000DDC79 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				1C897F4D287FE692000DDC79 /* AuthForm.swift */,
+				1C897F50287FE9BC000DDC79 /* SocialLogin.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		1CB02DCD28799027000E9036 /* Queries */ = {
@@ -855,6 +871,7 @@
 				1C897F41287FBFDD000DDC79 /* WelcomeKids.swift in Sources */,
 				1C76C6D328788EC000B3C7FD /* HomeCategories.swift in Sources */,
 				1C1621432878320A001BE196 /* Persistence.swift in Sources */,
+				1C897F51287FE9BC000DDC79 /* SocialLogin.swift in Sources */,
 				1C9E5140287DC22A0087314C /* Chapter.graphql.swift in Sources */,
 				1C76C72D28788F2A00B3C7FD /* HomeViewModel.swift in Sources */,
 				1CC149D0287E5AF200DCBA87 /* StoryBookmark.swift in Sources */,
@@ -874,6 +891,7 @@
 				1C9E5131287DB3760087314C /* StoryCategories.swift in Sources */,
 				1C76C71428788F0E00B3C7FD /* CategoryStories.swift in Sources */,
 				1C76C72128788F1F00B3C7FD /* HomeView.swift in Sources */,
+				1C897F4E287FE692000DDC79 /* AuthForm.swift in Sources */,
 				1C76C6CD28788EC000B3C7FD /* HomeBannerView.swift in Sources */,
 				1C897F44287FC009000DDC79 /* WelcomeCrop.swift in Sources */,
 				1CAA4952287FB03500AFE153 /* OffsetPageTabView.swift in Sources */,
@@ -953,6 +971,7 @@
 				1C897F42287FBFDD000DDC79 /* WelcomeKids.swift in Sources */,
 				1C76C6DB28788EC100B3C7FD /* HomeCategories.swift in Sources */,
 				1C1621442878320A001BE196 /* Persistence.swift in Sources */,
+				1C897F52287FE9BC000DDC79 /* SocialLogin.swift in Sources */,
 				1C9E5141287DC22A0087314C /* Chapter.graphql.swift in Sources */,
 				1C76C73328788F2A00B3C7FD /* HomeViewModel.swift in Sources */,
 				1CC149D1287E5AF200DCBA87 /* StoryBookmark.swift in Sources */,
@@ -972,6 +991,7 @@
 				1C9E5132287DB3760087314C /* StoryCategories.swift in Sources */,
 				1C76C71C28788F0E00B3C7FD /* CategoryStories.swift in Sources */,
 				1C76C72728788F2000B3C7FD /* HomeView.swift in Sources */,
+				1C897F4F287FE692000DDC79 /* AuthForm.swift in Sources */,
 				1C76C6D528788EC100B3C7FD /* HomeBannerView.swift in Sources */,
 				1C897F45287FC009000DDC79 /* WelcomeCrop.swift in Sources */,
 				1CAA4953287FB03500AFE153 /* OffsetPageTabView.swift in Sources */,
