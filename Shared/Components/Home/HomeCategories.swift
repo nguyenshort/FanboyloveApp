@@ -10,15 +10,13 @@ import Apollo
 
 struct HomeCategories: View {
     
-    @State var categories: [CategoryBase] = [CategoryBase]()
-    
-    let setSomeCategories: (_ categories: [CategoryBase]) -> Void
+    @EnvironmentObject var viewModel: HomeViewModel
     
     var body: some View {
         
         ScrollView(.horizontal, showsIndicators: false) {
             
-            if categories.isEmpty {
+            if !viewModel.isShowCategories {
                 
                 LazyHStack {
                     ForEach(0...5, id: \.self) { _index in
@@ -45,24 +43,24 @@ struct HomeCategories: View {
             } else {
                 
                 LazyHStack {
-                    ForEach(categories, id: \.id) { category in
-                        
+                    ForEach(viewModel.categories, id: \.id) { category in
+
                         Button {
-                            
+
                         } label: {
-                            
-                            Text(category.name)
+
+                            Text(category.fragments.categoryBase.name)
                                 .padding(.horizontal, 20)
                                 .padding(.vertical, 10)
                                 .background(Color("Color2"))
                                 .cornerRadius(20)
-                            
+
                         }
                         .font(.subheadline)
                         .foregroundColor(Color("TextColor"))
-                        
+
                     }
-                    
+
                 }
                 
             }
@@ -70,28 +68,9 @@ struct HomeCategories: View {
             
         }
         .task {
-            getCategories()
+            viewModel.getCategories()
         }
         
-    }
-}
-
-extension HomeCategories {
-    func getCategories() -> Void {
-        Network.useApollo.fetch(query: GetCategoriesQuery()) { result in
-            switch result {
-              case .success(let graphQLResult):
-                DispatchQueue.main.async {
-                    self.categories = (graphQLResult.data?.categories ?? []).map({ item in
-                        return item.fragments.categoryBase
-                    })
-                    self.setSomeCategories(self.categories)
-                }
-                break
-            case .failure(_): break
-                //
-              }
-        }
     }
 }
 

@@ -6,6 +6,7 @@ fragment CategoryBase on Category {
 
 query GetCategories {
 	categories {
+		id
 		...CategoryBase
 	}
 }

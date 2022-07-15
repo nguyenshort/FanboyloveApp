@@ -175,6 +175,8 @@
 		1C76C73E2878AFF700B3C7FD /* PageView in Frameworks */ = {isa = PBXBuildFile; productRef = 1C76C73D2878AFF700B3C7FD /* PageView */; };
 		1C82C6D6288154B400D2AC1B /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82C6D5288154B400D2AC1B /* BottomSheet.swift */; };
 		1C82C6D7288154B400D2AC1B /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82C6D5288154B400D2AC1B /* BottomSheet.swift */; };
+		1C82C6D928816DE000D2AC1B /* HomeAppBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82C6D828816DE000D2AC1B /* HomeAppBar.swift */; };
+		1C82C6DA28816DE000D2AC1B /* HomeAppBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82C6D828816DE000D2AC1B /* HomeAppBar.swift */; };
 		1C897F3D287FBC22000DDC79 /* WelcomeLayerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C897F3C287FBC22000DDC79 /* WelcomeLayerShape.swift */; };
 		1C897F3E287FBC22000DDC79 /* WelcomeLayerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C897F3C287FBC22000DDC79 /* WelcomeLayerShape.swift */; };
 		1C897F41287FBFDD000DDC79 /* WelcomeKids.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C897F40287FBFDD000DDC79 /* WelcomeKids.swift */; };
@@ -326,6 +328,7 @@
 		1C76C6C928788E4400B3C7FD /* ChapterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChapterViewModel.swift; sourceTree = "<group>"; };
 		1C76C6CA28788E4400B3C7FD /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		1C82C6D5288154B400D2AC1B /* BottomSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
+		1C82C6D828816DE000D2AC1B /* HomeAppBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAppBar.swift; sourceTree = "<group>"; };
 		1C897F3C287FBC22000DDC79 /* WelcomeLayerShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeLayerShape.swift; sourceTree = "<group>"; };
 		1C897F40287FBFDD000DDC79 /* WelcomeKids.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeKids.swift; sourceTree = "<group>"; };
 		1C897F43287FC009000DDC79 /* WelcomeCrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeCrop.swift; sourceTree = "<group>"; };
@@ -519,6 +522,7 @@
 				1C76C68E28788E3300B3C7FD /* HomeCompleted.swift */,
 				1C76C68F28788E3300B3C7FD /* HomeTopViews.swift */,
 				1C979506287D42D80029E6CA /* HomeCategory.swift */,
+				1C82C6D828816DE000D2AC1B /* HomeAppBar.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -805,7 +809,6 @@
 				1C76C73C2878AFF700B3C7FD /* XCRemoteSwiftPackageReference "PageView" */,
 				1CB02DD52879961F000E9036 /* XCRemoteSwiftPackageReference "apollo-ios" */,
 				1C1BB8C4287F12B200B5D7C5 /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				1C164E46288050C2008D0541 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 1C1621352878320A001BE196 /* Products */;
 			projectDirPath = "";
@@ -897,6 +900,7 @@
 				1C76C70328788EF800B3C7FD /* StoryInfoView.swift in Sources */,
 				1C76C6EA28788ED700B3C7FD /* ImageView.swift in Sources */,
 				1C76C72328788F1F00B3C7FD /* ChapterView.swift in Sources */,
+				1C82C6D928816DE000D2AC1B /* HomeAppBar.swift in Sources */,
 				1C76C6F928788EE900B3C7FD /* MainTabView.swift in Sources */,
 				1C16213F2878320A001BE196 /* FanboyloveApp.swift in Sources */,
 				1C76C6FF28788EF800B3C7FD /* StoryChapters.swift in Sources */,
@@ -1004,6 +1008,7 @@
 				1C76C70A28788EF800B3C7FD /* StoryInfoView.swift in Sources */,
 				1C76C6F028788ED700B3C7FD /* ImageView.swift in Sources */,
 				1C76C72928788F2000B3C7FD /* ChapterView.swift in Sources */,
+				1C82C6DA28816DE000D2AC1B /* HomeAppBar.swift in Sources */,
 				1C76C6FA28788EEA00B3C7FD /* MainTabView.swift in Sources */,
 				1C1621402878320A001BE196 /* FanboyloveApp.swift in Sources */,
 				1C76C70628788EF800B3C7FD /* StoryChapters.swift in Sources */,
@@ -1357,14 +1362,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		1C164E46288050C2008D0541 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
-			};
-		};
 		1C1BB8C4287F12B200B5D7C5 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios";

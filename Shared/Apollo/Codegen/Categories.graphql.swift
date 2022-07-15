@@ -11,6 +11,7 @@ public final class GetCategoriesQuery: GraphQLQuery {
     query GetCategories {
       categories {
         __typename
+        id
         ...CategoryBase
       }
     }
@@ -61,6 +62,7 @@ public final class GetCategoriesQuery: GraphQLQuery {
       public static var selections: [GraphQLSelection] {
         return [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLFragmentSpread(CategoryBase.self),
         ]
       }
@@ -81,6 +83,15 @@ public final class GetCategoriesQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return resultMap["id"]! as! GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "id")
         }
       }
 

@@ -9,34 +9,52 @@ import SwiftUI
 import Apollo
 
 class HomeViewModel: ObservableObject {
+    
+    // Danh sách category
     @Published var categories: [GetCategoriesQuery.Data.Category] = [GetCategoriesQuery.Data.Category]()
-    @Published var topView: [HomeTopViewQuery.Data.Story] = [HomeTopViewQuery.Data.Story]()
+    @Published var isShowCategories: Bool = false
+    
+    
+    // TopView
+    @Published var topView: [StoryBase] = [StoryBase]()
+    @Published var isShowTopView: Bool = false
+    
+}
+
+// MARK: Support Categories
+extension HomeViewModel {
     
     func getCategories() -> Void {
-        Network.shared.apollo.fetch(query: GetCategoriesQuery()) { [weak self] result in
+        Network.useApollo.fetch(query: GetCategoriesQuery()) { [weak self] result in
+            
             guard let self = self else { return }
-            switch result {
-              case .success(let graphQLResult):
-                if ((graphQLResult.data?.categories) != nil) {
-                    self.categories = graphQLResult.data!.categories
-                }
-                break
-            case .failure(_): break
-                //
-              }
+            
+            guard let data = try? result.get().data?.categories else { return }
+            
+            self.categories = data
+            self.isShowCategories = true
         }
     }
     
-    func getHomeTopView() -> Void {
-        Network.useApollo.fetch(query: HomeTopViewQuery(filter: GetStoriesFilter(limit: 6, offset: 0, sort: "VIEW-TOTAL"))) { [weak self] result in
+}
+
+// MARK: Support Top View
+extension HomeViewModel {
+    
+    func getTopView() -> Void {
+        
+        let query: GetStoriesFilter = GetStoriesFilter(limit: 6, offset: 0, sort: "VIEW-TOTAL")
+        
+        Network.useApollo.fetch(query: HomeTopViewQuery(filter: query)) { [weak self]  result in
+            
             guard let self = self else { return }
-            switch result {
-              case .success(let graphQLResult):
-                self.topView = graphQLResult.data?.stories ?? []
-                break
-            case .failure(_): break
-                //
-              }
+            
+            guard let data = try? result.get().data?.stories else { return }
+            
+            self.topView = data.map({ item in
+                return item.fragments.storyBase
+            })
+            self.isShowTopView = true
         }
     }
     

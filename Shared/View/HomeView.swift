@@ -13,45 +13,10 @@ struct HomeView: View {
     
     @State var categories: [CategoryBase] = []
     
-    @Environment(\.authKey) var auth
-    @Environment(\.currentUserKey) var currentUser
-    
     var body: some View {
         VStack {
             
-            HStack {
-                Text("Home")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .foregroundColor(Color("TextColor"))
-            }
-            .frame(maxWidth: .infinity)
-            .overlay(alignment: .trailing) {
-                
-                Button {
-                    
-                } label: {
-                    
-                    Group {
-                        if auth {
-                            
-                            ImageView(currentUser?.avatar)
-                            
-                        } else {
-                            
-                            Image("avatar")
-                                .resizable()
-                            
-                        }
-                    }
-                        .scaledToFill()
-                        .frame(width: 45, height: 45)
-                        .clipShape(Circle())
-                    
-                }
-                .withAuth()
-            }
-            .padding()
+            HomeAppBar()
             
             ScrollView(.vertical, showsIndicators: false) {
                 
@@ -62,10 +27,7 @@ struct HomeView: View {
                     
                     HomeBannerView()
                     
-                    HomeCategories(setSomeCategories: { categories in
-                        // Random element
-                        self.categories = categories
-                    })
+                    HomeCategories()
                     .padding(.top, 5)
                     
                     HomeTopViews()

@@ -10,7 +10,7 @@ import PageView
 
 struct MainView: View {
     
-    @State var showMenu: Bool = true
+    @State var showMenu: Bool = false
     @State var baseOffset: CGFloat = 280
     
     @State var pageIndex = 0
