@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct MainTabView: View {
     
@@ -41,7 +42,7 @@ struct MainTabView: View {
                 .padding(.horizontal, 20)
                 .withAuth()
             
-            Text(auth ? "" : "--")
+            Text(auth ? "\(currentUser?.name ?? "")" : "--")
                 .foregroundColor(.white)
                 .fontWeight(.semibold)
                 .font(.title)
@@ -59,6 +60,8 @@ struct MainTabView: View {
                 
                 if auth {
                     MainTabBuilder(icon: "person", tabIndex: 3, title: "Cài Đặt")
+                    
+                    MainTabBuilder(icon: "arrow.backward", tabIndex: 4, title: "Đăng Xuất")
                 }
                 
             }
@@ -96,10 +99,14 @@ struct MainTabView: View {
         
         Button {
             
-            withAnimation {
-                
-                currentTab = tabIndex
-                
+            if icon == "arrow.backward" {
+                try? Auth.auth().signOut()
+            } else {
+                withAnimation {
+                    
+                    currentTab = tabIndex
+                    
+                }
             }
             
         } label: {
@@ -107,7 +114,9 @@ struct MainTabView: View {
             HStack {
                 
                 Image(systemName: icon)
-                    .font(.title2)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 21, height: 21)
                 
                 Text(title)
                     .fontWeight(.semibold)

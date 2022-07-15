@@ -57,6 +57,10 @@
 		1C3AFA00287981490003DE5A /* CloseSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3AF9FF287981490003DE5A /* CloseSidebarView.swift */; };
 		1C3AFA01287981490003DE5A /* CloseSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3AF9FF287981490003DE5A /* CloseSidebarView.swift */; };
 		1C652B75287840590037CCBA /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1C652B74287840590037CCBA /* FirebaseAuth */; };
+		1C7243C928811106009011C4 /* DispatchQueueExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7243C828811106009011C4 /* DispatchQueueExtention.swift */; };
+		1C7243CA28811106009011C4 /* DispatchQueueExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7243C828811106009011C4 /* DispatchQueueExtention.swift */; };
+		1C7243CC2881115B009011C4 /* StoryAddReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7243CB2881115B009011C4 /* StoryAddReview.swift */; };
+		1C7243CD2881115B009011C4 /* StoryAddReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7243CB2881115B009011C4 /* StoryAddReview.swift */; };
 		1C76C65C287863CF00B3C7FD /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 1C76C65B287863CF00B3C7FD /* SwiftUIX */; };
 		1C76C65F2878649E00B3C7FD /* SwiftUIFlowLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 1C76C65E2878649E00B3C7FD /* SwiftUIFlowLayout */; };
 		1C76C6CB28788EAC00B3C7FD /* StoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C76C6C328788E3F00B3C7FD /* StoryView.swift */; };
@@ -259,6 +263,8 @@
 		1C1BB8DA287F37C300B5D7C5 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		1C1BB8DD287F3ACB00B5D7C5 /* WelcomeShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeShape.swift; sourceTree = "<group>"; };
 		1C3AF9FF287981490003DE5A /* CloseSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseSidebarView.swift; sourceTree = "<group>"; };
+		1C7243C828811106009011C4 /* DispatchQueueExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueExtention.swift; sourceTree = "<group>"; };
+		1C7243CB2881115B009011C4 /* StoryAddReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryAddReview.swift; sourceTree = "<group>"; };
 		1C76C68828788E3300B3C7FD /* HomeCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategories.swift; sourceTree = "<group>"; };
 		1C76C68928788E3300B3C7FD /* HomeUpdatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUpdatedView.swift; sourceTree = "<group>"; };
 		1C76C68A28788E3300B3C7FD /* HomeBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBannerView.swift; sourceTree = "<group>"; };
@@ -587,6 +593,7 @@
 				1CC149CF287E5AF200DCBA87 /* StoryBookmark.swift */,
 				1C1BB8B5287ECC4400B5D7C5 /* StoryHeader.swift */,
 				1C1BB8D4287F33FC00B5D7C5 /* StoryFollowers.swift */,
+				1C7243CB2881115B009011C4 /* StoryAddReview.swift */,
 			);
 			path = Story;
 			sourceTree = "<group>";
@@ -597,6 +604,7 @@
 				1C76C6B028788E3600B3C7FD /* ViewExtentions.swift */,
 				1C164E4E28808347008D0541 /* EnvironmentExtention.swift */,
 				1C164E51288083AE008D0541 /* NavigationExtention.swift */,
+				1C7243C828811106009011C4 /* DispatchQueueExtention.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -855,7 +863,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Don't run this during index builds\nif [ $ACTION = \"indexbuild\" ]; then exit 0; fi\n\n# Lấy schema\n#\"${SCRIPT_PATH}\"/run-bundled-codegen.sh schema:download --endpoint=\"http://localhost:3000/graphql\"\n\n# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\n# cd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" Shared/Apollo/Codegen/\n";
+			shellScript = "# Don't run this during index builds\nif [ $ACTION = \"indexbuild\" ]; then exit 0; fi\n\n# Lấy schema\n# \"${SCRIPT_PATH}\"/run-bundled-codegen.sh schema:download --endpoint=\"http://localhost:3000/graphql\"\n\n# Go to the build root and search up the chain to find the Derived Data Path where the source packages are checked out.\nDERIVED_DATA_CANDIDATE=\"${BUILD_ROOT}\"\n\nwhile ! [ -d \"${DERIVED_DATA_CANDIDATE}/SourcePackages\" ]; do\n  if [ \"${DERIVED_DATA_CANDIDATE}\" = / ]; then\n    echo >&2 \"error: Unable to locate SourcePackages directory from BUILD_ROOT: '${BUILD_ROOT}'\"\n    exit 1\n  fi\n\n  DERIVED_DATA_CANDIDATE=\"$(dirname \"${DERIVED_DATA_CANDIDATE}\")\"\ndone\n\n# Grab a reference to the directory where scripts are checked out\nSCRIPT_PATH=\"${DERIVED_DATA_CANDIDATE}/SourcePackages/checkouts/apollo-ios/scripts\"\n\nif [ -z \"${SCRIPT_PATH}\" ]; then\n    echo >&2 \"error: Couldn't find the CLI script in your checked out SPM packages; make sure to add the framework to your project.\"\n    exit 1\nfi\n\n# cd \"${SRCROOT}/${TARGET_NAME}\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" Shared/Apollo/Codegen/\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -922,6 +930,7 @@
 				1C76C72128788F1F00B3C7FD /* HomeView.swift in Sources */,
 				1C897F4E287FE692000DDC79 /* AuthForm.swift in Sources */,
 				1C76C6CD28788EC000B3C7FD /* HomeBannerView.swift in Sources */,
+				1C7243CC2881115B009011C4 /* StoryAddReview.swift in Sources */,
 				1C897F44287FC009000DDC79 /* WelcomeCrop.swift in Sources */,
 				1CAA4952287FB03500AFE153 /* OffsetPageTabView.swift in Sources */,
 				1C76C72428788F1F00B3C7FD /* CategoriesView.swift in Sources */,
@@ -938,6 +947,7 @@
 				1C164E4F28808347008D0541 /* EnvironmentExtention.swift in Sources */,
 				1CC149E4287E801700DCBA87 /* Review.graphql.swift in Sources */,
 				1C76C71028788F0E00B3C7FD /* SortOption.swift in Sources */,
+				1C7243C928811106009011C4 /* DispatchQueueExtention.swift in Sources */,
 				1C76C70D28788F0100B3C7FD /* ViewExtentions.swift in Sources */,
 				1C897F47287FC0C8000DDC79 /* WelcomeActions.swift in Sources */,
 				1C76C72528788F1F00B3C7FD /* CategoryView.swift in Sources */,
@@ -1024,6 +1034,7 @@
 				1C76C72728788F2000B3C7FD /* HomeView.swift in Sources */,
 				1C897F4F287FE692000DDC79 /* AuthForm.swift in Sources */,
 				1C76C6D528788EC100B3C7FD /* HomeBannerView.swift in Sources */,
+				1C7243CD2881115B009011C4 /* StoryAddReview.swift in Sources */,
 				1C897F45287FC009000DDC79 /* WelcomeCrop.swift in Sources */,
 				1CAA4953287FB03500AFE153 /* OffsetPageTabView.swift in Sources */,
 				1C76C72A28788F2000B3C7FD /* CategoriesView.swift in Sources */,
@@ -1040,6 +1051,7 @@
 				1C164E5028808347008D0541 /* EnvironmentExtention.swift in Sources */,
 				1CC149E5287E801700DCBA87 /* Review.graphql.swift in Sources */,
 				1C76C71828788F0E00B3C7FD /* SortOption.swift in Sources */,
+				1C7243CA28811106009011C4 /* DispatchQueueExtention.swift in Sources */,
 				1C76C70E28788F0200B3C7FD /* ViewExtentions.swift in Sources */,
 				1C897F48287FC0C8000DDC79 /* WelcomeActions.swift in Sources */,
 				1C76C72B28788F2000B3C7FD /* CategoryView.swift in Sources */,

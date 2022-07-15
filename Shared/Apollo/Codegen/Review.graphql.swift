@@ -216,3 +216,129 @@ public final class GetReviewsQuery: GraphQLQuery {
     }
   }
 }
+
+public final class CreateReviewMutation: GraphQLMutation {
+  /// The raw GraphQL definition of this operation.
+  public let operationDefinition: String =
+    """
+    mutation CreateReview($input: CreateReviewInput!) {
+      createReview(input: $input) {
+        __typename
+        id
+        rating
+        createdAt
+        content
+      }
+    }
+    """
+
+  public let operationName: String = "CreateReview"
+
+  public var input: CreateReviewInput
+
+  public init(input: CreateReviewInput) {
+    self.input = input
+  }
+
+  public var variables: GraphQLMap? {
+    return ["input": input]
+  }
+
+  public struct Data: GraphQLSelectionSet {
+    public static let possibleTypes: [String] = ["Mutation"]
+
+    public static var selections: [GraphQLSelection] {
+      return [
+        GraphQLField("createReview", arguments: ["input": GraphQLVariable("input")], type: .nonNull(.object(CreateReview.selections))),
+      ]
+    }
+
+    public private(set) var resultMap: ResultMap
+
+    public init(unsafeResultMap: ResultMap) {
+      self.resultMap = unsafeResultMap
+    }
+
+    public init(createReview: CreateReview) {
+      self.init(unsafeResultMap: ["__typename": "Mutation", "createReview": createReview.resultMap])
+    }
+
+    public var createReview: CreateReview {
+      get {
+        return CreateReview(unsafeResultMap: resultMap["createReview"]! as! ResultMap)
+      }
+      set {
+        resultMap.updateValue(newValue.resultMap, forKey: "createReview")
+      }
+    }
+
+    public struct CreateReview: GraphQLSelectionSet {
+      public static let possibleTypes: [String] = ["Review"]
+
+      public static var selections: [GraphQLSelection] {
+        return [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("rating", type: .nonNull(.scalar(Int.self))),
+          GraphQLField("createdAt", type: .nonNull(.scalar(Double.self))),
+          GraphQLField("content", type: .nonNull(.scalar(String.self))),
+        ]
+      }
+
+      public private(set) var resultMap: ResultMap
+
+      public init(unsafeResultMap: ResultMap) {
+        self.resultMap = unsafeResultMap
+      }
+
+      public init(id: GraphQLID, rating: Int, createdAt: Double, content: String) {
+        self.init(unsafeResultMap: ["__typename": "Review", "id": id, "rating": rating, "createdAt": createdAt, "content": content])
+      }
+
+      public var __typename: String {
+        get {
+          return resultMap["__typename"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "__typename")
+        }
+      }
+
+      public var id: GraphQLID {
+        get {
+          return resultMap["id"]! as! GraphQLID
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "id")
+        }
+      }
+
+      public var rating: Int {
+        get {
+          return resultMap["rating"]! as! Int
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "rating")
+        }
+      }
+
+      public var createdAt: Double {
+        get {
+          return resultMap["createdAt"]! as! Double
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "createdAt")
+        }
+      }
+
+      public var content: String {
+        get {
+          return resultMap["content"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "content")
+        }
+      }
+    }
+  }
+}

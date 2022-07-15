@@ -13,7 +13,7 @@ struct ReviewItem: View {
     var review: ReviewInstance
     
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(alignment: .leading, spacing: 10) {
             
             HStack(spacing: 10) {
 
@@ -49,6 +49,7 @@ struct ReviewItem: View {
             Text(review.content)
                 .foregroundColor(Color("TextContentColor"))
                 .lineSpacing(5)
+                .multilineTextAlignment(.leading)
             
             
         }

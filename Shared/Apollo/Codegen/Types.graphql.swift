@@ -578,3 +578,43 @@ public struct GetReviewsFilter: GraphQLMapConvertible {
     }
   }
 }
+
+public struct CreateReviewInput: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  /// - Parameters:
+  ///   - content
+  ///   - rating: Điểm đánh giá
+  ///   - story
+  public init(content: String, rating: Int, story: GraphQLID) {
+    graphQLMap = ["content": content, "rating": rating, "story": story]
+  }
+
+  public var content: String {
+    get {
+      return graphQLMap["content"] as! String
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "content")
+    }
+  }
+
+  /// Điểm đánh giá
+  public var rating: Int {
+    get {
+      return graphQLMap["rating"] as! Int
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "rating")
+    }
+  }
+
+  public var story: GraphQLID {
+    get {
+      return graphQLMap["story"] as! GraphQLID
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "story")
+    }
+  }
+}

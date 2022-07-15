@@ -74,11 +74,7 @@ struct StoryReviews: View {
                         
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .sheet(isPresented: $showSheet) {
-                        
-                        Text("123456789")
-                        
-                    }
+                    .padding(.bottom, 5)
                     
                     
                     if reviews.isEmpty {
@@ -111,6 +107,11 @@ struct StoryReviews: View {
         }
         .task {
             getReviews()
+        }
+        .sheet(isPresented: $showSheet) {
+            
+            StoryAddReview(story: viewModel.story!.fragments.storyBase, reviews: $reviews)
+            
         }
         
     }

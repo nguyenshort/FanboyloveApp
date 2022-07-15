@@ -16,6 +16,8 @@ struct StoryBookmark: View {
     
     @State var isBookmarked: Bool = false
     
+    @EnvironmentObject var app: AppViewModel
+    
     var body: some View {
         
         Button {
@@ -54,6 +56,13 @@ struct StoryBookmark: View {
         .withAuth()
         .task {
             checkBookmark()
+        }
+        .onChange(of: app.auth) { _auth in
+            if _auth {
+                checkBookmark()
+            } else {
+                isBookmarked = false
+            }
         }
         
     }
@@ -119,7 +128,7 @@ extension StoryBookmark {
             return
         }
         
-        Network.useApollo.fetch(query: CheckBookmarkQuery(input: CheckBookmarkFilter(story: story.id))) { result in
+        Network.useApollo.fetch(query: CheckBookmarkQuery(input: CheckBookmarkFilter(story: story.id)), cachePolicy: .fetchIgnoringCacheData) { result in
             
             guard let data = try? result.get().data else {
                 self.isLoading = false

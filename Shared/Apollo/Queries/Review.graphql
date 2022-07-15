@@ -10,3 +10,12 @@ query GetReviews($input: GetReviewsFilter!) {
 		}
 	}
 }
+
+mutation CreateReview($input: CreateReviewInput!) {
+  createReview(input: $input) {
+	  id
+	  rating
+	  createdAt
+	  content
+  }
+}
