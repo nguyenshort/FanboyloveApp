@@ -11,10 +11,6 @@ import Apollo
 struct StoryFollowers: View {
     @EnvironmentObject var viewModel: StoryViewModel
     
-    @State var isReady: Bool = false
-    
-    @State var followers: [UserBase] = [UserBase]()
-    
     var body: some View {
         HStack {
             
@@ -31,13 +27,13 @@ struct StoryFollowers: View {
                     
                 }
                 
-                if viewModel.countRating() != 0 {
+                if countReview() != 0 {
                     HStack {
                         Text("4.3")
                             .font(.callout)
                             .fontWeight(.bold)
                         
-                        Text("(\(viewModel.countRating()) Đánh giá)")
+                        Text("(\(countReview()) Đánh giá)")
                             .font(.subheadline)
                             .foregroundColor(Color("TextContentColor"))
                     }
@@ -50,11 +46,11 @@ struct StoryFollowers: View {
             
             Spacer()
             
-            if viewModel.countRating() != 0 {
+            if countReview() != 0 {
                 
                 VStack() {
-                    if isReady {
-                        GroupAvatars(users: followers)
+                    if viewModel.isShowFollowers {
+                        GroupAvatars(users: viewModel.followers)
                     } else {
                         GroupAvatars.preview
                             .redacted(reason: .placeholder)
@@ -83,30 +79,13 @@ struct StoryFollowers: View {
             
         }
         .task {
-            getFollowers()
+            viewModel.getFollowers()
         }
     }
-}
-
-extension StoryFollowers {
-    func getFollowers() -> Void {
-        Network.useApollo.fetch(query: GetBookmarkersQuery(filter: GetBookmarksFilter(limit: 4, offset: 0, sort: "createdAt", story: viewModel.story?.id))) { result in
-            
-            switch result {
-            case .success(let graphQLResult):
-                
-                guard let data = graphQLResult.data?.bookmarks else { return }
-                self.followers = data.map({ item in
-                    return item.user.fragments.userBase
-                })
-                self.isReady = true
-                
-                break
-            case .failure(_): break
-                //
-            }
-            
-        }
+    
+    
+    func countReview() -> Int {
+        return extractCounter(counters: viewModel.counters, name: .review)?.value ?? 0
     }
 }
 

@@ -12,19 +12,16 @@ struct StoryChapters: View {
     
     @EnvironmentObject var viewModel: StoryViewModel
     
-    @State var isReady: Bool = false
-    @State var chapters: [GetChaptersQuery.Data.Chapter] = [GetChaptersQuery.Data.Chapter]()
-    
     var body: some View {
         
         Group {
-            
-            if isReady {
+                        
+            if viewModel.isShowChapters {
                 VStack(alignment: .leading, spacing: 15) {
                     
                     TitleView(title: "Chương Mục") {
                         
-                        if !chapters.isEmpty {
+                        if !viewModel.chapters.isEmpty {
                             Button {
                                 
                             } label: {
@@ -41,7 +38,7 @@ struct StoryChapters: View {
                 
                     }
                     
-                    if chapters.isEmpty {
+                    if viewModel.chapters.isEmpty {
                         
                         EmptySession()
                             .frame(height: 200)
@@ -50,17 +47,17 @@ struct StoryChapters: View {
                         
                         VStack(spacing: 15) {
                             
-                            ForEach(chapters, id: \.id) { chapter in
+                            ForEach(viewModel.chapters, id: \.id) { chapter in
                                 
                                 VStack(spacing: 0) {
                                     
                                     ChapterItemView(
                                         chapter: chapter.fragments.chapterBase,
-                                        countView: viewModel.extractCounter(name: .view, scope: .total)?.value ?? 0,
+                                        countView: getCounterView(chapter),
                                         createdAt: chapter.createdAt
                                     )
                                     
-                                    if chapters.last?.id != chapter.id {
+                                    if viewModel.chapters.last?.id != chapter.id {
                                         
                                         Divider()
                                             .padding(.top, 15)
@@ -83,9 +80,19 @@ struct StoryChapters: View {
             
         }
         .task {
-            getChapters()
+            viewModel.getChapters()
         }
+
         
+    }
+    
+    func getCounterView(_ chapter: GetChaptersQuery.Data.Chapter) -> Int {
+        
+        let counter = chapter.counter.map({ item in
+            return item.fragments.counterBase
+        })
+        
+        return extractCounter(counters: counter, name: .view)?.value ?? 0
     }
     
     static public var preview: some View {
@@ -134,26 +141,6 @@ struct StoryChapters: View {
 }
 
 extension StoryChapters {
-    
-    func getChapters() -> Void {
-        let query: GetChaptersQuery = GetChaptersQuery(filter: GetChaptersFilter(limit: 5, sort: "order", story: viewModel.story?.id))
-        Network.useApollo.fetch(query: query) { result in
-            
-            switch result {
-            case .success(let graphQLResult):
-                
-                if graphQLResult.data?.chapters != nil {
-                    self.chapters = graphQLResult.data!.chapters
-                    self.isReady = true
-                }
-                
-                break
-            case .failure(_): break
-                //
-            }
-            
-        }
-    }
     
     func getCounter(_ chapter: GetChaptersQuery.Data.Chapter) -> [CounterBase] {
         return chapter.counter.map({ item in

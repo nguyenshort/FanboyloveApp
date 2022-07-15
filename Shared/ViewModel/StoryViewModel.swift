@@ -10,11 +10,35 @@ import Apollo
 
 class StoryViewModel: ObservableObject {
     
+    /// State truyện.
+    /// Hứng sự kiện theo đổi truyện theo apollo =-> update lại
     @Published var story: GetStoryQuery.Data.Story?
+    
+    /// Counters được transform từ story
+    var counters: [CounterBase] {
+        get {
+            return story?.counter.map({ item in
+                return item.fragments.counterBase
+            }) ?? []
+        }
+    }
     
     // Show data hoặc placeholder
     @Published var isReady: Bool = false
     
+    /// Followers
+    /// Danh sách những người đã bookmark truyện
+    /// Chỉ show list avatar và lấy 3 người duy nhất
+    @Published var followers: [UserBase] = [UserBase]()
+    @Published var isShowFollowers: Bool = false
+    
+    
+    
+    // Chương State
+    /// Lấy dánh sách chương. Chỉ lấy 3-4 chương gần nhất
+    /// Cần lắng nghe sự kiện để thêm chương mới
+    @Published var isShowChapters: Bool = false
+    @Published var chapters: [GetChaptersQuery.Data.Chapter] = [GetChaptersQuery.Data.Chapter]()
     
     func getStory(slug: String) -> Void {
         isReady = false
@@ -98,4 +122,50 @@ class StoryViewModel: ObservableObject {
             return item.fragments.counterBase.name == name && item.fragments.counterBase.scope == scope
         })?.fragments.counterBase
     }
+    
+    
+    
+    func getChapters() -> Void {
+        let query: GetChaptersQuery = GetChaptersQuery(filter: GetChaptersFilter(limit: 5, sort: "order", story: story?.id))
+        Network.useApollo.fetch(query: query) { [weak self] result in
+            
+            guard let self = self else { return }
+            
+            guard let data = try? result.get().data!.chapters else { return }
+            
+            self.chapters = data
+            self.isShowChapters = true
+            
+        }
+    }
+}
+
+
+// Follower Support
+extension StoryViewModel {
+    
+    func getFollowers() -> Void {
+        let follwersQueries = GetBookmarkersQuery(filter: GetBookmarksFilter(limit: 4, offset: 0, sort: "createdAt", story: story?.id))
+        Network.useApollo.fetch(query: follwersQueries) { [weak self] result in
+            
+            guard let self = self else { return }
+            
+            guard let data = try? result.get().data?.bookmarks else { return }
+            
+            self.followers = data.map({ item in
+                return item.user.fragments.userBase
+            })
+            
+            self.isShowFollowers = true
+            
+        }
+    }
+    
+}
+
+
+public func extractCounter(counters: [CounterBase], name: CounterName, scope: CounterScope = .total) -> CounterBase? {
+    return counters.first(where: { item in
+        return item.name == name && item.scope == scope
+    })
 }
