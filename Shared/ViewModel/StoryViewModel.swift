@@ -13,7 +13,7 @@ class StoryViewModel: ObservableObject {
     /// State truyện.
     /// Hứng sự kiện theo đổi truyện theo apollo =-> update lại
     @Published var story: GetStoryQuery.Data.Story?
-    
+    @Published var isReady: Bool = false
     /// Counters được transform từ story
     var counters: [CounterBase] {
         get {
@@ -23,8 +23,6 @@ class StoryViewModel: ObservableObject {
         }
     }
     
-    // Show data hoặc placeholder
-    @Published var isReady: Bool = false
     
     /// Followers
     /// Danh sách những người đã bookmark truyện
@@ -40,75 +38,48 @@ class StoryViewModel: ObservableObject {
     @Published var isShowChapters: Bool = false
     @Published var chapters: [GetChaptersQuery.Data.Chapter] = [GetChaptersQuery.Data.Chapter]()
     
+    
+    // Đánh giá state
+    /// Lấy 3 đánh giá mới nhất
+    /// Lắng nghe bình luận mới
+    @Published var isShowReviews: Bool = false
+    @Published var reviews: [GetReviewsQuery.Data.Review] = [GetReviewsQuery.Data.Review]()
+    /// Toggle review bottom sheet
+    @Published var isOpenAddReview: Bool = false
+    /// List review
+    @Published var isOpenListReviews: Bool = false
+    
+    
+    // Bookmark truyện
+    /// Kiểm tra bookmark của user
+    /// Lắng nghe thay đổi auth để reset
+    @Published var isBookmarked: Bool = false
+    @Published var isBookmarking: Bool = false
+}
+
+// Story Support
+extension StoryViewModel {
+    
     func getStory(slug: String) -> Void {
         isReady = false
         Network.useApollo.fetch(query: GetStoryQuery(slug: slug)) { [weak self] result in
             
             guard let self = self else { return }
             
-            switch result {
-            case .success(let graphQLResult):
-                
-                if graphQLResult.data?.story != nil {
-                    self.story = graphQLResult.data?.story
-                    withAnimation(.easeInOut) {
-                        self.isReady = true
-                    }
-                }
-                
-                break
-            case .failure(_): break
-                //
+            guard let data = try? result.get().data?.story else { return }
+            
+            self.story = data
+            withAnimation(.easeInOut) {
+                self.isReady = true
             }
         }
     }
     
-    // Story properties
-    func getName() -> String {
-        return isReady ? story?.name ?? "" : "It is a long established"
-    }
-    
-    func getContent() -> String {
-        return isReady ? story?.content ?? "" : "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
-    }
-    
-    func countView() -> Int {
-        if !isReady {
-            return 0
-        }
-        let counter = story?.counter.first(where: { item in
-            return item.fragments.counterBase.name == .view && item.fragments.counterBase.scope == .total
-        })
-        
-        if counter != nil {
-            return (counter?.fragments.counterBase.value)!
-        }
-        
-        return 0
-    }
-    
-    func countBookmark() -> Int {
-        if !isReady {
-            return 0
-        }
-        let counter = story?.counter.first(where: { item in
-            return item.fragments.counterBase.name == .bookmark && item.fragments.counterBase.scope == .total
-        })
-        
-        if counter != nil {
-            return (counter?.fragments.counterBase.value)!
-        }
-        
-        return 0
-    }
-    
-    func countRating() -> Int {
-        return extractCounter(name: .review, scope: .total)?.value ?? 0
-    }
-    
     func ratingScore() -> Double {
-        let score = extractCounter(name: .reviewScore, scope: .total)?.value ?? 0
-        return Double(score) / Double(countRating()) / Double(5)
+        
+        let countRating = extractCounter(counters: counters, name: .review, scope: .total)?.value ?? 0
+        let score = extractCounter(counters: counters, name: .reviewScore, scope: .total)?.value ?? 0
+        return Double(score) / Double(countRating) / Double(5)
     }
     
     func activityScore() -> Int {
@@ -117,27 +88,6 @@ class StoryViewModel: ObservableObject {
         }) ?? 0
     }
     
-    func extractCounter(name: CounterName, scope: CounterScope) -> CounterBase? {
-        return story?.counter.first(where: { item in
-            return item.fragments.counterBase.name == name && item.fragments.counterBase.scope == scope
-        })?.fragments.counterBase
-    }
-    
-    
-    
-    func getChapters() -> Void {
-        let query: GetChaptersQuery = GetChaptersQuery(filter: GetChaptersFilter(limit: 5, sort: "order", story: story?.id))
-        Network.useApollo.fetch(query: query) { [weak self] result in
-            
-            guard let self = self else { return }
-            
-            guard let data = try? result.get().data!.chapters else { return }
-            
-            self.chapters = data
-            self.isShowChapters = true
-            
-        }
-    }
 }
 
 
@@ -163,6 +113,89 @@ extension StoryViewModel {
     
 }
 
+
+// Chapters Support
+extension StoryViewModel {
+    
+    func getChapters() -> Void {
+        let query: GetChaptersQuery = GetChaptersQuery(filter: GetChaptersFilter(limit: 5, sort: "order", story: story?.id))
+        Network.useApollo.fetch(query: query) { [weak self] result in
+            
+            guard let self = self else { return }
+            
+            guard let data = try? result.get().data!.chapters else { return }
+            
+            self.chapters = data
+            self.isShowChapters = true
+            
+        }
+    }
+    
+}
+
+
+// Review Support
+extension StoryViewModel {
+    
+    func getReviews() -> Void {
+        let filter = GetReviewsFilter(limit: 3, offset: 0, sort: "createdAt", story: story?.id)
+        Network.useApollo.fetch(query: GetReviewsQuery(input: filter)) { [weak self] result in
+            
+            guard let self = self else { return }
+            
+            guard let data = try? result.get().data?.reviews else { return }
+            
+            self.reviews = data
+            self.isShowReviews = true
+        }
+    }
+    
+}
+
+
+// MARK: Support Bookmark
+extension StoryViewModel {
+    
+    func toggleBookmark() -> Void {
+        
+        isBookmarking = true
+        
+        let input = ToogleBookmarkMutation(input: ToggleBookmarkInput(story: story!.id))
+        
+        Network.useApollo.perform(mutation: input) { [weak self] result in
+            
+            guard let self = self else { return }
+            
+            guard let data = try? result.get().data else { return }
+            
+            self.isBookmarked = data.toogleBookmark?.id != nil
+            
+            self.isBookmarking = false
+            
+        }
+        
+    }
+    
+    func checkBookmark() -> Void {
+        self.isBookmarking = true
+        
+        let query = CheckBookmarkQuery(input: CheckBookmarkFilter(story: story!.id))
+        
+        Network.useApollo.fetch(query: query, cachePolicy: .fetchIgnoringCacheData) { [weak self] result in
+            
+            guard let self = self else { return }
+            
+            guard let data = try? result.get().data else {
+                return
+            }
+            
+            self.isBookmarked = data.bookmark != nil
+            self.isBookmarking = false
+            
+        }
+    }
+    
+}
 
 public func extractCounter(counters: [CounterBase], name: CounterName, scope: CounterScope = .total) -> CounterBase? {
     return counters.first(where: { item in

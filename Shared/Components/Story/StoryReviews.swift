@@ -10,27 +10,23 @@ import SwiftUI
 struct StoryReviews: View {
     
     @EnvironmentObject var viewModel: StoryViewModel
-    
-    @State var showSheet: Bool = false
-    @State var showListReview: Bool = false
-    
-    @State var reviews: [ReviewInstance] = [ReviewInstance]()
-    @State var isReady: Bool = false
-    
+        
     var body: some View {
         
         Group {
             
-            if isReady {
+            if viewModel.isShowReviews {
                 
                 VStack(alignment: .leading, spacing: 15) {
                     
                     TitleView(title: "Đánh Giá") {
                         
-                        if viewModel.extractCounter(name: .review, scope: .total) != nil {
+                        let countReview = extractCounter(counters: viewModel.counters, name: .review, scope: .total)
+                        
+                        if countReview != nil {
                             Button {
                                 
-                                showListReview.toggle()
+                                viewModel.isOpenListReviews.toggle()
                                 
                             } label: {
                                 
@@ -47,7 +43,7 @@ struct StoryReviews: View {
                     
                     Button {
                         
-                        showSheet.toggle()
+                        viewModel.isOpenAddReview.toggle()
                         
                     } label: {
                     
@@ -78,7 +74,7 @@ struct StoryReviews: View {
                     .padding(.bottom, 5)
                     
                     
-                    if reviews.isEmpty {
+                    if viewModel.reviews.isEmpty {
                         
                         EmptySession()
                             .frame(height: 250)
@@ -87,7 +83,7 @@ struct StoryReviews: View {
                         
                         VStack(spacing: 30) {
                             
-                            ForEach(reviews, id: \.id) { review in
+                            ForEach(viewModel.reviews, id: \.id) { review in
                                 
                                 ReviewItem(review: review)
 
@@ -107,15 +103,7 @@ struct StoryReviews: View {
             
         }
         .task {
-            getReviews()
-        }
-        .sheet(isPresented: $showSheet) {
-            
-            StoryAddReview(story: viewModel.story!.fragments.storyBase, reviews: $reviews)
-            
-        }
-        .sheet(isPresented: $showListReview) {
-            ReviewList()
+            viewModel.getReviews()
         }
         
     }
@@ -145,29 +133,6 @@ struct StoryReviews: View {
             }
         }
 
-    }
-}
-
-extension StoryReviews {
-    func getReviews() -> Void {
-        let filter = GetReviewsFilter(limit: 3, offset: 0, sort: "createdAt", story: viewModel.story?.id)
-        Network.useApollo.fetch(query: GetReviewsQuery(input: filter)) { result in
-            switch result {
-            case .success(let graphQLResult):
-                
-                self.isReady = true
-                
-                guard let reviews = graphQLResult.data?.reviews else {
-                    return
-                }
-                
-                self.reviews = reviews
-                
-                break
-            case .failure(_): break
-                //
-            }
-        }
     }
 }
 

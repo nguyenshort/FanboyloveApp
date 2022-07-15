@@ -7,10 +7,8 @@
 
 import SwiftUI
 
-typealias ReviewInstance = GetReviewsQuery.Data.Review
-
 struct ReviewItem: View {
-    var review: ReviewInstance
+    var review: GetReviewsQuery.Data.Review
     
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {

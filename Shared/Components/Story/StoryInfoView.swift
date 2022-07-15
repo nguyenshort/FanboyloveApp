@@ -19,7 +19,7 @@ struct StoryInfoView: View {
         
         VStack(alignment: .leading, spacing: 10) {
             
-            Text(viewModel.getName())
+            Text(viewModel.story?.name ?? "")
                 .foregroundColor(Color("TextColor"))
                 .font(.title)
                 .fontWeight(.semibold)
@@ -39,15 +39,29 @@ struct StoryInfoView: View {
                 .padding(.vertical)
             
             HStack {
-                CounterComponent(image: "compass", label: "Năng Động", value: viewModel.activityScore())
-                CounterComponent(image: "visualization", label: "Lượt Xem", value: viewModel.extractCounter(name: .view, scope: .total)?.value ?? 0)
-                CounterComponent(image: "books", label: "Chương", value: viewModel.extractCounter(name: .countChapters, scope: .total)?.value ?? 0)
+                CounterComponent(
+                    image: "compass",
+                    label: "Năng Động",
+                    value: viewModel.activityScore()
+                )
+                
+                CounterComponent(
+                    image: "visualization",
+                    label: "Lượt Xem",
+                    value: extractCounter(counters: viewModel.counters, name: .view, scope: .total)?.value ?? 0
+                )
+                
+                CounterComponent(
+                    image: "books",
+                    label: "Chương",
+                    value: extractCounter(counters: viewModel.counters, name: .countChapters, scope: .total)?.value ?? 0
+                )
             }
             
             SessionBlock(title: "Tóm Tắt") {
                 IntrinsicGeometryReader { proxy in
                     
-                    Text(viewModel.getContent())
+                    Text(viewModel.story?.content ?? "")
                         .font(.callout)
                         .lineSpacing(6)
                         .foregroundColor(Color("TextContentColor"))
