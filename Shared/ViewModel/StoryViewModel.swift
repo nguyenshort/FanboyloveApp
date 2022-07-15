@@ -48,6 +48,8 @@ class StoryViewModel: ObservableObject {
     @Published var isOpenAddReview: Bool = false
     /// List review
     @Published var isOpenListReviews: Bool = false
+    /// Adding Review
+    @Published var isAddingReview: Bool = false
     
     
     // Bookmark truyện
@@ -147,6 +149,34 @@ extension StoryViewModel {
             
             self.reviews = data
             self.isShowReviews = true
+        }
+    }
+    
+    func addReview(content: String, rating: Int, user: UserBase) -> Void {
+        
+        if isAddingReview {
+            return
+        }
+        
+        isAddingReview = true
+        
+        let input = CreateReviewMutation(input: CreateReviewInput(content: content, rating: rating, story: story!.id))
+        
+        Network.useApollo.perform(mutation: input) { [weak self] result in
+            
+            guard let self = self else { return }
+
+            guard let data = try? result.get().data?.createReview else { return }
+            
+            var rawReview = data.jsonObject
+            rawReview["user"] = user.jsonObject
+            
+            guard let review = try? GetReviewsQuery.Data.Review(jsonObject: rawReview) else { return }
+            
+            self.reviews.insert(review, at: 0)
+        
+            self.isAddingReview = false
+            
         }
     }
     

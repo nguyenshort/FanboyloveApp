@@ -10,8 +10,7 @@ import Apollo
 
 struct StoryAddReview: View {
         
-    var story: StoryBase
-    @Binding var reviews: [GetReviewsQuery.Data.Review]
+    @EnvironmentObject var viewModel: StoryViewModel
     
     @State private var show: Bool = false
     @State var points: [StarRatingPoint] = [
@@ -248,23 +247,13 @@ struct StoryAddReview: View {
             return
         }
         
-        isLoading = true
+        guard let user = currentUser else { return }
         
-        Network.useApollo.perform(mutation: CreateReviewMutation(input: CreateReviewInput(content: content, rating: rating, story: story.id))) { result in
-            
-//            guard let review = try? result.get().data?.createReview else { return }
-//            
-//            guard let user = currentUser else { return }
-//            
-//            guard let newReview = try? GetReviewsQuery.Data.Review(id: review.id, rating: review.rating, createdAt: review.createdAt, content: review.content, user: ReviewInstance.User.init(jsonObject: user.jsonObject)) else { return }
-//            
-//            reviews.insert(newReview, at: 0)
-//            
-//            isLoading = false
-//            
-//            presentationMode.wrappedValue.dismiss()
-            
-        }
+        /// Ẩn sheet và submit review => show insert Ui
+        presentationMode.wrappedValue.dismiss()
+        
+        viewModel.addReview(content: content, rating: rating, user: user)
+        
     }
 }
 

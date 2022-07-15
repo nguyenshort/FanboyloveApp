@@ -35,8 +35,8 @@ struct HomeView: View {
                     HomeCompleted()
                         .padding(.top, 10)
                     
-                    if !categories.isEmpty {
-                        HomeCategory(categories: categories)
+                    if viewModel.category != nil {
+                        HomeCategory(category: viewModel.category!)
                     }
                     
                     

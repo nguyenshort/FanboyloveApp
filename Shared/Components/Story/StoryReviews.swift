@@ -10,6 +10,9 @@ import SwiftUI
 struct StoryReviews: View {
     
     @EnvironmentObject var viewModel: StoryViewModel
+    
+    @State var progess: CGFloat = .zero
+    @State var showProgess: Bool = false
         
     var body: some View {
         
@@ -72,6 +75,8 @@ struct StoryReviews: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                     .padding(.bottom, 5)
+                    .disabled(viewModel.isAddingReview)
+                    .withAuth()
                     
                     
                     if viewModel.reviews.isEmpty {
@@ -83,7 +88,21 @@ struct StoryReviews: View {
                         
                         VStack(spacing: 30) {
                             
-                            ForEach(viewModel.reviews, id: \.id) { review in
+                            
+                            if showProgess {
+                                
+                                Group {
+                                    
+                                    ProgessBar(progess: $progess, auto: true)
+                        
+                                                            
+                                    ReviewItem.preview
+                                        .redacted(reason: .placeholder)
+                                    
+                                }
+                            }
+                            
+                            ForEach(viewModel.reviews.prefix(3), id: \.id) { review in
                                 
                                 ReviewItem(review: review)
 
@@ -104,6 +123,23 @@ struct StoryReviews: View {
         }
         .task {
             viewModel.getReviews()
+        }
+        .sheet(isPresented: $viewModel.isOpenAddReview) {
+            StoryAddReview()
+                .environmentObject(viewModel)
+        }
+        .onChange(of: viewModel.isAddingReview) { isAdding in
+            /// Nếu đang thêm thì kích hoạt progess
+            if isAdding {
+                progess = 0
+                withAnimation {
+                    showProgess = true
+                }
+            } else {
+                withAnimation {
+                    showProgess = false
+                }
+            }
         }
         
     }

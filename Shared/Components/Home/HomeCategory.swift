@@ -10,13 +10,7 @@ import Apollo
 
 struct HomeCategory: View {
     
-    var categories: [CategoryBase] = []
-    @State var category: CategoryBase
-    
-    init(categories: [CategoryBase]) {
-        self.categories = categories
-        self.category = self.categories.randomElement()!
-    }
+    var category: CategoryBase
     
     @State var loading: Bool = false
     @State var stories: [StoryBase] = [StoryBase]()
@@ -119,12 +113,6 @@ extension HomeCategory {
                 //
             }
         }
-    }
-    
-    func refresh() -> Void {
-        self.category = self.categories.randomElement()!
-        getCount(cachePolicy: .fetchIgnoringCacheData)
-        getStories(cachePolicy: .fetchIgnoringCacheData)
     }
 }
 

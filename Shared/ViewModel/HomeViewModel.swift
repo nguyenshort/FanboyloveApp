@@ -19,6 +19,10 @@ class HomeViewModel: ObservableObject {
     @Published var topView: [StoryBase] = [StoryBase]()
     @Published var isShowTopView: Bool = false
     
+    // Story theo category
+    /// Truyện / random theo category
+    @Published var category: CategoryBase?
+    
 }
 
 // MARK: Support Categories
@@ -33,7 +37,19 @@ extension HomeViewModel {
             
             self.categories = data
             self.isShowCategories = true
+            
+            self.randomCategory()
         }
+    }
+    
+    func randomCategory() -> Void {
+        
+        if categories.isEmpty {
+            return
+        }
+        
+        category = nil
+        category = categories.randomElement()!.fragments.categoryBase
     }
     
 }
