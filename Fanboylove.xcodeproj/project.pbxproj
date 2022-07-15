@@ -180,6 +180,7 @@
 		1C82C6E82881A11000D2AC1B /* SheetHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82C6E62881A11000D2AC1B /* SheetHeader.swift */; };
 		1C82C6EA2881A60F00D2AC1B /* ReviewsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82C6E92881A60F00D2AC1B /* ReviewsList.swift */; };
 		1C82C6EB2881A60F00D2AC1B /* ReviewsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C82C6E92881A60F00D2AC1B /* ReviewsList.swift */; };
+		1C82C6EE2881EB0C00D2AC1B /* SwiftUIPullToRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 1C82C6ED2881EB0C00D2AC1B /* SwiftUIPullToRefresh */; };
 		1C897F3D287FBC22000DDC79 /* WelcomeLayerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C897F3C287FBC22000DDC79 /* WelcomeLayerShape.swift */; };
 		1C897F3E287FBC22000DDC79 /* WelcomeLayerShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C897F3C287FBC22000DDC79 /* WelcomeLayerShape.swift */; };
 		1C897F41287FBFDD000DDC79 /* WelcomeKids.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C897F40287FBFDD000DDC79 /* WelcomeKids.swift */; };
@@ -376,6 +377,7 @@
 			files = (
 				1C76C73B28788FAF00B3C7FD /* SDWebImageSwiftUI in Frameworks */,
 				1CB02DD72879961F000E9036 /* Apollo in Frameworks */,
+				1C82C6EE2881EB0C00D2AC1B /* SwiftUIPullToRefresh in Frameworks */,
 				1C82C6E0288189D700D2AC1B /* FirebaseAnalytics in Frameworks */,
 				1C76C73E2878AFF700B3C7FD /* PageView in Frameworks */,
 				1C82C6E2288189D700D2AC1B /* FirebaseAuth in Frameworks */,
@@ -755,6 +757,7 @@
 				1C1BB8C5287F12B300B5D7C5 /* Lottie */,
 				1C82C6DF288189D700D2AC1B /* FirebaseAnalytics */,
 				1C82C6E1288189D700D2AC1B /* FirebaseAuth */,
+				1C82C6ED2881EB0C00D2AC1B /* SwiftUIPullToRefresh */,
 			);
 			productName = "Fanboylove (iOS)";
 			productReference = 1C1621342878320A001BE196 /* Fanboylove.app */;
@@ -812,6 +815,7 @@
 				1CB02DD52879961F000E9036 /* XCRemoteSwiftPackageReference "apollo-ios" */,
 				1C1BB8C4287F12B200B5D7C5 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				1C82C6DE288189D700D2AC1B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				1C82C6EC2881EB0B00D2AC1B /* XCRemoteSwiftPackageReference "swiftui-pull-to-refresh" */,
 			);
 			productRefGroup = 1C1621352878320A001BE196 /* Products */;
 			projectDirPath = "";
@@ -1419,6 +1423,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		1C82C6EC2881EB0B00D2AC1B /* XCRemoteSwiftPackageReference "swiftui-pull-to-refresh" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/globulus/swiftui-pull-to-refresh";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		1CB02DD52879961F000E9036 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
@@ -1464,6 +1476,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1C82C6DE288189D700D2AC1B /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		1C82C6ED2881EB0C00D2AC1B /* SwiftUIPullToRefresh */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C82C6EC2881EB0B00D2AC1B /* XCRemoteSwiftPackageReference "swiftui-pull-to-refresh" */;
+			productName = SwiftUIPullToRefresh;
 		};
 		1CB02DD62879961F000E9036 /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;

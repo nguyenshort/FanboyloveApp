@@ -12,25 +12,46 @@ struct StoryHeader: View {
     
     @Binding var offset: CGFloat
     @EnvironmentObject var viewModel: StoryViewModel
-
+    
     
     var body: some View {
-        Color.clear
-            .frame(height: 330 + (offset > 0 ? offset : .zero))
-            .background {
+        
+        GeometryReader { proxy -> AnyView in
+            
+            let minY = proxy.frame(in: .global).minY
+            
+            DispatchQueue.main.async {
+                offset = minY
+            }
                 
-                if viewModel.isReady {
-                    ImageView(viewModel.story?.avatar)
-                       .scaledToFill()
-                       .id(viewModel.story?.avatar)
-                } else {
-                    Rectangle()
-                        .fill(Color("Placeholder"))
-                }
+                return AnyView(
+                    
+                    ZStack {
+                        
+                        Color.clear
+                            .background {
+                                
+                                if viewModel.isReady {
+                                    ImageView(viewModel.story?.avatar)
+                                       .scaledToFill()
+                                } else {
+                                    Rectangle()
+                                        .fill(Color("Placeholder"))
+                                }
+                                
+                            }
+                            .frame(height: minY > 0 ? 330 + minY : nil, alignment: .center)
+
+                    }
+                        .frame(height: minY > 0 ? 330 + minY : nil)
+                        .offset(y: minY > 0 ? -minY : 0)
+                    
+                )
                 
             }
-            .offset(y: -offset)
-    }
+        .frame(height: 330)
+            
+        }
 }
 
 struct StoryHeader_Previews: PreviewProvider {

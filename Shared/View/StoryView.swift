@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftUIX
+import SwiftUIPullToRefresh
 
 struct StoryView: View {
     
@@ -17,68 +18,80 @@ struct StoryView: View {
     
     var body: some View {
         
-        ScrollView(.vertical, showsIndicators: false) {
+        RefreshableScrollView(loadingViewBackgroundColor: .clear, threshold: 80) { done in
             
-            IntrinsicGeometryReader { proxy in
+            done()
+            
+            // Todo
+            
+        } progress: { state in
+            
+            if state == .waiting {
+                //
+               } else if state == .primed {
+                   
+                   Image("cat-paw")
+                       .resizable()
+                       .scaledToFit()
+                       .frame(height: 40)
+                   
+               } else {
+                   ProgressView()
+               }
+            
+        } content: {
+            LazyVStack(spacing: 0) {
                 
-                VStack(spacing: 0) {
+                StoryHeader(offset: $offset)
+                
+                VStack(alignment: .leading, spacing: 30){
                     
-                    StoryHeader(offset: $offset)
-                                        
-                    VStack(alignment: .leading, spacing: 30){
+                    
+                    Text("\(offset)")
+                    
+                    if viewModel.isReady {
                         
+                        StoryInfoView()
+                        StoryChapters()
+                        StoryReviews()
+                        StoryMayLike()
                         
+                    } else {
+                        StoryInfoView.preview
+                            .redacted(reason: .placeholder)
                         
-                        if viewModel.isReady {
-                            
-                            StoryInfoView()
-                            StoryChapters()
-                            StoryReviews()
-                            StoryMayLike()
-                            
-                        } else {
-                            StoryInfoView.preview
-                                .redacted(reason: .placeholder)
-
-                            StoryChapters.preview
-                                .redacted(reason: .placeholder)
-
-                            StoryReviews.preview
-                                .redacted(reason: .placeholder)
-                            
-                            StoryMayLike.preview
-                                .redacted(reason: .placeholder)
-
-                            
-                        }
+                        StoryChapters.preview
+                            .redacted(reason: .placeholder)
+                        
+                        StoryReviews.preview
+                            .redacted(reason: .placeholder)
+                        
+                        StoryMayLike.preview
+                            .redacted(reason: .placeholder)
+                        
                         
                     }
-                    .padding(.bottom, 60)
-                    .padding(.top, 30)
-                    .padding(.horizontal, 20)
-                    .background(Color.white)
-                    .clipShape(BorderOnlyShape(radius: 40, corners: [.topRight, .topLeft]))
-                    .overlay(alignment: .topTrailing) {
-                        
-                        Group {
-                            if viewModel.isReady {
-                                StoryBookmark()
-                            } else {
-                                StoryBookmark.preview
-                                    .redacted(reason: .placeholder)
-                            }
-                        }
-                        .offset(x: -20, y: -60/2)
-
-                    }
-                    .offset(y: -30)
                     
                 }
-                .onChange(of: proxy.frame(in: .global).minY) { newValue in
-                    self.offset = newValue
+                .padding(.bottom, 60)
+                .padding(.top, 30)
+                .padding(.horizontal, 20)
+                .background(Color.white)
+                .clipShape(BorderOnlyShape(radius: 40, corners: [.topRight, .topLeft]))
+                .overlay(alignment: .topTrailing) {
+                    
+                    Group {
+                        if viewModel.isReady {
+                            StoryBookmark()
+                        } else {
+                            StoryBookmark.preview
+                                .redacted(reason: .placeholder)
+                        }
+                    }
+                    .offset(x: -20, y: -60/2)
+                    
                 }
             }
-            
         }
         .overlay (
             
@@ -96,7 +109,18 @@ struct StoryView: View {
         .task {
             viewModel.getStory(slug: slug)
         }
+
     }
+}
+
+/// Các trạng thái của RefreshStatus
+/// InActive xảy ra khi không kích hoạt
+/// Active là khi scroll tới điểm kích hoạt => Buông tay => chuyển qua Loading
+/// Xảy ra khi đang loading => có thể off
+enum RefreshStatus {
+    case InActive
+    case Active
+    case Loading
 }
 
 struct StoryView_Previews: PreviewProvider {
