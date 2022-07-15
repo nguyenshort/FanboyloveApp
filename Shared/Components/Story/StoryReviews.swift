@@ -12,6 +12,7 @@ struct StoryReviews: View {
     @EnvironmentObject var viewModel: StoryViewModel
     
     @State var showSheet: Bool = false
+    @State var showListReview: Bool = false
     
     @State var reviews: [ReviewInstance] = [ReviewInstance]()
     @State var isReady: Bool = false
@@ -28,6 +29,8 @@ struct StoryReviews: View {
                         
                         if viewModel.extractCounter(name: .review, scope: .total) != nil {
                             Button {
+                                
+                                showListReview.toggle()
                                 
                             } label: {
                                 
@@ -110,6 +113,9 @@ struct StoryReviews: View {
             
             StoryAddReview(story: viewModel.story!.fragments.storyBase, reviews: $reviews)
             
+        }
+        .sheet(isPresented: $showListReview) {
+            ReviewList()
         }
         
     }

@@ -33,7 +33,7 @@ struct StoryFollowers: View {
                 
                 if viewModel.countRating() != 0 {
                     HStack {
-                        Text("\(viewModel.ratingScore().clean)")
+                        Text("4.3")
                             .font(.callout)
                             .fontWeight(.bold)
                         

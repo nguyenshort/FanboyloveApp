@@ -39,9 +39,9 @@ struct StoryInfoView: View {
                 .padding(.vertical)
             
             HStack {
-                CounterComponent(image: "discovery", label: "Năng Động", value: viewModel.activityScore())
-                CounterComponent(image: "eye", label: "Lượt Xem", value: viewModel.extractCounter(name: .view, scope: .total)?.value ?? 0)
-                CounterComponent(image: "open-book", label: "Chương", value: viewModel.extractCounter(name: .countChapters, scope: .total)?.value ?? 0)
+                CounterComponent(image: "compass", label: "Năng Động", value: viewModel.activityScore())
+                CounterComponent(image: "visualization", label: "Lượt Xem", value: viewModel.extractCounter(name: .view, scope: .total)?.value ?? 0)
+                CounterComponent(image: "books", label: "Chương", value: viewModel.extractCounter(name: .countChapters, scope: .total)?.value ?? 0)
             }
             
             SessionBlock(title: "Tóm Tắt") {
@@ -79,15 +79,13 @@ struct StoryInfoView: View {
     }
     
     fileprivate func CounterComponent(image: String, label: String, value: Int) -> some View {
-        return VStack(spacing: 6) {
+        return VStack(spacing: 8) {
             
-            HStack(spacing: 5) {
+            HStack(spacing: 7) {
                 
                 Image(image)
-                    .renderingMode(.template)
                     .resizable()
                     .scaledToFit()
-                    .foregroundColor(Color("MainStartColor"))
                     .frame(width: 25, height: 25)
                 
                 Text("\(value.shortNumber())")
