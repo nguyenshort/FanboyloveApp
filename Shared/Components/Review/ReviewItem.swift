@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct ReviewItem: View {
-    typealias ReviewInstance = GetReviewsQuery.Data.Review
+typealias ReviewInstance = GetReviewsQuery.Data.Review
 
+struct ReviewItem: View {
     var review: ReviewInstance
     
     var body: some View {

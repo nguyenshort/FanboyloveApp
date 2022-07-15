@@ -9,9 +9,7 @@ import SwiftUI
 import Apollo
 
 struct StoryAddReview: View {
-    
-    typealias ReviewInstance = GetReviewsQuery.Data.Review
-    
+        
     var story: StoryBase
     @Binding var reviews: [ReviewInstance]
     

@@ -11,8 +11,6 @@ struct StoryReviews: View {
     
     @EnvironmentObject var viewModel: StoryViewModel
     
-    typealias ReviewInstance = GetReviewsQuery.Data.Review
-    
     @State var showSheet: Bool = false
     
     @State var reviews: [ReviewInstance] = [ReviewInstance]()
