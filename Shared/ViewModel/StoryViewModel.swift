@@ -50,6 +50,10 @@ class StoryViewModel: ObservableObject {
     @Published var isOpenListReviews: Bool = false
     /// Adding Review
     @Published var isAddingReview: Bool = false
+    /// Loading Infinite
+    @Published var isLoadingReviews: Bool = false
+    /// End loading
+    @Published var isEndReviews: Bool = false
     
     
     // Bookmark truyện
@@ -139,16 +143,36 @@ extension StoryViewModel {
 // Review Support
 extension StoryViewModel {
     
-    func getReviews() -> Void {
-        let filter = GetReviewsFilter(limit: 3, offset: 0, sort: "createdAt", story: story?.id)
+    func getReviews(limit: Int = 10) -> Void {
+        
+        // Turn on loading
+        isLoadingReviews = true
+        
+        let filter = GetReviewsFilter(limit: limit, offset: self.reviews.count, sort: "createdAt", story: story?.id)
         Network.useApollo.fetch(query: GetReviewsQuery(input: filter)) { [weak self] result in
             
             guard let self = self else { return }
             
             guard let data = try? result.get().data?.reviews else { return }
             
-            self.reviews = data
+            if data.isEmpty {
+                self.isEndReviews = true
+            } else {
+                // dumplicate
+                data.forEach { item in
+                    if !self.reviews.contains(where: { e in
+                        return e.id == item.id
+                    }) {
+                        self.reviews.append(item)
+                    }
+                }
+            }
+            
             self.isShowReviews = true
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.isLoadingReviews = false
+            }
         }
     }
     

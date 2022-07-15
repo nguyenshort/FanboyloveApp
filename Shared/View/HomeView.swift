@@ -20,7 +20,7 @@ struct HomeView: View {
             
             ScrollView(.vertical, showsIndicators: false) {
                 
-                VStack(spacing: 20) {
+                LazyVStack(spacing: 20) {
                     
                     
                     HomeSearchView()

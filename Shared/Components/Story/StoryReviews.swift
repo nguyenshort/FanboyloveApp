@@ -10,9 +10,6 @@ import SwiftUI
 struct StoryReviews: View {
     
     @EnvironmentObject var viewModel: StoryViewModel
-    
-    @State var progess: CGFloat = .zero
-    @State var showProgess: Bool = false
         
     var body: some View {
         
@@ -26,7 +23,7 @@ struct StoryReviews: View {
                         
                         let countReview = extractCounter(counters: viewModel.counters, name: .review, scope: .total)
                         
-                        if countReview != nil {
+                        if countReview != nil && countReview!.value > 4 {
                             Button {
                                 
                                 viewModel.isOpenListReviews.toggle()
@@ -40,6 +37,10 @@ struct StoryReviews: View {
                             }
                             .font(.caption)
                             .foregroundColor(.secondary)
+                            .sheet(isPresented: $viewModel.isOpenListReviews) {
+                                ReviewsSheet()
+                                    .environmentObject(viewModel)
+                            }
                         }
                         
                     }
@@ -79,38 +80,7 @@ struct StoryReviews: View {
                     .withAuth()
                     
                     
-                    if viewModel.reviews.isEmpty {
-                        
-                        EmptySession()
-                            .frame(height: 250)
-                        
-                    } else {
-                        
-                        VStack(spacing: 30) {
-                            
-                            
-                            if showProgess {
-                                
-                                Group {
-                                    
-                                    ProgessBar(progess: $progess, auto: true)
-                        
-                                                            
-                                    ReviewItem.preview
-                                        .redacted(reason: .placeholder)
-                                    
-                                }
-                            }
-                            
-                            ForEach(viewModel.reviews.prefix(3), id: \.id) { review in
-                                
-                                ReviewItem(review: review)
-
-                            }
-                            
-                        }
-                        
-                    }
+                    ReviewsList(prefix: 3)
 
                     
                 }
@@ -122,24 +92,11 @@ struct StoryReviews: View {
             
         }
         .task {
-            viewModel.getReviews()
+            viewModel.getReviews(limit: 3)
         }
         .sheet(isPresented: $viewModel.isOpenAddReview) {
             StoryAddReview()
                 .environmentObject(viewModel)
-        }
-        .onChange(of: viewModel.isAddingReview) { isAdding in
-            /// Nếu đang thêm thì kích hoạt progess
-            if isAdding {
-                progess = 0
-                withAnimation {
-                    showProgess = true
-                }
-            } else {
-                withAnimation {
-                    showProgess = false
-                }
-            }
         }
         
     }

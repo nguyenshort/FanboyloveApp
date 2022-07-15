@@ -36,34 +36,7 @@ struct StoryAddReview: View {
         
         VStack(spacing: 25) {
             
-            VStack(alignment: .leading, spacing: 15){
-                
-                HStack(spacing: 25) {
-                    
-                    Text("Thêm đánh giá")
-                        .font(.system(size: 30))
-                        .foregroundColor(Color("TextColor"))
-                    
-                    Spacer()
-                    
-                    Button {
-                        
-                        withAnimation {
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                        
-                    } label: {
-                        
-                        Image(systemName: "xmark.circle.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 35, height: 35)
-                            .foregroundColor(.gray.opacity(0.4))
-                        
-                    }
-                    
-                }
-            }
+            SheetHeader(title: "Thêm Đánh Giá")
             .padding(.horizontal, 25)
             
             ScrollView(.vertical, showsIndicators: false) {
