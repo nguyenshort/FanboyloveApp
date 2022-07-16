@@ -66,18 +66,11 @@ class StoryViewModel: ObservableObject {
     
     
     func refresh() -> Void {
-        isReady = false
         // Delete cache
         guard let story = story else {
             return
         }
         getStory(slug: story.fragments.storyBase.slug, cachePolicy: .fetchIgnoringCacheData)
-        checkBookmark()
-        getFollowers(cachePolicy: .fetchIgnoringCacheData)
-        getChapters(cachePolicy: .fetchIgnoringCacheData)
-        /// Reset reviews
-        reviews.removeAll()
-        getReviews(limit: 3, cachePolicy: .fetchIgnoringCacheData)
     }
 }
 
@@ -85,7 +78,6 @@ class StoryViewModel: ObservableObject {
 extension StoryViewModel {
     
     func getStory(slug: String, cachePolicy: CachePolicy = .default) -> Void {
-        isReady = false
         Network.useApollo.fetch(query: GetStoryQuery(slug: slug), cachePolicy: cachePolicy) { [weak self] result in
             
             guard let self = self else { return }
@@ -93,8 +85,11 @@ extension StoryViewModel {
             guard let data = try? result.get().data?.story else { return }
             
             self.story = data
-            withAnimation(.easeInOut) {
-                self.isReady = true
+            
+            if !self.isReady {
+                withAnimation(.easeInOut) {
+                    self.isReady = true
+                }
             }
         }
     }
@@ -255,15 +250,13 @@ extension StoryViewModel {
                 self.reviews.insert(review, at: 0)
                 
                 
-                let query = GetReviewsQuery(input: GetReviewsFilter(limit: 0, offset: 3, sort: "createdAt"))
+                let query = GetReviewsQuery(input: GetReviewsFilter(limit: 3, offset: 0, sort: "createdAt", story: story.id))
+                
                 Network.store.withinReadWriteTransaction { trans in
-                    
-                    do {
-                        try trans.write(data: GetReviewsQuery.Data(reviews: self.reviews), forQuery: query)
-
-                    } catch (let error) {
-                        print(error)
-                    }
+                    try? trans.update(query: query, { cache in
+                        print("⛈ Insert new cache: \(review.jsonObject)")
+                        cache.reviews = self.reviews
+                    })
                     
                 }
                 

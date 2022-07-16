@@ -107,9 +107,7 @@ struct ReviewsList: View {
                     showProgess = true
                 }
             } else {
-                withAnimation {
-                    showProgess = false
-                }
+                showProgess = false
             }
         }
         

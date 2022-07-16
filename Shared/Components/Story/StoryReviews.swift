@@ -53,7 +53,7 @@ struct StoryReviews: View {
                     
                         TextField("Bình luận ngay", text: .constant(""))
                             .font(.callout)
-                            .foregroundColor(Color("TextContentColor"))
+                            .foregroundColor(Color("TextColor"))
                             .padding(.vertical, 17)
                             .padding(.horizontal, 25)
                             .background(Color("Placeholder"))
@@ -71,7 +71,7 @@ struct StoryReviews: View {
                                 
                             )
                             .disabled(true)
-                            .accentColor(Color("TextContentColor"))
+                            .accentColor(Color("TextColor"))
                         
                     }
                     .buttonStyle(PlainButtonStyle())

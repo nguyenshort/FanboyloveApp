@@ -108,9 +108,11 @@ struct ReviewsSheet: View {
                     
                     ReviewsList {
                         
+                        print("Infinite review...")
+                        
                         // Đang chạy => dừng
                         if !viewModel.isLoadingReviews {
-                            viewModel.getReviews(limit: 3)
+                            viewModel.getReviews(limit: 10)
                         }
 
                     }
