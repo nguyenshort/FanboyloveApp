@@ -61,14 +61,28 @@ class StoryViewModel: ObservableObject {
     /// Lắng nghe thay đổi auth để reset
     @Published var isBookmarked: Bool = false
     @Published var isBookmarking: Bool = false
+    
+    
+    func refresh() -> Void {
+        isReady = false
+        // Delete cache
+        guard let story = story else {
+            return
+        }
+        getStory(slug: story.fragments.storyBase.slug, cachePolicy: .fetchIgnoringCacheData)
+        getFollowers(cachePolicy: .fetchIgnoringCacheData)
+        getChapters(cachePolicy: .fetchIgnoringCacheData)
+        getReviews(limit: 3, cachePolicy: .fetchIgnoringCacheData)
+        checkBookmark()
+    }
 }
 
 // Story Support
 extension StoryViewModel {
     
-    func getStory(slug: String) -> Void {
+    func getStory(slug: String, cachePolicy: CachePolicy = .default) -> Void {
         isReady = false
-        Network.useApollo.fetch(query: GetStoryQuery(slug: slug)) { [weak self] result in
+        Network.useApollo.fetch(query: GetStoryQuery(slug: slug), cachePolicy: cachePolicy) { [weak self] result in
             
             guard let self = self else { return }
             
@@ -100,9 +114,9 @@ extension StoryViewModel {
 // Follower Support
 extension StoryViewModel {
     
-    func getFollowers() -> Void {
+    func getFollowers(cachePolicy: CachePolicy = .default) -> Void {
         let follwersQueries = GetBookmarkersQuery(filter: GetBookmarksFilter(limit: 4, offset: 0, sort: "createdAt", story: story?.id))
-        Network.useApollo.fetch(query: follwersQueries) { [weak self] result in
+        Network.useApollo.fetch(query: follwersQueries, cachePolicy: .default) { [weak self] result in
             
             guard let self = self else { return }
             
@@ -123,9 +137,10 @@ extension StoryViewModel {
 // Chapters Support
 extension StoryViewModel {
     
-    func getChapters() -> Void {
+    func getChapters(cachePolicy: CachePolicy = .default) -> Void {
+        
         let query: GetChaptersQuery = GetChaptersQuery(filter: GetChaptersFilter(limit: 5, sort: "order", story: story?.id))
-        Network.useApollo.fetch(query: query) { [weak self] result in
+        Network.useApollo.fetch(query: query, cachePolicy: cachePolicy) { [weak self] result in
             
             guard let self = self else { return }
             
@@ -143,13 +158,13 @@ extension StoryViewModel {
 // Review Support
 extension StoryViewModel {
     
-    func getReviews(limit: Int = 10) -> Void {
+    func getReviews(limit: Int = 10, cachePolicy: CachePolicy = .default) -> Void {
         
         // Turn on loading
         isLoadingReviews = true
         
         let filter = GetReviewsFilter(limit: limit, offset: self.reviews.count, sort: "createdAt", story: story?.id)
-        Network.useApollo.fetch(query: GetReviewsQuery(input: filter)) { [weak self] result in
+        Network.useApollo.fetch(query: GetReviewsQuery(input: filter), cachePolicy: cachePolicy) { [weak self] result in
             
             guard let self = self else { return }
             

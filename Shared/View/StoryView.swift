@@ -18,12 +18,10 @@ struct StoryView: View {
     
     var body: some View {
         
-        RefreshableScrollView(loadingViewBackgroundColor: .clear, threshold: 80) { done in
-            
+        RefreshableScrollView(showsIndicators: false, loadingViewBackgroundColor: .clear, threshold: 120) { done in
+            viewModel.refresh()
             done()
-            
-            // Todo
-            
+                        
         } progress: { state in
             
             if state == .waiting {
@@ -45,9 +43,6 @@ struct StoryView: View {
                 StoryHeader(offset: $offset)
                 
                 VStack(alignment: .leading, spacing: 30){
-                    
-                    
-                    Text("\(offset)")
                     
                     if viewModel.isReady {
                         
@@ -78,6 +73,7 @@ struct StoryView: View {
                 .padding(.horizontal, 20)
                 .background(Color.white)
                 .clipShape(BorderOnlyShape(radius: 40, corners: [.topRight, .topLeft]))
+                .offset(y: -10)
                 .overlay(alignment: .topTrailing) {
                     
                     Group {
@@ -111,16 +107,6 @@ struct StoryView: View {
         }
 
     }
-}
-
-/// Các trạng thái của RefreshStatus
-/// InActive xảy ra khi không kích hoạt
-/// Active là khi scroll tới điểm kích hoạt => Buông tay => chuyển qua Loading
-/// Xảy ra khi đang loading => có thể off
-enum RefreshStatus {
-    case InActive
-    case Active
-    case Loading
 }
 
 struct StoryView_Previews: PreviewProvider {
