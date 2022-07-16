@@ -54,6 +54,8 @@ class StoryViewModel: ObservableObject {
     @Published var isLoadingReviews: Bool = false
     /// End loading
     @Published var isEndReviews: Bool = false
+    // Sub notify
+    @Published var subReview: Cancellable?
     
     
     // Bookmark truyện
@@ -70,10 +72,12 @@ class StoryViewModel: ObservableObject {
             return
         }
         getStory(slug: story.fragments.storyBase.slug, cachePolicy: .fetchIgnoringCacheData)
+        checkBookmark()
         getFollowers(cachePolicy: .fetchIgnoringCacheData)
         getChapters(cachePolicy: .fetchIgnoringCacheData)
+        /// Reset reviews
+        reviews.removeAll()
         getReviews(limit: 3, cachePolicy: .fetchIgnoringCacheData)
-        checkBookmark()
     }
 }
 
@@ -158,12 +162,12 @@ extension StoryViewModel {
 // Review Support
 extension StoryViewModel {
     
-    func getReviews(limit: Int = 10, cachePolicy: CachePolicy = .default) -> Void {
+    func getReviews(limit: Int = 10, sort: String = "createdAt", cachePolicy: CachePolicy = .default) -> Void {
         
         // Turn on loading
         isLoadingReviews = true
         
-        let filter = GetReviewsFilter(limit: limit, offset: self.reviews.count, sort: "createdAt", story: story?.id)
+        let filter = GetReviewsFilter(limit: limit, offset: self.reviews.count, sort: sort, story: story?.id)
         Network.useApollo.fetch(query: GetReviewsQuery(input: filter), cachePolicy: cachePolicy) { [weak self] result in
             
             guard let self = self else { return }
@@ -201,20 +205,69 @@ extension StoryViewModel {
         
         let input = CreateReviewMutation(input: CreateReviewInput(content: content, rating: rating, story: story!.id))
         
-        Network.useApollo.perform(mutation: input) { [weak self] result in
+        Network.useApollo.perform(mutation: input) { _ in //[weak self] result in
             
-            guard let self = self else { return }
-
-            guard let data = try? result.get().data?.createReview else { return }
+            //            guard let self = self else { return }
+            //
+            //            guard let data = try? result.get().data?.createReview else { return }
+            //
+            //            var rawReview = data.jsonObject
+            //            rawReview["user"] = user.jsonObject
+            //
+            //            guard let review = try? GetReviewsQuery.Data.Review(jsonObject: rawReview) else { return }
+            //
+            //            self.reviews.insert(review, at: 0)
             
-            var rawReview = data.jsonObject
-            rawReview["user"] = user.jsonObject
+            /// Real Time sẽ đóng cái này
+            // self.isAddingReview = false
             
-            guard let review = try? GetReviewsQuery.Data.Review(jsonObject: rawReview) else { return }
+            /// Lưu lại cache
+            /// Chỉ cần update lại cache có offset = 0
+            /// Đẩy vào realtime
+            //            let query = GetReviewsQuery(input: GetReviewsFilter(limit: 0, offset: 3, sort: "createdAt"))
+            //            Network.store.withinReadWriteTransaction { trans in
+            //                try? trans.write(data: GetReviewsQuery.Data(reviews: self.reviews), forQuery: query)
+            //            }
             
-            self.reviews.insert(review, at: 0)
+        }
+    }
+    
+    func subNotifyHandle() -> Void {
         
-            self.isAddingReview = false
+        /// Dừng nếu ko có story
+        guard let story = story else {
+            return
+        }
+        // fallback xoá subnotify cũ
+        subReview?.cancel()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            
+            self.subReview = Network.useApollo.subscribe(subscription: SubReviewSubscription(story: story.id)) { [weak self] result in
+                guard let self = self else { return }
+                
+                guard let data = try? result.get().data?.subReview else { return }
+                
+                self.isAddingReview = false
+                
+                guard let review = try? GetReviewsQuery.Data.Review.init(jsonObject: data.jsonObject) else { return }
+                
+                self.reviews.insert(review, at: 0)
+                
+                
+                let query = GetReviewsQuery(input: GetReviewsFilter(limit: 0, offset: 3, sort: "createdAt"))
+                Network.store.withinReadWriteTransaction { trans in
+                    
+                    do {
+                        try trans.write(data: GetReviewsQuery.Data(reviews: self.reviews), forQuery: query)
+
+                    } catch (let error) {
+                        print(error)
+                    }
+                    
+                }
+                
+            }
             
         }
     }

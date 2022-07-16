@@ -12,10 +12,23 @@ query GetReviews($input: GetReviewsFilter!) {
 }
 
 mutation CreateReview($input: CreateReviewInput!) {
-  createReview(input: $input) {
+	createReview(input: $input) {
+		id
+		rating
+		createdAt
+		content
+	}
+}
+
+subscription SubReview($story: String!) {
+  subReview(story: $story) {
 	  id
 	  rating
 	  createdAt
 	  content
+	  user {
+		  id
+		  ...UserBase
+	  }
   }
 }

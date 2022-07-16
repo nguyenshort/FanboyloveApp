@@ -53,10 +53,10 @@ struct StoryReviews: View {
                     
                         TextField("Bình luận ngay", text: .constant(""))
                             .font(.callout)
-                            .foregroundColor(Color("TextColor"))
+                            .foregroundColor(Color("TextContentColor"))
                             .padding(.vertical, 17)
                             .padding(.horizontal, 25)
-                            .background(Color("Color2"))
+                            .background(Color("Placeholder"))
                             .cornerRadius(40)
                             .overlay(
                             
@@ -71,7 +71,7 @@ struct StoryReviews: View {
                                 
                             )
                             .disabled(true)
-                            .accentColor(Color("TextColor"))
+                            .accentColor(Color("TextContentColor"))
                         
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -93,6 +93,7 @@ struct StoryReviews: View {
         }
         .task {
             viewModel.getReviews(limit: 3)
+            viewModel.subNotifyHandle()
         }
         .sheet(isPresented: $viewModel.isOpenAddReview) {
             StoryAddReview()

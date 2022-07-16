@@ -45,6 +45,7 @@ struct ReviewsList: View {
                                                     
                             ReviewItem.preview
                                 .redacted(reason: .placeholder)
+                                .padding(.top, 20)
                             
                             Divider()
                                 .padding(.vertical, 20)
